@@ -1,0 +1,46 @@
+<div class="col-sm-12" >
+	<h2>{{message}}</h2>
+	<hr>
+	<div class="menuOpciones pull-right">
+		<ul class="menu nav nav-pills">
+			<li>
+				<a href="#" class="opciones pull-right btn btn-info" ng-disabled="btnNuevo == false">Nuevo</a>
+			</li>
+			<li>
+				<a href="#" class="opciones pull-right btn btn-warning">Editar</a>
+			</li>
+			<li>
+				<a href="#" class="opciones pull-right btn btn-danger">Eliminar</a>
+			</li>
+			<li>
+				<a href="#" class="opciones pull-right btn btn-success" ng-disabled="btnRegistrar == false">Guardar</a>
+			</li>
+		</ul>
+	</div>
+	<br>
+	<!--Tablas-->
+	<table class="table" ng-init="getServicios()">
+		<thead>
+			<tr>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>Fecha Creacion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat = 'service in servicios'>
+				<td>{{service.codigo}}</td>
+				<td>{{service.nombre}}</td>
+				<td>{{service.descripcion}}</td>
+				<td>{{service.fechaCreacion}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<!--Botones navegables-->
+	<button type="button" ng-disabled = "currentPage == 0" ng-click="currentPage = currentPage - 1">&laquo;</button>
+<button type="button" ng-disabled = "currentPage == page.no - 1" ng-click="setPage(page.no)" ng-repeat="page in pages">{{page.no}}</button>
+	<button type="button" ng-disabled = "currentPage >= users.length/pageSize - 1" ng-click="currentPage = currentPage + 1">&raquo;</button>
+
+</div>

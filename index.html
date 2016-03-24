@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app='angularRoutingApp'>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<title>URBARI Comunidad de gente atractiva.</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+	
+<!--
+-->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-route.js"></script>
+</head>
+<body ng-controller='mainController' ng-cloack>
+		
+	<header class="row">
+		<div class="logo col-xs-1">
+			<figure>
+				<img src="img/logo.png" alt="Urbari" />
+			</figure>
+		</div>
+		<div class="titular col-xs-10">
+			<h1 class="titulo">URBARÍ</h1>
+			<div>
+				<a href="#" class="filtro">
+					Tu mejor oportunidad...
+				</a>
+			</div>
+		</div>
+		<div class="usuario col-xs-1">
+			<figure class="avatar">
+			</figure>
+			<a href="#" class="flechita">
+				
+			</a>
+		</div>
+	</header>
+
+	<nav>
+		<ul class="menu nav nav-pills">
+			<li><a href="#/">Inicio</a></li>
+			<li><a href="#/usuario">Usuario</a></li>
+			<li><a href="#/servicio">Servicio</a></li>
+			<li><a href="#/reserva">Reserva</a></li>
+		</ul>
+	</nav>
+
+
+	<section class="posts row">
+		<!-- Aquí inyectamos las vistas -->
+		<div ng-view>
+			
+		</div>
+
+	</section>
+
+	<footer>
+		<h3>
+			<strong>Reservacion Urbari</strong>
+			<span class="mejor">Angular.JS</span>
+		</h3>
+	</footer>
+
+	<script src="js/main.js"></script>
+<!--
+	<script src="js/angular.min.js"></script>
+  	<script src="js/angular-route.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-route.js"></script>
+  -->
+
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<div class="col-sm-12" >
+	<h2>{{message}}</h2>
+	<hr>
+	<div class="menuOpciones pull-right">
+		<ul class="menu nav nav-pills">
+			<li>
+				<button type="button" class="btn btn-primary" ng-disabled="btnNuevo == true"  ng-show="btnNuevo == false"  ng-click="nuevo()">Nuevo</button>
+			</li>
+			<li>
+				<button type="button" class="btn btn-success" ng-disabled="btnGuardar == true" ng-show="btnGuardar == false" ng-click="guardar()">Guardar</button>
+			</li>
+			<li>
+				<button type="button" class="btn btn-danger" ng-disabled="btnGuardar == true" ng-show="btnGuardar == false" ng-click="cancelar()">Cancelar</button>
+			</li>
+		</ul>
+	</div>
+	<br>
+ <!-- ng-controller='reservaController' ng-cloack -->
+	<div class="registrar col-sm-12">
+		<div class="col-sm-5">
+			<label for="usuario">Usuarios:</label>
+			<select name="usuario" class="form-control" ng-model="actual.usuario">
+			  <option>Seleccionar</option>
+			  <option>1</option>
+			  <option>2</option>
+			  <option>3</option>
+<!-- 			  			  <option value="1">Carlos Magno-351225</option>
+			  <option value="2">Juan -22544</option>
+			  <option value="3">Pedro-4444555</option>
+			  <option value="4">Jose-7777888</option>
+			  <option value="5">Samuel-7777777</option> -->
+			</select>
+			<br>
+		</div>
+		<div class="col-sm-5">
+			<label for="servicio">Servicios:</label>
+			<select name="servicio" class="form-control" ng-model="actual.servicio">
+			  <option>Seleccionar</option>
+			  <option>1</option>
+			  <option>2</option>
+			  <option>3</option>
+			  <option>4</option>
+			  <option>5</option>
+			</select><br>
+		</div>
+		<div class="col-sm-3">
+		<label for="fechaInicio" placeholder="Solamente fecha">Fecha: </label>
+			<input type="date"  class="form-control" name="fechaInicio" ng-model="actual.fechaInicio">
+		</div>
+
+		<div class="col-sm-3">
+			<label for="horaInicio" placeholder="Seleccione hora">Hora:</label>
+			<select class="form-control" ng-model="actual.horaInicio">
+			  <option>Seleccionar</option>
+			  <option>6:00-7:00</option>
+			  <option>7:00-8:00</option>
+			  <option>8:00-9:00</option>
+			  <option>9:00-10:00</option>
+			  <option>10:00-11:00</option>
+			  <option>11:00-12:00</option>
+			  <option>12:00-13:00</option>
+			  <option>13:00-14:00</option>
+			  <option>14:00-15:00</option>
+			  <option>15:00-16:00</option>
+			  <option>16:00-17:00</option>
+			</select><br>
+		</div>
+		<div class="col-sm-12">
+			<label for="motivo" placeholder="Introduzca dato">Motivo:</label>
+			<textarea maxlength="150" name="motivo" class="form-control" ng-model="actual.motivo"></textarea>
+		</div>
+	</div>
+	<br>
+	<!--Tablas-->
+	<table class="table" ng-init="getReservas()">
+		<thead>
+			<tr>
+				<th>Codigo</th>
+				<th>Usuario</th>
+				<th>CI</th>
+				<th>Servicio</th>
+				<th>Fecha</th>
+				<th>Hora</th>
+				<th>Motivo</th>
+				<th>Estado</th>
+				<th>Controles</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat = 'reserva in reservas'>
+				<td>{{reserva.codigo}}</td>
+				<td>{{reserva.usuario_codigo}} {{reserva.apellido}}</td>
+				<td>{{reserva.ci}}</td>
+				<td>{{reserva.servicio_codigo}}</td>
+				<td>{{reserva.fechaInicio}}</td>
+				<td>{{reserva.hora}}</td>
+				<td>{{reserva.motivo}}</td>
+				<td>{{reserva.estado}}</td>
+				<div class="control-group">
+					<td>
+						<button type="button" class="btn btn-warning btn-small" ng-click="editar()">Editar</button>
+						<button type="button" class="btn btn-danger btn-small"  ng-click="eliminar()">Eliminar</button>
+					</td>
+    			</div>
+			</tr>
+		</tbody>
+	</table>
+		<!--Botones navegables-->
+	<button type="button" ng-disabled = "currentPage == 0" ng-click="currentPage = currentPage - 1">&laquo;</button>
+<button type="button" ng-disabled = "currentPage == page.no - 1" ng-click="setPage(page.no)" ng-repeat="page in pages">{{page.no}}</button>
+	<button type="button" ng-disabled = "currentPage >= users.length/pageSize - 1" ng-click="currentPage = currentPage + 1">&raquo;</button>
+
+</div>

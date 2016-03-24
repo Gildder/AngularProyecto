@@ -1,0 +1,108 @@
+footer {
+  position: relative;
+  background: #dd4f24;
+  color: rgba(255,255,255,0.5);
+  padding: 1em;
+  padding: 1em 0;
+  text-align: center;
+  width: 100%;
+}
+footer h3 {
+  font-size: 14px;
+  font-weight: normal;
+}
+footer h3 strong {
+  display: block;
+}
+footer h3 .mejor:before,
+footer h3 .mejor:after {
+  content: " - ";
+}
+form label {
+  margin-right: 20px;
+}
+header {
+  background: #000;
+  color: #fff;
+  padding: 1em;
+  margin: 0px;
+}
+header h1 {
+  font-size: 18px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+header .logo figure {
+  border: 0px dashed #bbb;
+  height: 52px;
+  width: 52px;
+}
+header .logo figure img {
+  border-radius: 50%;
+  width: 52px;
+}
+header .usuario .avatar {
+  border: 0px dashed #bbb;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+header .row {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+nav {
+  background: #22bce0;
+  position: relative;
+}
+nav .menu {
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+}
+nav .menu li {
+  display: inline-block;
+}
+nav .menu li a {
+  color: #fff;
+  display: block;
+  margin: 0 0.5em;
+  padding: 0 0.2em;
+  text-decoration: none;
+}
+nav .menu li a:hover {
+  background: rgba(0,0,0,0.1);
+}
+section {
+  padding: 1.2em;
+}
+section h2 {
+  display: block;
+}
+section .menuOpciones {
+  display: block;
+  margin-bottom: 25px;
+  margin-top: 5px;
+  position: relative;
+}
+@media (max-width: 768px) and (min-width: 540px) {
+  section h2 {
+    display: inline-block;
+  }
+  section .menuOpciones {
+    top: -100px;
+    margin-bottom: 10px;
+  }
+}
+@media screen and (min-width: 768px) {
+  section h2 {
+    display: inline-block;
+  }
+  section .menuOpciones {
+    top: -100px;
+    margin-bottom: 10px;
+  }
+}
