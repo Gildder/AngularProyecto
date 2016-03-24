@@ -120,8 +120,12 @@ angularRoutingApp.controller('usuarioController', function($scope, $http) {
         });
     }
 
-     $scope.eliminar = function(codigo)
+    $scope.eliminar = function(codigo)
     {
+        if (!confirm("Realmente quieres elimnar este registro " + codigo + " ?")) {
+            return;
+        };
+
         var url = "php/delete_usuario.php?codigo=" + codigo;
         $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
         {
@@ -260,6 +264,10 @@ angularRoutingApp.controller('servicioController', function($scope, $http) {
 
      $scope.eliminar = function(codigo)
     {
+         if (!confirm("Realmente quieres elimnar este registro " + codigo + " ?")) {
+            return;
+        };
+
         var url = "php/delete_servicio.php?codigo=" + codigo;
         $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
         {
@@ -440,6 +448,10 @@ angularRoutingApp.controller('reservaController', function($scope, $http) {
 
     $scope.eliminar = function(codigo)
     {
+        if (!confirm("Realmente quieres elimnar este registro " + codigo + " ?")) {
+            return;
+        };
+
         var url = "php/delete_reserva.php?codigo=" + codigo;
         $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
         {
