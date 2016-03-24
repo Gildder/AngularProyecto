@@ -2,17 +2,18 @@
 
 	$data = json_decode(file_get_contents("php://input"));
 	$codigo = $data->codigo;
-	$usuario_codigo = $data->usuario_codigo;
-	$servicio_codigo = $data->servicio_codigo;
+	$usuario = $data->usuario;
+	$servicio = $data->servicio;
 	$fechaInicio = $data->fechaInicio;
-	$hora = $data->horaInicio;
+	$hora = $data->hora;
 	$estado = $data->estado;
 	$motivo = $data->motivo;
 
 	include('conexion.php');
 	$con = conexion();
-	$sql="UPDATE `reserva`  SET usuario_codigo = '".$usuario_codigo."', servicio_codigo = '".$servicio_codigo.
-		"', fechaInicio = '".$fechaInicio."', hora = '".$hora."', estado = '".$estado."', motivo = '".$motivo."' WHERE codigo = '".$codigo."'");
+	$sql="UPDATE reserva  SET usuario_codigo = '".$usuario."', servicio_codigo = '".$servicio.
+		"', fechaInicio = '".$fechaInicio."', hora = '".$hora."', estado = '".$estado.
+		"', motivo = '".$motivo."' WHERE codigo = '".$codigo."'";
 
 	$resultado = $con->query($sql);
 	if ($resultado===true) {

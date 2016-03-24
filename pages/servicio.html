@@ -4,43 +4,76 @@
 	<div class="menuOpciones pull-right">
 		<ul class="menu nav nav-pills">
 			<li>
-				<a href="#" class="opciones pull-right btn btn-info" ng-disabled="btnNuevo == false">Nuevo</a>
+				<button type="button" class="btn btn-primary" ng-show="btnNuevo == true"  ng-click="nuevo()">Nuevo</button>
 			</li>
 			<li>
-				<a href="#" class="opciones pull-right btn btn-warning">Editar</a>
+				<button type="button" class="btn btn-success" ng-show="btnGuardar == true || btnEditar == true" ng-click="guardar()">Guardar</button>
 			</li>
 			<li>
-				<a href="#" class="opciones pull-right btn btn-danger">Eliminar</a>
-			</li>
-			<li>
-				<a href="#" class="opciones pull-right btn btn-success" ng-disabled="btnRegistrar == false">Guardar</a>
+				<button type="button" class="btn btn-danger" ng-show="btnGuardar == true || btnEditar == true" ng-click="cancelar()">Cancelar</button>
 			</li>
 		</ul>
 	</div>
 	<br>
-	<!--Tablas-->
-	<table class="table" ng-init="getServicios()">
-		<thead>
-			<tr>
-				<th>Codigo</th>
-				<th>Nombre</th>
-				<th>Descripcion</th>
-				<th>Fecha Creacion</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat = 'service in servicios'>
-				<td>{{service.codigo}}</td>
-				<td>{{service.nombre}}</td>
-				<td>{{service.descripcion}}</td>
-				<td>{{service.fechaCreacion}}</td>
-			</tr>
-		</tbody>
-	</table>
 
-	<!--Botones navegables-->
-	<button type="button" ng-disabled = "currentPage == 0" ng-click="currentPage = currentPage - 1">&laquo;</button>
-<button type="button" ng-disabled = "currentPage == page.no - 1" ng-click="setPage(page.no)" ng-repeat="page in pages">{{page.no}}</button>
-	<button type="button" ng-disabled = "currentPage >= users.length/pageSize - 1" ng-click="currentPage = currentPage + 1">&raquo;</button>
+	<div class="col-sm-12 panel-default" ng-show="btnGuardar == true || btnEditar == true">
+		
+		<div class="col-sm-6">
+			<label for="codigo" >Codigo: </label>
+			<input type="text" placeholder="Codigo" class="form-control" name="codigo" ng-model="actual.codigo"><br>
+		</div>
+
+		<div class="col-sm-7">
+			<label for="nombre" >Nombre: </label>
+			<input type="text" placeholder="Introduce tu nombre" class="form-control" name="codigo" ng-model="actual.nombre"><br>
+		</div>
+
+		
+		<div class="col-sm-7">
+			<label for="descripcion" >Descripcion:</label>
+			<textarea maxlength="150" name="descripcion" placeholder="Introduzca una descripcion" class="form-control" ng-model="actual.descripcion"></textarea>
+		</div>
+	</div>
+
+	<!--Tablas-->
+	<div class="panel" ng-show="btnNuevo  == true">
+	
+		<div class="panel-heading">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+				<input type="text" class="form-control" placeholder="Buscar usuario" ng-model="buscar">
+			</div>
+		</div>
+		<table class="table" ng-init="getServicios()">
+			<thead>
+				<tr>
+					<th>Codigo</th>
+					<th>Nombre</th>
+					<th>Descripcion</th>
+					<th>Fecha Creacion</th>
+					<th>Controles</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat = 'service in servicios | filter:buscar'>
+					<td>{{service.codigo}}</td>
+					<td>{{service.nombre | uppercase}}</td>
+					<td>{{service.descripcion | uppercase}}</td>
+					<td>{{service.fechaCreacion | date}}</td>
+					<div class="control-group">
+						<td>
+							<button type="button" class="btn btn-warning btn-small" ng-click="editar(service.codigo)">Editar</button>
+							<button type="button" class="btn btn-danger btn-small"  ng-click="eliminar(service.codigo)">Eliminar</button>
+						</td>
+	    			</div>
+				</tr>
+			</tbody>
+		</table>
+		<!--Botones navegables-->
+		<button type="button" ng-disabled = "currentPage == 0" ng-click="currentPage = currentPage - 1">&laquo;</button>
+		<button type="button" ng-disabled = "currentPage == page.no - 1" ng-click="setPage(page.no)" ng-repeat="page in pages">{{page.no}}</button>
+		<button type="button" ng-disabled = "currentPage >= users.length/pageSize - 1" ng-click="currentPage = currentPage + 1">&raquo;</button>
+	</div>
+
 
 </div>

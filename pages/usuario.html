@@ -4,49 +4,93 @@
 	<div class="menuOpciones pull-right">
 		<ul class="menu nav nav-pills">
 			<li>
-				<a href="#" class="opciones pull-right btn btn-info" ng-disabled="btnNuevo == false">Nuevo</a>
+				<button type="button" class="btn btn-primary" ng-show="btnNuevo == true"  ng-click="nuevo()">Nuevo</button>
 			</li>
 			<li>
-				<a href="#" class="opciones pull-right btn btn-warning">Editar</a>
+				<button type="button" class="btn btn-success" ng-show="btnGuardar == true || btnEditar == true" ng-click="guardar()">Guardar</button>
 			</li>
 			<li>
-				<a href="#" class="opciones pull-right btn btn-danger">Eliminar</a>
-			</li>
-			<li>
-				<a href="#" class="opciones pull-right btn btn-success" ng-disabled="btnRegistrar == false" ng-click="guardar()">Guardar</a>
+				<button type="button" class="btn btn-danger" ng-show="btnGuardar == true || btnEditar == true" ng-click="cancelar()">Cancelar</button>
 			</li>
 		</ul>
 	</div>
 	<br>
+
+	<div class="col-sm-8 panel-default" ng-show="btnGuardar == true || btnEditar == true">
+		
+
+
+		<div class="col-sm-7">
+			<label for="ci" >Cedula identidad: </label>
+			<input type="text" placeholder="Introduce Cedula" class="form-control" name="ci" ng-model="actual.ci"><br>
+		</div>
+
+		<div class="col-sm-6">
+			<label for="nombre" >Nombre: </label>
+			<input type="text" placeholder="Introduce tus nombres" class="form-control" name="nombre" ng-model="actual.nombre"><br>
+		</div>
+
+		<div class="col-sm-6">
+			<label for="apellido" >Apellido: </label>
+			<input type="text" placeholder="Introduce tus apellidos" class="form-control" name="apellido" ng-model="actual.apellido"><br>
+		</div>
+
+		<div class="col-sm-6">
+			<label for="correo" >Correo electronico: </label>
+			<input type="text" placeholder="Introduce correo" class="form-control" name="correo" ng-model="actual.correo"><br>
+		</div>
+
+		<div class="col-sm-6">
+			<label for="correo" >Telefono: </label>
+			<input type="text" placeholder="Numero telefonico" class="form-control" name="telefono" ng-model="actual.telefono"><br>
+		</div>
+
+
+	</div>
+
 	<!--Tablas-->
-	<table class="table" ng-init="getUsuarios()">
-		<thead>
-			<tr>
-				<th>Codigo</th>
-				<th>CI</th>
-				<th>Nombres</th>
-				<th>Apellidos</th>
-				<th>Correo</th>
-				<th>Telefono</th>
-				<th>Fecha</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat = 'user in users'>
-				<td>{{user.codigo}}</td>
-				<td>{{user.ci}}</td>
-				<td>{{user.nombre}}</td>
-				<td>{{user.apellido}}</td>
-				<td>{{user.correo}}</td>
-				<td>{{user.telefono}}</td>
-				<td>{{user.fecha}}</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="panel" ng-show="btnNuevo  == true">
+		<div class="panel-heading">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+				<input type="text" class="form-control" placeholder="Buscar usuario" ng-model="buscar">
+			</div>
+		</div>
+		<table class="table" ng-init="getUsuarios()">
+			<thead>
+				<tr>
+					<th>Codigo</th>
+					<th>CI</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+					<th>Correo</th>
+					<th>Telefono</th>
+					<th>Fecha</th>
+					<th>Controles</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat = 'user in users | filter:buscar'>
+					<td>{{user.codigo}}</td>
+					<td>{{user.ci}}</td>
+					<td>{{user.nombre}}</td>
+					<td>{{user.apellido}}</td>
+					<td>{{user.correo}}</td>
+					<td>{{user.telefono}}</td>
+					<td>{{user.fecha}}</td>
+					<div class="control-group">
+						<td>
+							<button type="button" class="btn btn-warning btn-small" ng-click="editar(user.codigo)">Editar</button>
+							<button type="button" class="btn btn-danger btn-small"  ng-click="eliminar(user.codigo)">Eliminar</button>
+						</td>
+	    			</div>
+				</tr>
+			</tbody>
+		</table>
+		<!--Botones navegables-->
+		<button type="button" ng-disabled = "currentPage == 0" ng-click="currentPage = currentPage - 1">&laquo;</button>
+	<button type="button" ng-disabled = "currentPage == page.no - 1" ng-click="setPage(page.no)" ng-repeat="page in pages">{{page.no}}</button>
+		<button type="button" ng-disabled = "currentPage >= users.length/pageSize - 1" ng-click="currentPage = currentPage + 1">&raquo;</button>
 
-	<!--Botones navegables-->
-	<button type="button" ng-disabled = "currentPage == 0" ng-click="currentPage = currentPage - 1">&laquo;</button>
-<button type="button" ng-disabled = "currentPage == page.no - 1" ng-click="setPage(page.no)" ng-repeat="page in pages">{{page.no}}</button>
-	<button type="button" ng-disabled = "currentPage >= users.length/pageSize - 1" ng-click="currentPage = currentPage + 1">&raquo;</button>
-
+	</div>
 </div>

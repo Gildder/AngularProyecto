@@ -34,9 +34,22 @@ angularRoutingApp.controller('mainController', function($scope) {
 angularRoutingApp.controller('usuarioController', function($scope, $http) {
     $scope.message = 'Usuarios';
 
+     $scope.actual = {};
+    $scope.actual.codigo= "";
+    $scope.actual.ci = "";
+    $scope.actual.nombre= "";
+    $scope.actual.apellido = "";
+    $scope.actual.correo = "";
+    $scope.actual.telefono = "";
+
+    //campos para gestionar botones
     $scope.btnNuevo = true;
+    $scope.btnEditar = false;
+    $scope.btnEliminar = false;
     $scope.btnGuardar = false;
 
+    $scope.Mensaje = false;
+    $scope.operacion = '';
 
     $scope.getUsuarios = function()
     {
@@ -46,6 +59,116 @@ angularRoutingApp.controller('usuarioController', function($scope, $http) {
             $scope.users = response;
         });
     }
+
+
+    $scope.guardar = function()
+    {
+
+        if ($scope.btnEditar == 'false') 
+        {
+            var url = "php/insert_usuario.php";
+            $http.post(url,{'ci':$scope.actual.ci, 'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono}).success(function(data, status, headers, config)
+            {
+                // alert('llega aqui');
+                console.log("Datos Guardados");
+                $scope.limpiar();
+                $scope.getUsuarios();
+
+                $scope.btnGuardar = false;
+                $scope.btnEditar = false;
+                $scope.btnNuevo  = true;
+
+                $scope.operacion = "Guardado";
+                $scope.Mensaje = true;
+            });
+
+        } else{
+            var url = "php/update_usuario.php";
+            $http.post(url,{'codigo':$scope.actual.codigo, 'ci':$scope.actual.ci, 
+                            'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 
+                            'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono}).success(function(data, status, headers, config)
+            {
+                console.log("Datos Editados");
+                $scope.limpiar();
+                $scope.getUsuarios();
+
+                $scope.btnGuardar = false;
+                $scope.btnEditar = false;
+                $scope.btnNuevo  = true;
+
+                $scope.operacion = "Modificado";
+                $scope.Mensaje = true;
+            });            
+        };
+    }
+
+    $scope.editar = function(codigo)
+    {
+        $scope.btnEditar = true;
+        $scope.btnNuevo  = false;
+
+        var url = "php/get_usuario.php?codigo=" + codigo;
+        $http.get(url).success(function(response)
+        {
+            $scope.actuales = response;
+            $scope.actual.codigo = $scope.actuales[0].codigo;
+            $scope.actual.ci = $scope.actuales[0].ci;
+            $scope.actual.nombre = $scope.actuales[0].nombre;
+            $scope.actual.apellido = $scope.actuales[0].apellido;
+            $scope.actual.correo = $scope.actuales[0].correo;
+            $scope.actual.telefono = $scope.actuales[0].telefono;
+        });
+    }
+
+     $scope.eliminar = function(codigo)
+    {
+        var url = "php/delete_usuario.php?codigo=" + codigo;
+        $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
+        {
+            console.log("Datos eliminados");
+            $scope.operacion = "Elimino";
+            $scope.Mensaje = true;
+
+            $scope.actual = {};
+            $scope.getUsuarios();
+
+            $scope.operacion = "Eliminado";
+            $scope.Mensaje = true;
+        });
+    }
+
+
+    $scope.nuevo = function()
+    {
+        $scope.btnNuevo = false;
+        $scope.btnGuardar = true;
+    }
+
+    $scope.cancelar = function()
+    {
+        $scope.btnNuevo = true;
+        $scope.btnEditar = false;
+        $scope.btnEliminar = false;
+        $scope.btnGuardar = false;
+    }
+
+    $scope.limpiar = function()
+    {
+        $scope.actual = {};
+        $scope.actual.codigo= "";
+        $scope.actual.ci = "";
+        $scope.actual.nombre= "";
+        $scope.actual.apellido = "";
+        $scope.actual.correo = "";
+        $scope.actual.telefono = "";
+    }
+
+    $scope.ocultarMensaje = function(nombre)
+    {
+       $scope.Mensaje = false;
+    }
+
+
 });
 
 
@@ -53,8 +176,19 @@ angularRoutingApp.controller('usuarioController', function($scope, $http) {
 angularRoutingApp.controller('servicioController', function($scope, $http) {
     $scope.message = 'Servicios';
 
+    $scope.actual = {};
+    $scope.actual.codigo= "";
+    $scope.actual.nombre= "";
+    $scope.actual.descripcion = "";
+
+    //campos para gestionar botones
     $scope.btnNuevo = true;
+    $scope.btnEditar = false;
+    $scope.btnEliminar = false;
     $scope.btnGuardar = false;
+
+    $scope.Mensaje = false;
+    $scope.operacion = '';
 
 
     $scope.getServicios = function()
@@ -65,6 +199,107 @@ angularRoutingApp.controller('servicioController', function($scope, $http) {
             $scope.servicios = response;
         });
     }
+
+    
+    $scope.guardar = function()
+    {
+
+        if ($scope.btnEditar == 'false') 
+        {
+            var url = "php/insert_servicio.php";
+            $http.post(url,{'nombre':$scope.actual.nombre, 'descripcion':$scope.actual.descripcion}).success(function(data, status, headers, config)
+            {
+                // alert('llega aqui');
+                console.log("Datos Guardados");
+                $scope.limpiar();
+                $scope.getServicios();
+
+                $scope.btnGuardar = false;
+                $scope.btnEditar = false;
+                $scope.btnNuevo  = true;
+
+                $scope.operacion = "Guardado";
+                $scope.Mensaje = true;
+            });
+
+        } else{
+            var url = "php/update_servicio.php";
+            $http.post(url,{'codigo':$scope.actual.codigo, 'nombre':$scope.actual.nombre, 
+                            'descripcion':$scope.actual.descripcion}).success(function(data, status, headers, config)
+            {
+                console.log("Datos Editados");
+                $scope.limpiar();
+                $scope.getServicios();
+
+                $scope.btnGuardar = false;
+                $scope.btnEditar = false;
+                $scope.btnNuevo  = true;
+
+                $scope.operacion = "Modificado";
+                $scope.Mensaje = true;
+            });            
+        };
+    }
+
+    $scope.editar = function(codigo)
+    {
+        $scope.btnEditar = true;
+        $scope.btnNuevo  = false;
+
+        var url = "php/get_servicio.php?codigo=" + codigo;
+        $http.get(url).success(function(response)
+        {
+
+            $scope.actuales = response;
+            $scope.actual.codigo = $scope.actuales[0].codigo;
+            $scope.actual.nombre = $scope.actuales[0].nombre;
+            $scope.actual.descripcion = $scope.actuales[0].descripcion;
+            
+        });
+    }
+
+     $scope.eliminar = function(codigo)
+    {
+        var url = "php/delete_servicio.php?codigo=" + codigo;
+        $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
+        {
+            console.log("Datos eliminados");
+            $scope.operacion = "Eliminado";
+            $scope.Mensaje = true;
+
+            $scope.actual = {};
+            $scope.getServicios();
+        });
+    }
+
+    
+    $scope.nuevo = function()
+    {
+        $scope.btnNuevo = false;
+        $scope.btnGuardar = true;
+    }
+
+    $scope.cancelar = function()
+    {
+        $scope.btnNuevo = true;
+        $scope.btnEditar = false;
+        $scope.btnEliminar = false;
+        $scope.btnGuardar = false;
+    }
+
+
+    $scope.limpiar = function()
+    {
+        $scope.actual = {};
+        $scope.actual.nombre= "";
+        $scope.actual.descripcion = "";
+    }
+
+    $scope.ocultarMensaje = function(nombre)
+    {
+       $scope.Mensaje = false;
+    }
+
 });
 
 ///Reservas*********************************************************************
@@ -77,17 +312,44 @@ angularRoutingApp.controller('reservaController', function($scope, $http) {
     // $scope.actuales = [];
 
     $scope.actual = {};
+    $scope.actual.codigo= "";
     $scope.actual.usuario= "";
     $scope.actual.servicio = "";
     $scope.actual.fechaInicio = "";
-    $scope.actual.horaInicio = "";
+    $scope.actual.hora = "";
+    $scope.actual.estado = "";
     $scope.actual.motivo = "";
 
     //campos para gestionar botones
-    $scope.btnNuevo = false;
-    $scope.btnEditar = true;
-    $scope.btnEliminar = true;
-    $scope.btnGuardar = true;
+    $scope.btnNuevo = true;
+    $scope.btnEditar = false;
+    $scope.btnEliminar = false;
+    $scope.btnGuardar = false;
+
+    $scope.Mensaje = false;
+    $scope.operacion = '';
+
+    $scope.getUsuarios = function()
+    {
+        var url = "php/usuarios.php";
+        $http.get(url).success(function(response)   //funcoin http
+        {
+            $scope.usuarios = response;
+        });
+    }
+
+    $scope.getServicios = function()
+    {
+        var url = "php/servicios.php";
+        $http.get(url).success(function(response)   //funcoin http
+        {
+            $scope.servicios = response;
+        });
+    }
+
+    $scope.selectUsuario = function() {
+        console.log($scope.myOption);
+    };
 
     $scope.getReservas = function()
     {
@@ -100,27 +362,125 @@ angularRoutingApp.controller('reservaController', function($scope, $http) {
 
     $scope.guardar = function()
     {
- /*   alert($scope.actual.fechaInicio);
-    alert($scope.actual.usuario);
-    alert($scope.actual.servicio);
-    alert($scope.actual.horaInicio);
-    alert($scope.actual.motivo);*/
-        var url = "php/insert_reserva.php";
-        $http.post(url,{'fechaInicio':$scope.actual.fechaInicio, 'usuario':$scope.actual.usuario, 'servicio':$scope.actual.servicio, 'horaInicio':$scope.actual.horaInicio, 'motivo':$scope.actual.motivo}).success(function(data, status, headers, config)
+
+        if ($scope.btnEditar == 'false') 
         {
-            alert(data);
-            // alert('llega aqui');
-            console.log("Datos Guardados");
-                $scope.actual = {};
-    $scope.actual.usuario= "";
-    $scope.actual.servicio = "";
-    $scope.actual.fechaInicio = "";
-    $scope.actual.horaInicio = "";
-    $scope.actual.motivo = "";
-            $scope.getReservas();
-        });
+            var url = "php/insert_reserva.php";
+            $http.post(url,{'fechaInicio':$scope.actual.fechaInicio, 'usuario':$scope.actual.usuario, 'servicio':$scope.actual.servicio, 'hora':$scope.actual.hora, 'motivo':$scope.actual.motivo}).success(function(data, status, headers, config)
+            {
+                // alert('llega aqui');
+                console.log("Datos Guardados");
+                $scope.limpiar();
+                $scope.getReservas();
 
+                $scope.btnGuardar = false;
+                $scope.btnEditar = false;
+                $scope.btnNuevo  = true;
 
+                $scope.Mensaje = true;
+                $scope.operacion = "Guardado";
+            });
+
+        } else{
+            var url = "php/update_reserva.php";
+            $http.post(url,{'codigo':$scope.actual.codigo, 'usuario':$scope.actual.usuario, 
+                            'servicio':$scope.actual.servicio, 'fechaInicio':$scope.actual.fechaInicio, 
+                            'hora':$scope.actual.hora, 'estado':$scope.actual.estado,
+                            'motivo':$scope.actual.motivo}).success(function(data, status, headers, config)
+            {
+                console.log("Datos Editados");
+                $scope.limpiar();
+                $scope.getReservas();
+
+                $scope.btnGuardar = false;
+                $scope.btnEditar = false;
+                $scope.btnNuevo  = true;
+
+                $scope.operacion = "Modificado";
+                $scope.Mensaje = true;
+
+            });            
+        };
     }
 
+    $scope.nuevo = function()
+    {
+        $scope.btnNuevo = false;
+        $scope.btnGuardar = true;
+    }
+
+    $scope.cancelar = function()
+    {
+        $scope.btnNuevo = true;
+        $scope.btnEditar = false;
+        $scope.btnEliminar = false;
+        $scope.btnGuardar = false;
+    }
+
+    $scope.editar = function(codigo)
+    {
+        $scope.btnEditar = true;
+        $scope.btnNuevo  = false;
+
+        var url = "php/get_reserva.php?codigo=" + codigo;
+        $http.get(url).success(function(response)
+        {
+
+            $scope.actuales = response;
+            $scope.actual.codigo = $scope.actuales[0].codigo;
+            $scope.actual.usuario = $scope.actuales[0].usuario_codigo;
+            $scope.actual.servicio = $scope.actuales[0].servicio_codigo;
+            $scope.actual.fechaInicio = $scope.actuales[0].fechaInicio;
+            $scope.actual.hora = $scope.actuales[0].hora;
+            $scope.actual.estado = $scope.actuales[0].estado;
+            $scope.actual.motivo = $scope.actuales[0].motivo;
+            
+        });
+    }
+
+    $scope.eliminar = function(codigo)
+    {
+        var url = "php/delete_reserva.php?codigo=" + codigo;
+        $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
+        {
+            console.log("Datos eliminados");
+            $scope.operacion = "Eliminado";
+            $scope.Mensaje = true;
+
+            $scope.actual = {};
+            $scope.getReservas();
+        });
+    }
+
+    $scope.limpiar = function()
+    {
+        $scope.actual = {};
+        $scope.actual.usuario= "";
+        $scope.actual.servicio = "";
+        $scope.actual.fechaInicio = "";
+        $scope.actual.hora = "";
+        $scope.actual.motivo = "";
+    }
+
+    $scope.ordenarPor = function(nombre)
+    {
+       $scope.ordenSeleccionado = nombre;
+    }
+
+    $scope.ocultarMensaje = function(nombre)
+    {
+       $scope.Mensaje = false;
+    }
+
+
+
+
 });
+
+angularRoutingApp.filter('estados', function(estado){
+    if(estado == '0'){
+        return 'Sin atender';
+    }else{
+        return 'Atendido';
+    }
+})

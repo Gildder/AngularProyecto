@@ -4,7 +4,7 @@
 	$motivo = $data->motivo;
 	$servicio_codigo = $data->servicio;
 	$usuario_codigo = $data->usuario;
-	$hora = $data->horaInicio;
+	$hora = $data->hora;
 
 	include('conexion.php');
 	$con = conexion();

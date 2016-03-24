@@ -5,7 +5,7 @@
 	include('conexion.php');
 	$con = conexion();
 
-	$sql="DELETE FROM reserva WHERE codigo = '".$codigo."'";
+	$sql="DELETE FROM usuario WHERE codigo = '".$codigo."'";
 
 	$resultado = $con->query($sql);
 	if ($resultado===true) {
