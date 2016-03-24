@@ -1,4 +1,7 @@
 <div class="col-sm-12" >
+	<div class="alert alert-success alert-dismissable"  ng-show="Mensaje == true">
+		<button type="button" class="close" data-dismiss="alert" ng-click="ocultarMensaje()">&times;</button>
+		<b>Ok!</b> La operacion de {{operacion}} se realizo exitosamente...</div>
 	<h2>{{message}}</h2>
 	<hr>
 	<div class="menuOpciones pull-right">
@@ -55,7 +58,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat = 'service in servicios | filter:buscar'>
+				<tr ng-repeat = 'service in servicios | filter:buscar| startFromGrid: currentPage * pageSize | limitTo: pageSize'>
 					<td>{{service.codigo}}</td>
 					<td>{{service.nombre | uppercase}}</td>
 					<td>{{service.descripcion | uppercase}}</td>

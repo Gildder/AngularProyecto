@@ -1,7 +1,7 @@
 <div class="col-sm-12" >
 	<div class="alert alert-success alert-dismissable"  ng-show="Mensaje == true">
 		<button type="button" class="close" data-dismiss="alert" ng-click="ocultarMensaje()">&times;</button>
-		<b>Ok!</b> Se operacion de {{operacion}} se realizo exitosamente...</div>
+		<b>Ok!</b> La operacion de {{operacion}} se realizo exitosamente...</div>
 	<h2>{{message}}</h2>
 	<hr>
 	<div class="menuOpciones pull-right">
@@ -88,7 +88,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat = 'reserva in reservas | filter:buscar'>
+				<tr ng-repeat = 'reserva in reservas | filter:buscar | startFromGrid: currentPage * pageSize | limitTo: pageSize'>
 					<td>{{reserva.codigo}}</td>
 					<td>{{reserva.usuario_codigo | uppercase}} {{reserva.apellido |uppercase}}</td>
 					<td>{{reserva.ci}}</td>

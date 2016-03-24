@@ -27,14 +27,18 @@ angularRoutingApp.config(function($routeProvider) {
 });
 
 angularRoutingApp.controller('mainController', function($scope) {
-    $scope.message = 'Hola, Raquet Club!';
+    $scope.message = 'Hola, Raquet Club Urbarí !';
 });
 
 //Usuarios*********************************************************************
 angularRoutingApp.controller('usuarioController', function($scope, $http) {
     $scope.message = 'Usuarios';
+    $scope.currentPage = 0;//pagina actual
+    $scope.pageSize = 5;//numero registros
+    $scope.pages = [];//guardar numeros de paginas
 
-     $scope.actual = {};
+
+    $scope.actual = {};
     $scope.actual.codigo= "";
     $scope.actual.ci = "";
     $scope.actual.nombre= "";
@@ -51,12 +55,60 @@ angularRoutingApp.controller('usuarioController', function($scope, $http) {
     $scope.Mensaje = false;
     $scope.operacion = '';
 
+    $scope.setPage = function(index)
+    {
+        $scope.currentPage = index - 1;
+    }
+
     $scope.getUsuarios = function()
     {
         var url = "php/usuarios.php";
         $http.get(url).success(function(response)   //funcoin http
         {
             $scope.users = response;
+
+            $scope.pages.length = 0;
+            var ini = $scope.currentPage - 1;
+            var fin = $scope.currentPage + 1;
+            if(ini < 1)
+            {
+                ini = 1;
+                if(Math.ceil($scope.users.length / $scope.pageSize) > 5)
+                {
+                    fin = 5;
+                }
+                else
+                {
+                    fin = Math.ceil($scope.users.length / $scope.pageSize);
+                }
+            }
+            else
+            {
+                if (ini >= Math.ceil($scope.users.length / $scope.pageSize) - 5)
+                {
+                    ini =  Math.ceil($scope.users.length / $scope.pageSize) - 5;
+                    fin =  Math.ceil($scope.users.length / $scope.pageSize);
+                }
+            }       
+
+            if (ini < 1)
+            {
+                ini = 1;
+            }
+
+            for (var i = ini; i <= fin; i++) 
+            {
+              $scope.pages.push({
+                no: i
+              });
+            }
+
+            if ($scope.currentPage >= $scope.pages.length)
+            {
+                $scope.currentPage = $scope.pages.length - 1;
+            }
+
+            $scope.currentPage = 0;
         });
     }
 
@@ -179,6 +231,9 @@ angularRoutingApp.controller('usuarioController', function($scope, $http) {
 //Servicios*********************************************************************
 angularRoutingApp.controller('servicioController', function($scope, $http) {
     $scope.message = 'Servicios';
+    $scope.currentPage = 0;//pagina actual
+    $scope.pageSize = 5;//numero registros
+    $scope.pages = [];//guardar numeros de paginas
 
     $scope.actual = {};
     $scope.actual.codigo= "";
@@ -195,12 +250,60 @@ angularRoutingApp.controller('servicioController', function($scope, $http) {
     $scope.operacion = '';
 
 
+    $scope.setPage = function(index)
+    {
+        $scope.currentPage = index - 1;
+    }
+
     $scope.getServicios = function()
     {
         var url = "php/servicios.php";
         $http.get(url).success(function(response)   //funcoin http
         {
             $scope.servicios = response;
+
+            $scope.pages.length = 0;
+            var ini = $scope.currentPage - 1;
+            var fin = $scope.currentPage + 1;
+            if(ini < 1)
+            {
+                ini = 1;
+                if(Math.ceil($scope.servicios.length / $scope.pageSize) > 5)
+                {
+                    fin = 5;
+                }
+                else
+                {
+                    fin = Math.ceil($scope.servicios.length / $scope.pageSize);
+                }
+            }
+            else
+            {
+                if (ini >= Math.ceil($scope.servicios.length / $scope.pageSize) - 5)
+                {
+                    ini =  Math.ceil($scope.servicios.length / $scope.pageSize) - 5;
+                    fin =  Math.ceil($scope.servicios.length / $scope.pageSize);
+                }
+            }       
+
+            if (ini < 1)
+            {
+                ini = 1;
+            }
+
+            for (var i = ini; i <= fin; i++) 
+            {
+              $scope.pages.push({
+                no: i
+              });
+            }
+
+            if ($scope.currentPage >= $scope.pages.length)
+            {
+                $scope.currentPage = $scope.pages.length - 1;
+            }
+
+            $scope.currentPage = 0;
         });
     }
 
@@ -316,8 +419,6 @@ angularRoutingApp.controller('reservaController', function($scope, $http) {
     $scope.currentPage = 0;//pagina actual
     $scope.pageSize = 5;//numero registros
     $scope.pages = [];//guardar numeros de paginas
-    // $scope.users = [];
-    // $scope.actuales = [];
 
     $scope.actual = {};
     $scope.actual.codigo= "";
@@ -337,15 +438,23 @@ angularRoutingApp.controller('reservaController', function($scope, $http) {
     $scope.Mensaje = false;
     $scope.operacion = '';
 
+    //cargo combo de usuarios
     $scope.getUsuarios = function()
     {
         var url = "php/usuarios.php";
         $http.get(url).success(function(response)   //funcoin http
         {
             $scope.usuarios = response;
+          
         });
     }
 
+    $scope.setPage = function(index)
+    {
+        $scope.currentPage = index - 1;
+    }
+
+    //cargar combo de servicios
     $scope.getServicios = function()
     {
         var url = "php/servicios.php";
@@ -355,16 +464,55 @@ angularRoutingApp.controller('reservaController', function($scope, $http) {
         });
     }
 
-    $scope.selectUsuario = function() {
-        console.log($scope.myOption);
-    };
-
     $scope.getReservas = function()
     {
         var url = "php/reserva.php";
         $http.get(url).success(function(response)   //funcoin http
         {
             $scope.reservas = response;
+
+            $scope.pages.length = 0;
+            var ini = $scope.currentPage - 1;
+            var fin = $scope.currentPage + 1;
+            if(ini < 1)
+            {
+                ini = 1;
+                if(Math.ceil($scope.reservas.length / $scope.pageSize) > 5)
+                {
+                    fin = 5;
+                }
+                else
+                {
+                    fin = Math.ceil($scope.reservas.length / $scope.pageSize);
+                }
+            }
+            else
+            {
+                if (ini >= Math.ceil($scope.reservas.length / $scope.pageSize) - 5)
+                {
+                    ini =  Math.ceil($scope.reservas.length / $scope.pageSize) - 5;
+                    fin =  Math.ceil($scope.reservas.length / $scope.pageSize);
+                }
+            }       
+
+            if (ini < 1)
+            {
+                ini = 1;
+            }
+
+            for (var i = ini; i <= fin; i++) 
+            {
+              $scope.pages.push({
+                no: i
+              });
+            }
+
+            if ($scope.currentPage >= $scope.pages.length)
+            {
+                $scope.currentPage = $scope.pages.length - 1;
+            }
+
+            $scope.currentPage = 0;
         });
     }
 
@@ -474,11 +622,6 @@ angularRoutingApp.controller('reservaController', function($scope, $http) {
         $scope.actual.motivo = "";
     }
 
-    $scope.ordenarPor = function(nombre)
-    {
-       $scope.ordenSeleccionado = nombre;
-    }
-
     $scope.ocultarMensaje = function(nombre)
     {
        $scope.Mensaje = false;
@@ -489,10 +632,11 @@ angularRoutingApp.controller('reservaController', function($scope, $http) {
 
 });
 
-angularRoutingApp.filter('estados', function(estado){
-    if(estado == '0'){
-        return 'Sin atender';
-    }else{
-        return 'Atendido';
+angularRoutingApp.filter('startFromGrid', function() 
+{
+    return function(input, start) 
+    {
+        start =+ start;
+        return input.slice(start)
     }
-})
+});
