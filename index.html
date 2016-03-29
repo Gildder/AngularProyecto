@@ -6,6 +6,7 @@
 	<title>URBARI Comunidad de gente atractiva.</title>
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/js/bootstrap.js">
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 	
 <!--
@@ -37,17 +38,29 @@
 		</div>
 	</header>
 
-	<nav>
-		<ul class="menu nav nav-pills">
-			<li><a href="#/">Inicio</a></li>
-			<li><a href="#/usuario">Usuario</a></li>
-			<li><a href="#/servicio">Servicio</a></li>
-			<li><a href="#/reserva">Reserva</a></li>
-		</ul>
+	<nav class="navbar navbar-default navbar-inverse" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+	            <button type="button" class="navbar-toggle" data-toggle="collapse"
+			            data-target=".navbar-ex1-collapse">
+			      <span class="sr-only">Desplegar navegación</span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			    </button>
+	        </div>
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+	    		<ul class="nav navbar-nav">
+					<li class="active"><a href="#/">Inicio</a></li>
+					<li><a href="#/usuario">Usuario</a></li>
+					<li><a href="#/servicio">Servicio</a></li>
+					<li><a href="#/reserva">Reserva</a></li>
+				</ul>
+			</div>
+		</div>
 	</nav>
 
-
-	<section class="posts">
+	<section>
 		<!-- Aquí inyectamos las vistas -->
 		<div ng-view>
 			

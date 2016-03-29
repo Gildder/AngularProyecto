@@ -18,6 +18,7 @@ footer
 	padding 1em 0
 	text-align center
 	width 100%
+	bottom 0
 
 	h3
 		font-size 14px
@@ -46,7 +47,7 @@ header
 		margin-left 10px
 
 	    .titulo
-			font-size 18px
+			font-size 24px
 			font-weight normal
 			margin 0
 			padding 0
@@ -76,10 +77,9 @@ header
 		
 
 nav
-	background azul
+	background gris_oscuro
 
 	.menu
-		height 40px
 		line-height 40px
 		margin 0
 		padding 0
@@ -97,27 +97,41 @@ nav
 
 				&:hover
 					background rgba(black,0.1)			
+.navbar
+	margin-bottom 5px
+						
 
 section
 	padding 0
-	
-	.panel-default
-		padding 0
-		
-	
-	h2
-		display block
-	
 
-		
-	.menuOpciones
-		display block
-		margin-bottom 25px
-		margin-top 5px
-		position relative
+	.subtitulo
+		display inline-block
+		margin 0 0 5px 0
 	
 	.input-group
 		width 100%
+		
+	.panel		
+		padding 10px
+		border-radius 10px
+		height 320px
+		
+		.table
+			height 160px
+		
+	.panel-default
+		background white
+		padding 10px 0 10px 0
+		border-radius 5px
+		margin 10px 0 10px 0
+	
+	.navegacion
+		text-align center
+	
+	.page-header
+		margin-top 20px
+		margin-bottom 0px
+		
 
 		
 		
@@ -125,38 +139,33 @@ section
 		
 @media (max-width: 768px) and (min-width: 540px)
 	section
-		padding 1.2em
-		
-		h2
+		padding 0
+
+		.subtitulo
 			display inline-block
 			
-		.menuOpciones
-			top -100px
-			margin-bottom 0px
-			
+		
 		.input-group
 			width 70%
-			
-	footer
-		position absolute
-		bottom 0px
 		
-			
+		.panel		
+			height 320px
+		
 
 @media screen and (min-width: 768px)	
 
 	section
-		padding 1.2em
+		padding 0
 		
-		h2
+		.subtitulo
 			display inline-block
 
-		.menuOpciones
-			top -100px
-			margin-bottom 0px
 			
 		.input-group
 			width 50%
+		
+		.panel-default
+			height 300px
 
 	footer
 		position absolute

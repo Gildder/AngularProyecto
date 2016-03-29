@@ -11,6 +11,7 @@ footer {
   padding: 1em 0;
   text-align: center;
   width: 100%;
+  bottom: 0;
 }
 footer h3 {
   font-size: 14px;
@@ -37,7 +38,7 @@ header .titular {
   margin-left: 10px;
 }
 header .titulo {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: normal;
   margin: 0;
   padding: 0;
@@ -66,10 +67,9 @@ header .usuario .avatar {
   right: 30px;
 }
 nav {
-  background: #22bce0;
+  background: #444;
 }
 nav .menu {
-  height: 40px;
   line-height: 40px;
   margin: 0;
   padding: 0;
@@ -88,56 +88,66 @@ nav .menu li a {
 nav .menu li a:hover {
   background: rgba(0,0,0,0.1);
 }
+.navbar {
+  margin-bottom: 5px;
+}
 section {
   padding: 0;
 }
-section .panel-default {
-  padding: 0;
-}
-section h2 {
-  display: block;
-}
-section .menuOpciones {
-  display: block;
-  margin-bottom: 25px;
-  margin-top: 5px;
-  position: relative;
+section .subtitulo {
+  display: inline-block;
+  margin: 0 0 5px 0;
 }
 section .input-group {
   width: 100%;
 }
+section .panel {
+  padding: 10px;
+  border-radius: 10px;
+  height: 320px;
+}
+section .panel .table {
+  height: 160px;
+}
+section .panel-default {
+  background: #fff;
+  padding: 10px 0 10px 0;
+  border-radius: 5px;
+  margin: 10px 0 10px 0;
+}
+section .navegacion {
+  text-align: center;
+}
+section .page-header {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
 @media (max-width: 768px) and (min-width: 540px) {
   section {
-    padding: 1.2em;
+    padding: 0;
   }
-  section h2 {
+  section .subtitulo {
     display: inline-block;
-  }
-  section .menuOpciones {
-    top: -100px;
-    margin-bottom: 0px;
   }
   section .input-group {
     width: 70%;
   }
-  footer {
-    position: absolute;
-    bottom: 0px;
+  section .panel {
+    height: 320px;
   }
 }
 @media screen and (min-width: 768px) {
   section {
-    padding: 1.2em;
+    padding: 0;
   }
-  section h2 {
+  section .subtitulo {
     display: inline-block;
-  }
-  section .menuOpciones {
-    top: -100px;
-    margin-bottom: 0px;
   }
   section .input-group {
     width: 50%;
+  }
+  section .panel-default {
+    height: 300px;
   }
   footer {
     position: absolute;
