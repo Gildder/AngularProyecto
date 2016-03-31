@@ -1,5 +1,5 @@
 'use strict'
-var angularRoutingApp = angular.module('angularRoutingApp', ['ngRoute']);
+var angularRoutingApp = angular.module('angularRoutingApp', ['ngRoute','ngCookies']);
 
 // Configuración de las rutas
 angularRoutingApp.config(function($routeProvider) {
@@ -20,6 +20,10 @@ angularRoutingApp.config(function($routeProvider) {
         .when('/reserva', {
             templateUrl : 'partials/reserva.html',
             controller  : 'reserva'
+        })
+        .when('/reserva', {
+            templateUrl : 'partials/reservas.html',
+            controller  : 'misreservas'
         })
         .when('/servicios', {
             templateUrl : 'partials/ofertados.html',

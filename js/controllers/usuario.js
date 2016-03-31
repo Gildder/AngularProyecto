@@ -14,9 +14,7 @@ angular.module('angularRoutingApp')
     $scope.btnUpdate = false;
     $scope.btnDelete = false;
     $scope.btnSave = false;
-    $scope.message = false;
-    $scope.operation = '';
-    
+       
     $scope.users = [];
 
     $scope.actual = {};
@@ -187,15 +185,5 @@ angular.module('angularRoutingApp')
         }
     }
 
-    $scope.showMessage = function(action, state)
-    {
-        if (state == true) {       //muestra mensaje
-            $scope.message = false;
-        } else{                     //oculta mensaje
-            $scope.message = true;
-        };
-
-        $scope.operation = action;
-    }
-
+   
 });

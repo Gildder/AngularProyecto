@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-03-2016 a las 02:54:00
+-- Tiempo de generación: 01-04-2016 a las 01:07:40
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -115,14 +115,16 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `tipousuario_id` int(11) NOT NULL,
   `fechaCreacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaModificacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`codigo`, `ci`, `nombre`, `apellido`, `correo`, `telefono`, `estado`, `nick`, `contrasenia`, `tipousuario_id`, `fechaCreacion`, `fechaModificacion`) VALUES
-(1, '7734247', 'gildder', 'guerrero ramirez', 'gildder@gmail.com', '70991648', 1, 'Gildder', 'gildder', 1, '2016-03-23 11:43:22', '2016-03-30 21:49:19');
+(1, '7734247', 'gildder', 'guerrero ramirez', 'gildder@gmail.com', '70991648', 1, 'Gildder', 'gildder', 1, '2016-03-23 11:43:22', '2016-03-30 21:49:19'),
+(2, '8977837', 'mario', 'vega martinez', 'mario@gmail.com', '79890987', 1, 'mario', 'mario', 2, '2016-03-31 22:00:19', '2016-03-31 22:02:57'),
+(3, '5632738', 'diana', 'soto lopez', 'diana@gmail.com', '60991638', 1, 'diana', 'diana', 3, '2016-03-31 22:01:54', '2016-03-31 22:02:57');
 
 --
 -- Índices para tablas volcadas
@@ -175,7 +177,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --

@@ -15,9 +15,10 @@
 
   	<script src="lib/angular/angular.js"></script>
   	<script src="lib/angular-route/angular-route.js"></script>
+  	<script src="lib/angular-cookies/angular-cookies.min.js"></script>
   	<script src="js/common/locale_es-es.js"></script>
 </head>
-<body ng-controller='main' ng-cloack  ng-init="iniSession()">
+<body ng-controller='main' ng-cloack  ng-init="inicializar()">
 		
 	<header>
 		<div class="logo">
@@ -27,8 +28,8 @@
 		</div>
 		<div class="titular">
 			<h1 class="titulo">URBARÍ</h1>
-			<a href="" ng-show="true" ng-click="seeRegister()" class="nick"><span class="glyphicon glyphicon-log-out"></span> {{loginOut}}</a>
-			<a href="" ng-show="true" ng-click="seeSesion()" class="registrar btn-success"><span class="glyphicon glyphicon-log-in"></span> {{nickName}}</a>
+			<a href="" ng-click="seeRegister()"  class="nick"><span class="glyphicon glyphicon-log-out"></span> {{loginOut}}</a>
+			<a href="" ng-show="isConect == 0" ng-click="seeSesion()" class="registrar btn-success"><span class="glyphicon glyphicon-log-in"></span> {{loginIn}}</a>
 		</div>
 	</header>
 
@@ -46,16 +47,23 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 	    		<ul class="nav navbar-nav">
 					<li><a href="#/">Inicio</a></li>
-					<li ng-hide="actual.tipo == 0"><a href="#/usuario">Usuario</a></li>
-					<li ng-hide="actual.tipo == 0"><a href="#/servicio">Servicio</a></li>
+					<li ng-show="isConect == 1"><a href="#/usuario">Usuario</a></li>
+					<li ng-show="isConect == 2"><a href="#/servicio">Servicio</a></li>
 					<li><a href="#/servicios">Servicios</a></li>
-					<li><a href="#/reserva">Reserva</a></li>
+					<li ng-show="isConect != 0"><a href="#/reserva">Reserva</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 
 	<section>
+		
+		<!-- Mensaje de alerta -->
+		<div class="alert alert-{{typeMsg}} alert-dismissable"  ng-show="showMsg == true">
+			<button type="button" class="close" data-dismiss="alert" ng-click="showMessage(false,'',0)">&times;</button>
+			<b>{{typeMsg}}:</b> {{message}}
+		</div>
+
 		<!-- Aquí incluimos las vistas registrar y session  -->
 		<div class="row" ng-include src=" 'partials/registrar.html' " ng-show="btnRegister == true"></div>
 		<div class="row" ng-include src=" 'partials/session.html' "   ng-show="btnSesion == true"></div>

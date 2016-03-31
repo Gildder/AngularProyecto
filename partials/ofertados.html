@@ -8,13 +8,13 @@
 		<h2 class="subtitulo">{{titulo}}</h2>
 		<!--Botones de accion-->
 		<div class="pull-right"  ng-show="btnReserve == true">
-			<button type="button" class="btn btn-success btn-sm" ng-show="btnReserve == true" ng-click="save()"><span class="glyphicon glyphicon-ok"> Reservar</span></button>
-			<button type="button" class="btn btn-danger btn-sm" ng-show="btnReserve == true" ng-click="btnReserve = false"><span class="glyphicon glyphicon-remove"> Cancelar</span></button>
+			<button type="button" class="btn btn-success btn-sm" ng-show="btnReserve == true"  ng-disabled="isConect == 0" ng-click="save()"><span class="glyphicon glyphicon-ok"> Reservar</span></button>
+			<button type="button" class="btn btn-danger btn-sm" ng-show="btnReserve == true" ng-click="cancel()"><span class="glyphicon glyphicon-remove"> Cancelar</span></button>
 		</div>
 	</div>
 	<br>	
 	<!--Panel registro-->
-	<div class="col-sm-12 panel-default" ng-show="btnReserve == true">
+	<div class="col-sm-12 panel-default"  ng-show="btnReserve == true">
 		<br><div class="col-sm-12">
 			<p class="col-sm-12">Para realizar la reserva del servicio llene todos los campos del siguiente formulario. </p>
 		</div><hr>
@@ -55,6 +55,9 @@
 
 	<!--Tablas-->
 	<div class="panel" ng-show="btnReserve  == false">
+		<div class="col-sm-12">
+			<br><p>Para reservar un servicio haz click en seleccionar.</p><br>
+		</div>
 		<!--boton de busqueda-->
 		<div class="panel-heading">
 			<div class="input-group">

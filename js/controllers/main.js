@@ -1,8 +1,13 @@
-angularRoutingApp.controller('main', function($scope, $http, MyService) {  //MyService es un servicio
+angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $location, MyService) {  //MyService es un servicio
     $scope.titulo = 'Bienvenidos!';
 
-    $scope.nickName= "Entrar";
+    //variables de session
+    $scope.loginIn= "Entrar";
     $scope.loginOut= "Registrar";
+    $scope.isConect= 0;
+
+
+
     $scope.actual = {};
     $scope.actual.codigo= "";
     $scope.actual.nick= "";
@@ -14,55 +19,82 @@ angularRoutingApp.controller('main', function($scope, $http, MyService) {  //MyS
     $scope.actual.telefono = "";
     $scope.actual.tipousuario_id = "";
 
-    $scope.actual.recordar = false;
-
     //campos para gestionar botones
     $scope.btnSesion = false;
     $scope.btnRegister = false;
 
+    //campos mensaje de alerta
+    $scope.showMsg = false;
+    $scope.typeMsg = 0;
+    $scope.message = '';
+
+    //mostrar el formulario de session
     $scope.seeSesion = function()
     {
-        if ($scope.btnSesion == true && $scope.nickName== "Entrar")       //activa boton 
+        $scope.hideMessage();
+
+        if ($cookieStore.get('userName'))
+        { 
+            return;
+        }
+
+        if ($scope.btnSesion == true)       //activa boton 
         {
             $scope.btnSesion = false;
         }else{                   			//desactiva boton 
         	$scope.btnSesion = true;
         	$scope.btnRegister = false;
         }
+        
     }
 
+    //mostrar el formulario de registro, tambien para Salir session
     $scope.seeRegister = function()
     {
-        if ($scope.loginOut== "Salir") {return;}
+        $scope.hideMessage();
 
-        if ($scope.btnRegister == true)       //activa boton 
-        {   
-            $scope.btnRegister = false;
-        }else{                   			//desactiva boton 
-        	$scope.btnRegister = true;
-        	$scope.btnSesion = false;
-        }
-    }
-
-
-    $scope.iniSession = function()
-    {
-
-        if ($scope.session.nick == "") {
-            $scope.nickName = "Entrar";
-            $scope.loginOut = "Registrar";
+        if (!$cookieStore.get('userName'))
+        { 
+            if ($scope.btnRegister == true)       //activa boton 
+            {   
+                $scope.btnRegister = false;
+            }else{                   			//desactiva boton 
+            	$scope.btnRegister = true;
+            	$scope.btnSesion = false;
+            }
         }else{
-            $scope.nickName = MyService.object.nick;
-            $scope.loginOut = "Salir  ";
+            $scope.closeSession(); 
+            $scope.inicializar(); 
+
         }
-        //$scope.nickName = " Entrar";
-        //$scope.loginOut = " Registrar";
     }
 
 
-    $scope.entrar = function()
+
+    $scope.inicializar = function()
     {
-        if ($scope.btnSesion == true  && $scope.loginOut== "Registrar") 
+
+        if (!$cookieStore.get('userName')) {
+            $scope.loginIn = "Entrar";
+            $scope.loginOut = "Registrar";
+            $scope.isConect= 0;
+            $scope.hideMessage();
+
+        }else{
+            $scope.loginIn = $cookieStore.get('userName');
+            $scope.isConect= $cookieStore.get('tipo');
+            $scope.loginOut = "Salir  ";
+            
+            //ocultamos la vista de los formualarios
+            $scope.btnSesion = false;
+            $scope.btnRegister = false;
+        }
+    }
+
+
+    $scope.iniciarSession = function()
+    {
+        if ($scope.btnSesion == true) 
         {
             var url = "../AngularProyecto/php/iniciar_sesion.php?nick=" + $scope.actual.nick + "& contrasenia=" + $scope.actual.contrasenia;
             $http.get(url).success(function(response)
@@ -77,17 +109,16 @@ angularRoutingApp.controller('main', function($scope, $http, MyService) {  //MyS
                 $scope.actual.nick = $scope.actuales[0].nick;
                 $scope.actual.tipousuario_id = $scope.actuales[0].tipousuario_id;
                 
+                //Guardamos el usuario el la coockies
+                $cookieStore.put('tipo', $scope.actual.tipousuario_id);
+                $cookieStore.put('userName', $scope.actual.nick);
+                $cookieStore.put('codigo', $scope.actual.codigo);
 
-                $scope.nickName = $scope.actuales[0].nick;
-                $scope.loginOut = "Salir";
+                //Se inicializa la aplicacion
+                $scope.inicializar();
+                $location.path('/partials/inicio.html');
 
 
-                //actualizamos servicio de la factory
-                MyService.newObject($scope.actual.codigo, $scope.actual.correo, $scope.actual.nick, $scope.actual.tipousuario_id);
-                $scope.session = MyService.object;
-
-                //$scope.showMessage("Guardado",true);
-            	$scope.btnSesion = false; //ocultar formulario de session
             });
             
         }else{
@@ -96,7 +127,20 @@ angularRoutingApp.controller('main', function($scope, $http, MyService) {  //MyS
 
     }
 
-    $scope.closeSesion = function()
+    $scope.closeSession = function()
+    {
+        //Eliminamos las coockies
+        $cookieStore.remove('tipo');
+        $cookieStore.remove('userName');
+        $cookieStore.remove('codigo');
+
+        $location.path('/partials/inicio.html');
+
+        $scope.clean();
+        $scope.inicializar();
+    }
+
+    $scope.clean = function()
     {
         $scope.actual = {};
         $scope.actual.codigo= "";
@@ -108,13 +152,32 @@ angularRoutingApp.controller('main', function($scope, $http, MyService) {  //MyS
         $scope.actual.correo = "";
         $scope.actual.telefono = "";
         $scope.actual.tipousuario_id = "";
-        
-        $scope.nickName= "Registrar";
-
-        //limpiamos el servicio de la factory
-        MyService.iniciar();
-        $scope.session = MyService.object;
     }
 
+    $scope.showMessage = function(show, message, type)
+    {
+       $scope.showMsg = show;
+       $scope.message = message;
+
+       if (type == 1) {     //bien - verde
+            $scope.typeMsg = 'success';
+       }else if (type == 2) //atento - azul
+       {
+            $scope.typeMsg = 'info';
+       }else if (type == 3) //cuidado - amarrillo
+       {
+            $scope.typeMsg = 'warning';
+       }else if(type == 4){               //Error - rojo
+            $scope.typeMsg = 'danger';
+       }
+    }
+
+    $scope.hideMessage = function()
+    {
+        $scope.showMsg = false;
+        $scope.typeMsg = '';
+        $scope.message = '';
+
+    }
 
 });

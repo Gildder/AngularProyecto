@@ -1,7 +1,7 @@
 'use strict'
 angular.module('angularRoutingApp')
 .controller('ofertados', function($scope, $http) {
-    $scope.titulo = 'Servicios';
+    $scope.titulo = 'Servicios ofertados';
     $scope.currentPage = 0;     //pagina actual
     $scope.pageSize = 4;        //numero registros
     $scope.pages = [];          //guardar numeros de paginas
@@ -45,6 +45,14 @@ angular.module('angularRoutingApp')
 
     $scope.seleccionar = function(codigo)
     {
+        
+        if ($scope.isConect == 0) 
+        {
+            $scope.showMessage(true,'Por favor, Entra como usuario para poder realizar una reservacion.', 2);
+        }else{
+            $scope.hideMessage();
+        }
+
         $scope.btnReserve = true;
 
         var url = "php/get_servicio.php?codigo=" + codigo;
@@ -57,9 +65,6 @@ angular.module('angularRoutingApp')
         });
     }
 
-        //1 validas campos vacios
-        //2 validar servicios disponibles por fecha
-        //3 guardar servicio
     $scope.save = function()
     {
         alert($scope.actual.id);
@@ -72,6 +77,12 @@ angular.module('angularRoutingApp')
             $scope.isBtnNew(true);
             $scope.clean();
         });
+    }
+
+    $scope.cancel = function()
+    {
+        $scope.btnReserve = false;
+        $scope.hideMessage();
     }
 
 
@@ -133,17 +144,6 @@ angular.module('angularRoutingApp')
     $scope.setPage = function(index)
     {
         $scope.currentPage = index - 1;
-    }
-
-    $scope.showMessage = function(action, state)
-    {
-        if (state == true) {       //muestra mensaje
-            $scope.message = false;
-        } else{                     //oculta mensaje
-            $scope.message = true;
-        };
-
-        $scope.operation = action;
     }
 
 });
