@@ -1,13 +1,16 @@
 'use strict'
-
 angular.module('angularRoutingApp')
-.controller('usuario', function($scope, $http) {
-    $scope.titulo = 'Usuarios';
-
-     //variables para controlar el numero de elemntos de la tabla
+.controller('ofertados', function($scope, $http) {
+    $scope.titulo = 'Servicios';
     $scope.currentPage = 0;     //pagina actual
     $scope.pageSize = 4;        //numero registros
     $scope.pages = [];          //guardar numeros de paginas
+
+    $scope.actual = {};
+    $scope.actual.codigo= "";
+    $scope.actual.nombre= "";
+    $scope.actual.descripcion = "";
+    $scope.actual.estado = "";
 
     //campos para gestionar botones
     $scope.btnNew = true;
@@ -17,60 +20,40 @@ angular.module('angularRoutingApp')
     $scope.message = false;
     $scope.operation = '';
     
-    $scope.users = [];
+    $scope.services = [];
 
-    $scope.actual = {};
-    $scope.actual.codigo= "";
-    $scope.actual.ci = "";
-    $scope.actual.tipousuario = "";
-    $scope.actual.nombre= "";
-    $scope.actual.apellido = "";
-    $scope.actual.correo = "";
-    $scope.actual.telefono = "";
 
-    //tipo usuario
-    $scope.getTipoUsuario = function()
+    $scope.getServices = function()
     {
-        var url = "../AngularProyecto/php/tipousuarios.php";
+        var url = "../AngularProyecto/php/servicios_ofertados.php";
         $http.get(url).success(function(response)   //funcoin http
         {
-            $scope.tipousuarios = response;
-        });
-    }
-
-    $scope.getUsers = function()
-    {
-        var url = "../AngularProyecto/php/usuarios.php";
-        $http.get(url).success(function(response)   //funcoin http
-        {
-            $scope.users = response;
+            $scope.services = response;
             $scope.sizeTable();
-            
         });
     }
 
-
+    
     $scope.save = function()
     {
 
         if ($scope.btnUpdate == 'false') 
         {
-            var url = "../AngularProyecto/php/insert_usuario.php";
-            $http.post(url,{'ci':$scope.actual.ci,'tipousuario':$scope.actual.tipousuario, 'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono}).success(function(data, status, headers, config)
+            var url = "../AngularProyecto/php/php/insert_servicio.php";
+            $http.post(url,{'nombre':$scope.actual.nombre, 'descripcion':$scope.actual.descripcion}).success(function(data, status, headers, config)
             {
-                $scope.getUsuarios();
+                $scope.getServices();
                 $scope.showMessage("Guardado",true);
                 $scope.isBtnNew(true);
                 $scope.clean();
             });
 
         } else{
-            var url = "../AngularProyecto/php/update_usuario.php";
-            $http.post(url,{'codigo':$scope.actual.codigo, 'ci':$scope.actual.ci,'tipousuario':$scope.actual.tipousuario, 
-                            'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 
-                            'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono}).success(function(data, status, headers, config)
+            var url = "../AngularProyecto/php/php/update_servicio.php";
+            $http.post(url,{'codigo':$scope.actual.codigo, 'nombre':$scope.actual.nombre, 
+                            'descripcion':$scope.actual.descripcion}).success(function(data, status, headers, config)
             {
-                $scope.getUsuarios();
+                $scope.getServices();
                 $scope.showMessage("Modificado",true);
                 $scope.isBtnNew(true);
                 $scope.clean();
@@ -82,30 +65,28 @@ angular.module('angularRoutingApp')
     {
         $scope.isBtnNew(true);
 
-        var url = "../AngularProyecto/php/get_usuario.php?codigo=" + codigo;
+        var url = "php/get_servicio.php?codigo=" + codigo;
         $http.get(url).success(function(response)
         {
+
             $scope.actuales = response;
             $scope.actual.codigo = $scope.actuales[0].codigo;
-            $scope.actual.ci = $scope.actuales[0].ci;
-            $scope.actual.tipousuario = $scope.actuales[0].tipousuario;
             $scope.actual.nombre = $scope.actuales[0].nombre;
-            $scope.actual.apellido = $scope.actuales[0].apellido;
-            $scope.actual.correo = $scope.actuales[0].correo;
-            $scope.actual.telefono = $scope.actuales[0].telefono;
+            $scope.actual.descripcion = $scope.actuales[0].descripcion;
+            
         });
     }
 
-    $scope.delete = function(codigo)
+     $scope.delete = function(codigo)
     {
-        if (!confirm("Realmente quieres elimnar este registro " + codigo + " ?")) {
+         if (!confirm("Realmente quieres elimnar este registro " + codigo + " ?")) {
             return;
         };
 
-        var url = "../AngularProyecto/php/delete_usuario.php?codigo=" + codigo;
+        var url = "../AngularProyecto/php/php/delete_servicio.php?codigo=" + codigo;
         $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
         {
-            $scope.getUsuarios();
+            $scope.getServices();
             $scope.showMessage("Eliminado",true);
         });
     }
@@ -113,13 +94,8 @@ angular.module('angularRoutingApp')
     $scope.clean = function()
     {
         $scope.actual = {};
-        $scope.actual.codigo= "";
-        $scope.actual.ci = "";
-        $scope.actual.tipousuario = "";
         $scope.actual.nombre= "";
-        $scope.actual.apellido = "";
-        $scope.actual.correo = "";
-        $scope.actual.telefono = "";
+        $scope.actual.descripcion = "";
     }
 
     $scope.sizeTable = function (){
@@ -129,21 +105,21 @@ angular.module('angularRoutingApp')
         if(ini < 1)
         {
             ini = 1;
-            if(Math.ceil($scope.users.length / $scope.pageSize) > 5)
+            if(Math.ceil($scope.services.length / $scope.pageSize) > 5)
             {
                 fin = 5;
             }
             else
             {
-                fin = Math.ceil($scope.users.length / $scope.pageSize);
+                fin = Math.ceil($scope.services.length / $scope.pageSize);
             }
         }
         else
         {
-            if (ini >= Math.ceil($scope.users.length / $scope.pageSize) - 5)
+            if (ini >= Math.ceil($scope.services.length / $scope.pageSize) - 5)
             {
-                ini =  Math.ceil($scope.users.length / $scope.pageSize) - 5;
-                fin =  Math.ceil($scope.users.length / $scope.pageSize);
+                ini =  Math.ceil($scope.services.length / $scope.pageSize) - 5;
+                fin =  Math.ceil($scope.services.length / $scope.pageSize);
             }
         }       
 

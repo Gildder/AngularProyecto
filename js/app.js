@@ -21,6 +21,10 @@ angularRoutingApp.config(function($routeProvider) {
             templateUrl : 'partials/reserva.html',
             controller  : 'reserva'
         })
+        .when('/servicios', {
+            templateUrl : 'partials/ofertados.html',
+            controller  : 'ofertados'
+        })
         .otherwise({
             redirectTo: '/'
         });

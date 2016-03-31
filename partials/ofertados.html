@@ -1,4 +1,4 @@
-<div class="col-sm-12" ng-controller="servicio">
+<div class="col-sm-12" ng-controller="ofertados">
 	<div class="page-header">
 		<div class="alert alert-success alert-dismissable"  ng-show="message == true">
 			<button type="button" class="close" data-dismiss="alert" ng-click="showMessage('ningun',false)">&times;</button>
@@ -6,12 +6,6 @@
 		</div>
 
 		<h2 class="subtitulo">{{titulo}}</h2>
-		<!--Botones de accion-->
-		<div class="pull-right">
-			<button type="button" class="btn btn-primary btn-sm" ng-show="btnNew == true"  ng-click="isBtnNew(true)"><span class="glyphicon glyphicon-plus"> Nuevo</span></button>
-			<button type="button" class="btn btn-success btn-sm" ng-show="btnSave == true || btnUpdate == true" ng-click="save()"><span class="glyphicon glyphicon-ok"> Guardar</span></button>
-			<button type="button" class="btn btn-danger btn-sm" ng-show="btnSave == true || btnUpdate == true" ng-click="isBtnNew(false)"><span class="glyphicon glyphicon-remove"> Cancelar</span></button>
-		</div>
 	</div>
 	<br>	
 	<!--Panel registro-->
@@ -57,7 +51,6 @@
 						<th>Codigo</th>
 						<th>Nombre</th>
 						<th>Descripcion</th>
-						<th>Estado</th>
 						<th>Controles</th>
 					</tr>
 				</thead>
@@ -66,11 +59,9 @@
 						<td>{{service.codigo}}</td>
 						<td>{{service.nombre | uppercase}}</td>
 						<td>{{service.descripcion | uppercase}}</td>
-						<td>{{service.estado}}</td>
 						<td>
 							<div class="btn-group btn-group-sm">
-								<button type="button" class="btn btn-warning btn-small" ng-click="update(service.codigo)"><span class="glyphicon glyphicon-pencil"></span></button>
-								<button type="button" class="btn btn-danger btn-small"  ng-click="delete(service.codigo)"><span class="glyphicon glyphicon-remove"></span></button>
+								<button type="button" class="btn btn-primary btn-small" ng-click="update(service.codigo)"><span class="glyphicon glyphicon-edit"></span> Reservar</button>
 		    				</div>
 						</td>
 					</tr>

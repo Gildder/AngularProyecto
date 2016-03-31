@@ -10,6 +10,7 @@ angular.module('angularRoutingApp')
     $scope.actual.codigo= "";
     $scope.actual.nombre= "";
     $scope.actual.descripcion = "";
+    $scope.actual.estado = "";
 
     //campos para gestionar botones
     $scope.btnNew = true;

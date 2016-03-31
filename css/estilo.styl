@@ -1,5 +1,6 @@
 azul = #22BCE0
 naranja = #DD4F24
+rojo_claro = #EC776E
 gris_texto = #7A7A7A
 gris_oscuro = #444
 gris_claro = lighten(gris_oscuro,40%)
@@ -52,6 +53,32 @@ header
 			margin 0
 			padding 0
 	
+		.nick
+			background naranja
+			border-radius  0 5px 10px 0 
+			color white
+			font-weight bold
+			padding 0.3em 0.4em
+			position absolute
+			right 10px
+			text-decoration none
+			text-shadow 1px 1px 0px black
+			top 20px
+			z-index 2
+		
+		.registrar
+			border-radius 5px 0 0  10px
+			color white
+			font-weight bold
+			padding 0.3em 0.4em
+			position absolute
+			right 82px
+			text-decoration none
+			text-shadow 1px 1px 0px black
+			top 20px
+			z-index 2
+			
+				
 	.logo 
 		display inline-block
 		border 0px dashed invert(gris_oscuro)
@@ -65,40 +92,18 @@ header
 				border-radius 50%
 				width 52px
 		
-	.usuario
-		float right
-			
-		.avatar
-			border 0px dashed invert(gris_oscuro)
-			border-radius 50%
-			height 50px
-			width 50px
-			right 30px
-		
-
 nav
 	background gris_oscuro
 
-	.menu
-		line-height 40px
-		margin 0
-		padding 0
-		overflow-x auto
-
+	ul
 		li
-			display inline-block
-
-			a
-				color white
-				display block
-				margin 0 0.5em
-				padding 0 0.2em
-				text-decoration none
-
-				&:hover
-					background rgba(black,0.1)			
-.navbar
-	margin-bottom 5px
+			
+			&:hover
+				background black	
+				font-weight bold
+				color azul		
+	.navbar
+		margin-bottom 5px
 						
 
 section
@@ -131,7 +136,15 @@ section
 	.page-header
 		margin-top 20px
 		margin-bottom 0px
+	
+	.inicio
+		background white
+		padding 10px
 		
+		.content
+			height 100%
+	.row
+		padding 10px
 
 		
 		

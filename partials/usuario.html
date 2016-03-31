@@ -16,9 +16,18 @@
 	<br>
 	<!--Panel registro-->
 	<div class="col-sm-12 panel-default" ng-show="btnSave == true || btnUpdate == true">
-		<div class="col-sm-7">
+		<div class="col-sm-6">
 			<label for="ci" >Cedula identidad: </label>
 			<input type="text" placeholder="Introduce Cedula" class="form-control" name="ci" ng-model="actual.ci"><br>
+		</div>
+
+		<div class="col-sm-6" ng-init="getTipoUsuario()"  >
+			<label for="tipo">Tipo usuario:</label>
+			<select ng-model="actual.tipousuario" class="form-control"
+			    ng-options="value.id as value.nombre for value in tipousuarios">
+			    <option>--</option>
+			</select>
+			<br>
 		</div>
 
 		<div class="col-sm-6">
