@@ -17,7 +17,7 @@
   	<script src="lib/angular-route/angular-route.js"></script>
   	<script src="js/common/locale_es-es.js"></script>
 </head>
-<body ng-controller='main' ng-cloack>
+<body ng-controller='main' ng-cloack  ng-init="iniSession()">
 		
 	<header>
 		<div class="logo">
@@ -27,8 +27,8 @@
 		</div>
 		<div class="titular">
 			<h1 class="titulo">URBARÍ</h1>
-			<a href="" ng-show="true" ng-click="seeSesion()" class="nick"><span class="glyphicon glyphicon-ok"></span> Entrar</a>
-			<a href="" ng-show="true" ng-click="seeRegister()" class="registrar btn-success"><span class="glyphicon glyphicon-ok"></span> Registrar</a>
+			<a href="" ng-show="true" ng-click="seeRegister()" class="nick"><span class="glyphicon glyphicon-log-out"></span> {{loginOut}}</a>
+			<a href="" ng-show="true" ng-click="seeSesion()" class="registrar btn-success"><span class="glyphicon glyphicon-log-in"></span> {{nickName}}</a>
 		</div>
 	</header>
 
@@ -56,8 +56,10 @@
 	</nav>
 
 	<section>
+		<!-- Aquí incluimos las vistas registrar y session  -->
 		<div class="row" ng-include src=" 'partials/registrar.html' " ng-show="btnRegister == true"></div>
 		<div class="row" ng-include src=" 'partials/session.html' "   ng-show="btnSesion == true"></div>
+
 		<!-- Aquí inyectamos las vistas -->
 		<div ng-view>
 		</div>
@@ -76,6 +78,7 @@
     <script src="js/controllers/reserva.js"></script>
     <script src="js/controllers/ofertados.js"></script>
     <script src="js/controllers/main.js"></script>
+    <script src="js/services/session.js"></script>
   	<script>window.jQuery || document.write('<script src="lib/jquery/js/jquery.min.js"><\/script>')</script>
   	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 </body>

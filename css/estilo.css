@@ -50,7 +50,7 @@ header .nick {
   font-weight: bold;
   padding: 0.3em 0.4em;
   position: absolute;
-  right: 10px;
+  right: 8px;
   text-decoration: none;
   text-shadow: 1px 1px 0px #000;
   top: 20px;
@@ -62,7 +62,7 @@ header .registrar {
   font-weight: bold;
   padding: 0.3em 0.4em;
   position: absolute;
-  right: 82px;
+  right: 100px;
   text-decoration: none;
   text-shadow: 1px 1px 0px #000;
   top: 20px;

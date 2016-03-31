@@ -1,27 +1,18 @@
 <?php
-	$data = json_decode(file_get_contents("php://input"));
-	$nick = $data->nick;
-	$contrasenia = $data->contrasenia;
-
 	include('conexion.php');
+
 	$con = conexion();
+	
+	$nick = $_GET["nick"];
+	$contrasenia = $_GET["contrasenia"];
 
-	$sql="SELECT * FROM usuario WHERE nick = '".$codigo."' AND contrasenia = '".$contrasenia."'";
+	$resultado = $con->query("SELECT * FROM usuario WHERE nick = '".$nick."' AND contrasenia = '".$contrasenia."' AND estado = '1'");
 
-	$resultado = $con->query($sql);
 	$datos = array();
 
-	if ($resultado===true) {
-		echo "INICIO CON EXITO!!";
-
-
-		while ($row = $resultado->fetch_assoc()) {
-			$datos[] =  $row;
-		}
-
-		echo json_encode($datos);
-		
-	} else {
-		echo "Error de SESSION";
+	while ($row = $resultado->fetch_assoc()) {
+		$datos[] =  $row;
 	}
+	echo json_encode($datos);
+
 ?>
