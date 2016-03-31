@@ -30,6 +30,11 @@ angularRoutingApp.config(function($routeProvider) {
         });
 });
 
+angularRoutingApp.config(function($controllerProvider)
+{
+    $controllerProvider.allowGlobals();
+});
+
 angularRoutingApp.filter('startFromGrid', function() 
 {
     return function(input, start) 

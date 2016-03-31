@@ -8,22 +8,32 @@ angular.module('angularRoutingApp')
 
     $scope.actual = {};
     $scope.actual.codigo= "";
-    $scope.actual.nombre= "";
-    $scope.actual.descripcion = "";
+    $scope.actual.usuario= "";
+    $scope.actual.servicio = "";
+    $scope.actual.fechaInicio = "";
+    $scope.actual.hora = "";
     $scope.actual.estado = "";
+    $scope.actual.motivo = "";
+    $scope.actual.servicio = "";
 
     //campos para gestionar botones
-    $scope.btnNew = true;
-    $scope.btnUpdate = false;
-    $scope.btnDelete = false;
-    $scope.btnSave = false;
+    $scope.btnReserve = false;
     $scope.message = false;
     $scope.operation = '';
     
     $scope.services = [];
 
+    //cargar combo de servicios
+    $scope.getServicios = function()
+    {
+        var url = "../AngularProyecto/php/servicios.php";
+        $http.get(url).success(function(response)   //funcoin http
+        {
+            $scope.servicios = response;
+        });
+    }
 
-    $scope.getServices = function()
+    $scope.getServicesOfertados = function()
     {
         var url = "../AngularProyecto/php/servicios_ofertados.php";
         $http.get(url).success(function(response)   //funcoin http
@@ -33,69 +43,46 @@ angular.module('angularRoutingApp')
         });
     }
 
-    
-    $scope.save = function()
+    $scope.seleccionar = function(codigo)
     {
-
-        if ($scope.btnUpdate == 'false') 
-        {
-            var url = "../AngularProyecto/php/php/insert_servicio.php";
-            $http.post(url,{'nombre':$scope.actual.nombre, 'descripcion':$scope.actual.descripcion}).success(function(data, status, headers, config)
-            {
-                $scope.getServices();
-                $scope.showMessage("Guardado",true);
-                $scope.isBtnNew(true);
-                $scope.clean();
-            });
-
-        } else{
-            var url = "../AngularProyecto/php/php/update_servicio.php";
-            $http.post(url,{'codigo':$scope.actual.codigo, 'nombre':$scope.actual.nombre, 
-                            'descripcion':$scope.actual.descripcion}).success(function(data, status, headers, config)
-            {
-                $scope.getServices();
-                $scope.showMessage("Modificado",true);
-                $scope.isBtnNew(true);
-                $scope.clean();
-            });            
-        };
-    }
-
-    $scope.update = function(codigo)
-    {
-        $scope.isBtnNew(true);
+        $scope.btnReserve = true;
 
         var url = "php/get_servicio.php?codigo=" + codigo;
         $http.get(url).success(function(response)
         {
 
             $scope.actuales = response;
-            $scope.actual.codigo = $scope.actuales[0].codigo;
-            $scope.actual.nombre = $scope.actuales[0].nombre;
-            $scope.actual.descripcion = $scope.actuales[0].descripcion;
+            $scope.actual.servicio = $scope.actuales[0].codigo;
             
         });
     }
 
-     $scope.delete = function(codigo)
+        //1 validas campos vacios
+        //2 validar servicios disponibles por fecha
+        //3 guardar servicio
+    $scope.save = function()
     {
-         if (!confirm("Realmente quieres elimnar este registro " + codigo + " ?")) {
-            return;
-        };
-
-        var url = "../AngularProyecto/php/php/delete_servicio.php?codigo=" + codigo;
-        $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
+        alert($scope.actual.id);
+        return;
+        var url = "../AngularProyecto/php/insert_reserva.php";
+        $http.post(url,{'fechaInicio':$scope.actual.fechaInicio, 'usuario':$scope.actual.usuario, 'servicio':$scope.actual.servicio, 'hora':$scope.actual.hora, 'motivo':$scope.actual.motivo}).success(function(data, status, headers, config)
         {
-            $scope.getServices();
-            $scope.showMessage("Eliminado",true);
+            $scope.getReservas();
+            $scope.showMessage("Guardado",true);
+            $scope.isBtnNew(true);
+            $scope.clean();
         });
     }
+
 
     $scope.clean = function()
     {
         $scope.actual = {};
+        $scope.actual.codigo= "";
         $scope.actual.nombre= "";
         $scope.actual.descripcion = "";
+        $scope.actual.estado = "";
+        $scope.actual.servicio = "";
     }
 
     $scope.sizeTable = function (){
@@ -146,21 +133,6 @@ angular.module('angularRoutingApp')
     $scope.setPage = function(index)
     {
         $scope.currentPage = index - 1;
-    }
-
-
-    $scope.isBtnNew = function(state)
-    {
-        if (state == true)       //activa boton nuevo
-        {   
-            $scope.btnNew = false;
-            $scope.btnSave = true;
-            $scope.btnCancelar = true;
-        }else{                   //desactiva boton nuevo
-            $scope.btnNew  = true;
-            $scope.btnSave = false;
-            $scope.btnUpdate = false;
-        }
     }
 
     $scope.showMessage = function(action, state)

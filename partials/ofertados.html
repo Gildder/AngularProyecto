@@ -6,37 +6,55 @@
 		</div>
 
 		<h2 class="subtitulo">{{titulo}}</h2>
+		<!--Botones de accion-->
+		<div class="pull-right"  ng-show="btnReserve == true">
+			<button type="button" class="btn btn-success btn-sm" ng-show="btnReserve == true" ng-click="save()"><span class="glyphicon glyphicon-ok"> Reservar</span></button>
+			<button type="button" class="btn btn-danger btn-sm" ng-show="btnReserve == true" ng-click="btnReserve = false"><span class="glyphicon glyphicon-remove"> Cancelar</span></button>
+		</div>
 	</div>
 	<br>	
 	<!--Panel registro-->
-	<div class="col-sm-12 panel-default" ng-show="btnSave == true || btnUpdate == true">
-		
-		<div class="col-sm-6">
-			<label for="codigo" >Codigo: </label>
-			<input type="text" placeholder="Codigo" class="form-control" name="codigo" ng-model="actual.codigo"><br>
+	<div class="col-sm-12 panel-default" ng-show="btnReserve == true">
+		<br><div class="col-sm-12">
+			<p class="col-sm-12">Para realizar la reserva del servicio llene todos los campos del siguiente formulario. </p>
+		</div><hr>
+		<div class="col-sm-5" ng-init="getServicios()"  >
+			<label for="servicio">Servicios:</label>
+			<select ng-model="actual.servicio" class="form-control"
+			    ng-options="value.codigo as value.nombre for value in servicios">
+			    <option>--</option>
+			</select>
+			<br>
+		</div>
+		<div class="col-sm-3">
+			<label for="fechaInicio" >Fecha: </label>
+			<input type="date"  class="form-control" name="fechaInicio" ng-model="actual.fechaInicio" placeholder="Selecciona una fecha">
 		</div>
 
 		<div class="col-sm-3">
-			<label for="horaInicio" >Estado:</label>
-			<select class="form-control" ng-model="actual.estado" name="{{actual.estado}}">
-			  <option>Habilitado</option>
-			  <option>Desabilitado</option>
+			<label for="horaInicio" >Hora:</label>
+			<select class="form-control" ng-model="actual.hora" name="{{actual.hora}}">
+			  <option>6:00 - 7:00</option>
+			  <option>7:00 - 8:00</option>
+			  <option>8:00 - 9:00</option>
+			  <option>9:00 - 10:00</option>
+			  <option>10:00 - 11:00</option>
+			  <option>11:00 - 12:00</option>
+			  <option>12:00 - 13:00</option>
+			  <option>13:00 - 14:00</option>
+			  <option>14:00 - 15:00</option>
+			  <option>15:00 - 16:00</option>
+			  <option>16:00 - 17:00</option>
 			</select><br>
 		</div>
-		
-		<div class="col-sm-7">
-			<label for="nombre" >Nombre: </label>
-			<input type="text" placeholder="Introduce tu nombre" class="form-control" name="codigo" ng-model="actual.nombre"><br>
-		</div>
-		
-		<div class="col-sm-7">
-			<label for="descripcion" >Descripcion:</label>
-			<textarea maxlength="150" name="descripcion" placeholder="Introduzca una descripcion" class="form-control" ng-model="actual.descripcion"></textarea>
+		<div class="col-sm-12">
+			<label for="motivo" >Motivo:</label>
+			<textarea maxlength="150" name="motivo" class="form-control" ng-model="actual.motivo" placeholder="Introduzca un motivo"></textarea>
 		</div>
 	</div>
 
 	<!--Tablas-->
-	<div class="panel" ng-show="btnNew  == true">
+	<div class="panel" ng-show="btnReserve  == false">
 		<!--boton de busqueda-->
 		<div class="panel-heading">
 			<div class="input-group">
@@ -45,7 +63,7 @@
 			</div>
 		</div>
 		<div class="table-responsive">
-			<table class="table table-hover table-condensed table-striped" ng-init="getServices()">
+			<table class="table table-hover table-condensed table-striped" ng-init="getServicesOfertados()">
 				<thead>
 					<tr>
 						<th>Codigo</th>
@@ -61,7 +79,7 @@
 						<td>{{service.descripcion | uppercase}}</td>
 						<td>
 							<div class="btn-group btn-group-sm">
-								<button type="button" class="btn btn-primary btn-small" ng-click="update(service.codigo)"><span class="glyphicon glyphicon-edit"></span> Reservar</button>
+								<button type="button" class="btn btn-primary btn-small" ng-click="seleccionar(service.codigo)"><span class="glyphicon glyphicon-edit"></span> Seleccionar</button>
 		    				</div>
 						</td>
 					</tr>
