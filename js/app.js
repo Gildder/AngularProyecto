@@ -21,10 +21,6 @@ angularRoutingApp.config(function($routeProvider) {
             templateUrl : 'partials/reserva.html',
             controller  : 'reserva'
         })
-        .when('/reserva', {
-            templateUrl : 'partials/reservas.html',
-            controller  : 'misreservas'
-        })
         .when('/servicios', {
             templateUrl : 'partials/ofertados.html',
             controller  : 'ofertados'

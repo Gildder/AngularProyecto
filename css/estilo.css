@@ -1,5 +1,11 @@
+html {
+  height: 100%;
+  width: 100%;
+}
 body {
   background: #e8e8e8;
+  height: 100%;
+  width: 100%;
 }
 body input {
   border-left: 1px solid #22bce0;
@@ -11,7 +17,8 @@ footer {
   padding: 1em 0;
   text-align: center;
   width: 100%;
-  bottom: 0;
+  position: relative;
+  botton: 0px;
 }
 footer h3 {
   font-size: 14px;
@@ -83,54 +90,62 @@ header .logo figure img {
 }
 nav {
   background: #444;
+  margin-bottom: 10px;
+}
+nav .navbar {
+  margin-bottom: 10px;
 }
 nav ul li:hover {
   background: #000;
   font-weight: bold;
   color: #22bce0;
 }
-nav .navbar {
-  margin-bottom: 5px;
+section .container {
+  margin: 0;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
 }
-section {
-  padding: 0;
-}
-section .subtitulo {
+section .container .subtitulo {
   display: inline-block;
   margin: 0 0 5px 0;
 }
-section .input-group {
+section .container .input-group {
   width: 100%;
 }
-section .panel {
-  padding: 10px;
-  border-radius: 10px;
-  height: 320px;
-}
-section .panel .table {
-  height: 160px;
-}
-section .panel-default {
+section .container .register {
   background: #fff;
-  padding: 10px 0 10px 0;
+  padding: 10px;
   border-radius: 5px;
   margin: 10px 0 10px 0;
+  margin-bottom: 10px;
 }
-section .navegacion {
+section .container .panel {
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff;
+  height: 400px;
+}
+section .container .navegacion {
   text-align: center;
 }
-section .page-header {
+section .container .page-header {
   margin-top: 20px;
   margin-bottom: 0px;
 }
-section .inicio {
+section .container .inicio {
   background: #fff;
-  padding: 10px;
+  padding: 0;
+  margin: 0;
 }
-section .inicio .content {
+section .container .ng-scope .content {
   height: 100%;
+  position: relative;
+  top: 0%;
+  left: 0%;
+  padding: 1%;
 }
-section .row {
+section .container .row {
   padding: 10px;
 }
 @media (max-width: 768px) and (min-width: 540px) {
@@ -144,7 +159,7 @@ section .row {
     width: 70%;
   }
   section .panel {
-    height: 320px;
+    height: 400px;
   }
 }
 @media screen and (min-width: 768px) {
@@ -157,11 +172,7 @@ section .row {
   section .input-group {
     width: 50%;
   }
-  section .panel-default {
-    height: 300px;
-  }
-  footer {
-    position: absolute;
-    bottom: 0px;
+  section .panel {
+    height: 340px;
   }
 }

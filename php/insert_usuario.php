@@ -6,12 +6,14 @@
 	$apellido = $data->apellido;
 	$correo = $data->correo;
 	$telefono = $data->telefono;
+	$nick = $data->nick;
+	$contrasenia = $data->contrasenia;
 
 	include('conexion.php');
 	$con = conexion();
 
-	$sql="INSERT INTO `usuario`(`ci`,`tipousuario_id`, `nombre`, `apellido`, `correo`, `telefono`) ".
-		" VALUES ('" . $ci . "', '" . $tipousuario. "', '" . $nombre. "','" . $apellido. "', '" . $correo . "','" . $telefono. "')";
+	$sql="INSERT INTO `usuario`(`ci`,`tipousuario_id`, `nombre`, `apellido`, `correo`, `telefono`, `nick`, `contrasenia`) ".
+		" VALUES ('" . $ci . "', '" . $tipousuario. "', ucwords('" . $nombre. "'), ucwords('" . $apellido. "'), strtolower('" . $correo . "'),'".$nick. "', md5('" .$contrasenia. "'), '" . $telefono. "')";
 
 	$resultado = $con->query($sql);
 	

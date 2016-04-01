@@ -10,7 +10,7 @@
 	</div>
 	<br>
 	<!--Panel registro-->
-	<div class="col-sm-12 panel-default" ng-show="btnSave == true || btnUpdate == true">
+	<div class="register container" ng-show="btnSave == true || btnUpdate == true">
 		<div class="col-sm-6">
 			<label for="ci" >Cedula identidad: </label>
 			<input type="text" placeholder="Introduce Cedula" class="form-control" name="ci" ng-model="actual.ci"><br>
@@ -44,12 +44,11 @@
 			<label for="correo" >Telefono: </label>
 			<input type="text" placeholder="Numero telefonico" class="form-control" name="telefono" ng-model="actual.telefono"><br>
 		</div>
-
-
 	</div>
+	
 
 	<!--Tablas-->
-	<div class="panel" ng-show="btnNew  == true">
+	<div class="panel" ng-show="true">
 		<!--Boton de busqueda-->
 		<div class="panel-heading">
 			<div class="input-group">
@@ -58,7 +57,6 @@
 			</div>
 		</div>
 		<div class="table-responsive">
-				
 			<table class="table table-hover table-condensed table-striped" ng-init="getUsers()">
 				<thead>
 					<tr>
@@ -82,7 +80,7 @@
 						<td>
 							<div class="btn-group btn-group-sm">
 								<button type="button" class="btn btn-warning btn-small" ng-click="update(user.codigo)"><span class="glyphicon glyphicon-pencil"></span></button>
-								<button type="button" class="btn btn-danger btn-small"  ng-click="delete(user.codigo)"><span class="glyphicon glyphicon-remove"></span></button>
+								<button type="button" class="btn btn-danger btn-small"  ng-click="delete(user.codigo)"><span class="glyphicon glyphicon-trash"></span></button>
 			    			</div>
 						</td>
 					</tr>
@@ -95,7 +93,5 @@
 			<button class="pagination" type="button" ng-disabled = "currentPage == page.no - 1" ng-click="setPage(page.no)" ng-repeat="page in pages">{{page.no}}</button>
 			<button class="pagination pagination-sm" type="button" ng-disabled = "currentPage >= users.length/pageSize - 1" ng-click="currentPage = currentPage + 1">&raquo;</button>
 		</div>
-		  
-
 	</div>
 </div>

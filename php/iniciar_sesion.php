@@ -3,10 +3,10 @@
 
 	$con = conexion();
 	
-	$nick = $_GET["nick"];
+	$correo = $_GET["correo"];
 	$contrasenia = $_GET["contrasenia"];
 
-	$resultado = $con->query("SELECT * FROM usuario WHERE nick = '".$nick."' AND contrasenia = '".$contrasenia."' AND estado = '1'");
+	$resultado = $con->query("SELECT * FROM usuario WHERE correo = 'strtolower('".$correo."') AND contrasenia = md5('".$contrasenia."') AND estado = '1'");
 
 	$datos = array();
 

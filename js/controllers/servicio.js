@@ -34,9 +34,13 @@ angular.module('angularRoutingApp')
     
     $scope.save = function()
     {
-
         if ($scope.btnUpdate == 'false') 
         {
+            if ($scope.validar()==false) {
+                $scope.showMessage(true,'Por favor, Llene todos los campos del formulario.', 3);
+                return;
+            };
+
             var url = "../AngularProyecto/php/php/insert_servicio.php";
             $http.post(url,{'nombre':$scope.actual.nombre, 'descripcion':$scope.actual.descripcion}).success(function(data, status, headers, config)
             {
@@ -87,6 +91,15 @@ angular.module('angularRoutingApp')
             $scope.getServices();
             $scope.showMessage("Eliminado",true);
         });
+    }
+
+    $scope.validar = function()
+    {
+        if ($scope.nombre =="" || $scope.descripcion =="") {
+            return false;
+        }else{
+            return true;
+        }
     }
 
     $scope.clean = function()

@@ -14,7 +14,6 @@ angular.module('angularRoutingApp')
     $scope.actual.hora = "";
     $scope.actual.estado = "";
     $scope.actual.motivo = "";
-    $scope.actual.servicio = "";
 
     //campos para gestionar botones
     $scope.btnReserve = false;
@@ -67,8 +66,10 @@ angular.module('angularRoutingApp')
 
     $scope.save = function()
     {
-        alert($scope.actual.id);
-        return;
+        if ($scope.validar()==false) {
+            return;
+        }
+        
         var url = "../AngularProyecto/php/insert_reserva.php";
         $http.post(url,{'fechaInicio':$scope.actual.fechaInicio, 'usuario':$scope.actual.usuario, 'servicio':$scope.actual.servicio, 'hora':$scope.actual.hora, 'motivo':$scope.actual.motivo}).success(function(data, status, headers, config)
         {

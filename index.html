@@ -57,19 +57,20 @@
 	</nav>
 
 	<section>
-		
-		<!-- Mensaje de alerta -->
-		<div class="alert alert-{{typeMsg}} alert-dismissable"  ng-show="showMsg == true">
-			<button type="button" class="close" data-dismiss="alert" ng-click="showMessage(false,'',0)">&times;</button>
-			<b>{{typeMsg}}:</b> {{message}}
-		</div>
+		<div class="container">
+			<!-- Mensaje de alerta -->
+			<div class="alert alert-{{typeMsg}} alert-dismissable"  ng-show="showMsg == true">
+				<button type="button" class="close" data-dismiss="alert" ng-click="showMessage(false,'',0)">&times;</button>
+				<b>{{typeMsg}}:</b> {{message}}
+			</div>
 
-		<!-- Aquí incluimos las vistas registrar y session  -->
-		<div class="row" ng-include src=" 'partials/registrar.html' " ng-show="btnRegister == true"></div>
-		<div class="row" ng-include src=" 'partials/session.html' "   ng-show="btnSesion == true"></div>
+			<!-- Aquí incluimos las vistas registrar y session  -->
+			<div class="row" style="margin:0; padding:0px;" ng-include src=" 'partials/registrar.html' " ng-show="btnRegister == true"></div>
+			<div class="row" style="margin:0; padding:0px;" ng-include src=" 'partials/session.html' "   ng-show="btnSesion == true"></div>
 
-		<!-- Aquí inyectamos las vistas -->
-		<div ng-view>
+			<!-- Aquí inyectamos las vistas -->
+			<div ng-view>
+			</div>
 		</div>
 	</section>
 

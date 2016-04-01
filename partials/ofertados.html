@@ -14,50 +14,61 @@
 	</div>
 	<br>	
 	<!--Panel registro-->
-	<div class="col-sm-12 panel-default"  ng-show="btnReserve == true">
+	<div class="register container"  ng-show="btnReserve == true">
 		<br><div class="col-sm-12">
 			<p class="col-sm-12">Para realizar la reserva del servicio llene todos los campos del siguiente formulario. </p>
 		</div><hr>
-		<div class="col-sm-5" ng-init="getServicios()"  >
-			<label for="servicio">Servicios:</label>
-			<select ng-model="actual.servicio" class="form-control"
-			    ng-options="value.codigo as value.nombre for value in servicios">
-			    <option>--</option>
-			</select>
-			<br>
-		</div>
-		<div class="col-sm-3">
-			<label for="fechaInicio" >Fecha: </label>
-			<input type="date"  class="form-control" name="fechaInicio" ng-model="actual.fechaInicio" placeholder="Selecciona una fecha">
-		</div>
-
-		<div class="col-sm-3">
-			<label for="horaInicio" >Hora:</label>
-			<select class="form-control" ng-model="actual.hora" name="{{actual.hora}}">
-			  <option>6:00 - 7:00</option>
-			  <option>7:00 - 8:00</option>
-			  <option>8:00 - 9:00</option>
-			  <option>9:00 - 10:00</option>
-			  <option>10:00 - 11:00</option>
-			  <option>11:00 - 12:00</option>
-			  <option>12:00 - 13:00</option>
-			  <option>13:00 - 14:00</option>
-			  <option>14:00 - 15:00</option>
-			  <option>15:00 - 16:00</option>
-			  <option>16:00 - 17:00</option>
-			</select><br>
+		<div class="col-sm-12">
+			<div class="col-sm-6" ng-init="getServicios()"  >
+				<label for="servicio">Servicios:</label>
+				<select ng-model="actual.servicio" class="form-control"
+				    ng-options="value.codigo as value.nombre for value in servicios">
+				    <option>--</option>
+				</select>
+				<br>
+			</div>
 		</div>
 		<div class="col-sm-12">
-			<label for="motivo" >Motivo:</label>
-			<textarea maxlength="150" name="motivo" class="form-control" ng-model="actual.motivo" placeholder="Introduzca un motivo"></textarea>
+
+			<div class="col-sm-6">
+				<label for="fechaInicio" >Fecha: </label>
+				<input type="date"  class="form-control" name="fechaInicio" ng-model="actual.fechaInicio" placeholder="Selecciona una fecha"><br>
+			</div>
+		</div>
+
+		<div class="col-sm-12">
+		
+			<div class="col-sm-6">
+				<label for="horaInicio" >Hora:</label>
+				<select class="form-control" ng-model="actual.hora" name="{{actual.hora}}">
+				  <option>6:00 - 7:00</option>
+				  <option>7:00 - 8:00</option>
+				  <option>8:00 - 9:00</option>
+				  <option>9:00 - 10:00</option>
+				  <option>10:00 - 11:00</option>
+				  <option>11:00 - 12:00</option>
+				  <option>12:00 - 13:00</option>
+				  <option>13:00 - 14:00</option>
+				  <option>14:00 - 15:00</option>
+				  <option>15:00 - 16:00</option>
+				  <option>16:00 - 17:00</option>
+				</select><br>
+			</div>
+		</div>
+		<div class="col-sm-12">
+
+			<div class="col-sm-6">
+				<label for="motivo" >Motivo:</label>
+				<textarea maxlength="150" name="motivo" class="form-control" ng-model="actual.motivo" placeholder="Introduzca un motivo"></textarea>
+			</div>
 		</div>
 	</div>
 
 	<!--Tablas-->
-	<div class="panel" ng-show="btnReserve  == false">
+	<div class="panel" ng-show="true">
 		<div class="col-sm-12">
-			<br><p>Para reservar un servicio haz click en seleccionar.</p><br>
-		</div>
+			<p class="col-sm-12">Para reservar un servicio haz click en seleccionar.</p>
+		</div><hr>
 		<!--boton de busqueda-->
 		<div class="panel-heading">
 			<div class="input-group">

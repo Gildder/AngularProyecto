@@ -6,17 +6,15 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     $scope.loginOut= "Registrar";
     $scope.isConect= 0;
 
-
-
     $scope.actual = {};
     $scope.actual.codigo= "";
-    $scope.actual.nick= "";
-    $scope.actual.contrasenia= "";
     $scope.actual.ci = "";
     $scope.actual.nombre = "";
     $scope.actual.apellido = "";
     $scope.actual.correo = "";
     $scope.actual.telefono = "";
+    $scope.actual.nick= "";
+    $scope.actual.contrasenia= "";
     $scope.actual.tipousuario_id = "";
 
     //campos para gestionar botones
@@ -86,17 +84,23 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
             $scope.loginOut = "Salir  ";
             
             //ocultamos la vista de los formualarios
-            $scope.btnSesion = false;
-            $scope.btnRegister = false;
         }
+        
     }
 
 
     $scope.iniciarSession = function()
     {
+        if($scope.validarInicioSesion() == false){
+            $scope.showMessage(true,'Por favor, Llenes todos los campos del formulario de registro.', 4);
+            return;
+        }else{
+            $scope.hideMessage();
+        }
+
         if ($scope.btnSesion == true) 
         {
-            var url = "../AngularProyecto/php/iniciar_sesion.php?nick=" + $scope.actual.nick + "& contrasenia=" + $scope.actual.contrasenia;
+            var url = "../AngularProyecto/php/iniciar_sesion.php?correo=" + $scope.actual.correo + "& contrasenia=" + $scope.actual.contrasenia;
             $http.get(url).success(function(response)
             {
                 $scope.actuales = response;
@@ -117,6 +121,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
                 //Se inicializa la aplicacion
                 $scope.inicializar();
                 $location.path('/partials/inicio.html');
+                $scope.clean();
 
 
             });
@@ -125,6 +130,47 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
             alert('no conecto');
         }
 
+    }
+
+    $scope.registrar = function()
+    {
+        if($scope.validarRegistro() == false){
+            $scope.showMessage(true,'Por favor, Llenes todos los campos del formulario de registro.', 4);
+            return;
+        }
+
+        if ($scope.btnRegister == true) 
+        {
+            var url = "../AngularProyecto/php/registrar.php";
+            $http.post(url,{'ci':$scope.actual.ci,'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono, 'nick':$scope.actual.nick, 'contrasenia':$scope.actual.contrasenia}).success(function(data, status, headers, config)
+            {
+                //Se inicializa la aplicacion
+                $location.path('/partials/inicio.html');
+                $scope.showMessage(true,'El usuario se registro correctamente.', 1);
+                $scope.clean();
+            });
+            
+        }else{
+            alert('no conecto');
+        }
+   
+    }
+
+    $scope.validarRegistro = function(){
+        if ($scope.actual.ci =="" || $scope.actual.nombre =="" || $scope.actual.apellido =="" || $scope.actual.correo =="" || $scope.actual.telefono=="" || $scope.actual.nick=="" || $scope.actual.contrasenia == "") {
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+    $scope.validarInicioSesion = function()
+    {
+        if ($scope.actual.correo =="" || $scope.actual.contrasenia == "") {
+            return false;
+        } else{
+            return true;
+        }
     }
 
     $scope.closeSession = function()
@@ -152,6 +198,9 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         $scope.actual.correo = "";
         $scope.actual.telefono = "";
         $scope.actual.tipousuario_id = "";
+
+        $scope.btnSesion = false;
+        $scope.btnRegister = false;
     }
 
     $scope.showMessage = function(show, message, type)

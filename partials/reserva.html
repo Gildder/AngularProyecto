@@ -1,67 +1,16 @@
 <div class="col-sm-12">
 	<div class="page-header">
 		<h2 class="subtitulo">{{titulo}}</h2>
-		<!--Botones de accion-->
-		<div class="pull-right">
-			<button type="button" class="btn btn-primary btn-sm" ng-show="btnNew == true"  ng-click="isBtnNew(true)"><span class="glyphicon glyphicon-plus"> Nuevo</span></button>
-			<button type="button" class="btn btn-success btn-sm" ng-show="btnSave == true || btnUpdate == true" ng-click="save()"><span class="glyphicon glyphicon-ok"> Guardar</span></button>
-			<button type="button" class="btn btn-danger btn-sm" ng-show="btnSave == true || btnUpdate == true" ng-click="isBtnNew(false)"><span class="glyphicon glyphicon-remove"> Cancelar</span></button>
-		</div>
 	</div>
 	<br>
-	<!--Panel registro-->
-	<div class="col-sm-12 panel-default" ng-show="btnSave == true || btnUpdate == true">
-		<div class="col-sm-5" ng-init="getUsuarios()"  >
-			<label for="usuario">Usuarios:</label>
-			<select ng-model="actual.usuario" class="form-control"
-			    ng-options="value.codigo as value.ci for value in usuarios">
-			    <option>--</option>
-			</select>
-			<br>
-		</div>
-
-		<div class="col-sm-5" ng-init="getServicios()"  >
-			<label for="servicio">Servicios:</label>
-			<select ng-model="actual.servicio" class="form-control"
-			    ng-options="value.codigo as value.nombre for value in servicios">
-			    <option>--</option>
-			</select>
-			<br>
-		</div>
-		<div class="col-sm-3">
-			<label for="fechaInicio" >Fecha: </label>
-			<input type="date"  class="form-control" name="fechaInicio" ng-model="actual.fechaInicio" placeholder="Selecciona una fecha">
-		</div>
-
-		<div class="col-sm-3">
-			<label for="horaInicio" >Hora:</label>
-			<select class="form-control" ng-model="actual.hora" name="{{actual.hora}}">
-			  <option>6:00 - 7:00</option>
-			  <option>7:00 - 8:00</option>
-			  <option>8:00 - 9:00</option>
-			  <option>9:00 - 10:00</option>
-			  <option>10:00 - 11:00</option>
-			  <option>11:00 - 12:00</option>
-			  <option>12:00 - 13:00</option>
-			  <option>13:00 - 14:00</option>
-			  <option>14:00 - 15:00</option>
-			  <option>15:00 - 16:00</option>
-			  <option>16:00 - 17:00</option>
-			</select><br>
-		</div>
-		<div class="col-sm-12">
-			<label for="motivo" >Motivo:</label>
-			<textarea maxlength="150" name="motivo" class="form-control" ng-model="actual.motivo" placeholder="Introduzca un motivo"></textarea>
-		</div>
-	</div>
-
+	
 	<!--Tablas-->
-	<div class="panel"  ng-show="btnNew  == true">
+	<div class="panel"  ng-show="true">
 		<!--boton de busqueda-->
 		<div class="panel-heading">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-				<input type="text" class="form-control" placeholder="Buscar usuario" ng-model="buscar.usuario_codigo">
+				<input type="text" class="form-control" placeholder="Buscar usuario" ng-model="buscar">
 			</div>
 		</div>
 		<div class="table-responsive">
@@ -69,8 +18,6 @@
 				<thead>
 					<tr>
 						<th>Codigo</th>
-						<th>Usuario</th>
-						<th>CI</th>
 						<th>Servicio</th>
 						<th>Fecha</th>
 						<th>Hora</th>
@@ -82,8 +29,6 @@
 				<tbody>
 					<tr ng-repeat = 'reserva in resers | filter:buscar | startFromGrid: currentPage * pageSize | limitTo: pageSize'>
 						<td>{{reserva.codigo}}</td>
-						<td>{{reserva.usuario_codigo | uppercase}} {{reserva.apellido |uppercase}}</td>
-						<td>{{reserva.ci}}</td>
 						<td>{{reserva.servicio_codigo}}</td>
 						<td>{{reserva.fechaInicio | date}}</td>
 						<td>{{reserva.hora}}</td>
@@ -91,8 +36,7 @@
 						<td>{{reserva.estado}}</td>
 						<td>
 							<div class="btn-group btn-group-sm">
-								<button type="button" class="btn btn-warning btn-small" ng-click="update(reserva.codigo)"><span class="glyphicon glyphicon-pencil"></span></button>
-								<button type="button" class="btn btn-danger btn-small"  ng-click="delete(reserva.codigo)"><span class="glyphicon glyphicon-remove"></span></button>
+								<button type="button" class="btn btn-danger btn-small"  ng-click="delete(reserva.codigo)"><span class="glyphicon glyphicon-remove"></span>cancelar</button>
 		    				</div>
 						</td>
 					</tr>

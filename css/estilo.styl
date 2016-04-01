@@ -6,8 +6,14 @@ gris_oscuro = #444
 gris_claro = lighten(gris_oscuro,40%)
 gris_blanco = #E8E8E8
 
+html
+	height 100%
+	width 100%
+	
 body
 	background gris_blanco
+	height 100%
+	width 100%
 	
 	input
 		border-left 1px solid azul
@@ -19,7 +25,8 @@ footer
 	padding 1em 0
 	text-align center
 	width 100%
-	bottom 0
+	position relative
+	botton 0px
 
 	h3
 		font-size 14px
@@ -94,6 +101,10 @@ header
 		
 nav
 	background gris_oscuro
+	margin-bottom 10px
+	
+	.navbar
+		margin-bottom 10px
 
 	ul
 		li
@@ -102,52 +113,57 @@ nav
 				background black	
 				font-weight bold
 				color azul		
-	.navbar
-		margin-bottom 5px
-						
-
 section
-	padding 0
-
-	.subtitulo
-		display inline-block
-		margin 0 0 5px 0
-	
-	.input-group
+	.container
+		margin 0
+		padding 0px
 		width 100%
-		
-	.panel		
-		padding 10px
-		border-radius 10px
-		height 320px
-		
-		.table
-			height 160px
-		
-	.panel-default
-		background white
-		padding 10px 0 10px 0
-		border-radius 5px
-		margin 10px 0 10px 0
+		height 100%
 	
-	.navegacion
-		text-align center
-	
-	.page-header
-		margin-top 20px
-		margin-bottom 0px
-	
-	.inicio
-		background white
-		padding 10px
+		.subtitulo
+			display inline-block
+			margin 0 0 5px 0
 		
-		.content
-			height 100%
-	.row
-		padding 10px
+		.input-group
+			width 100%
+			
+		.register
+			background white
+			padding 10px 
+			border-radius 5px
+			margin 10px 0 10px 0
+			margin-bottom 10px
+			
+		.panel		
+			padding 10px
+			border-radius 10px
+			background white
+			height 400px
+			
+		.navegacion
+			text-align center
+		
+		.page-header
+			margin-top 20px
+			margin-bottom 0px
+		
+		.inicio
+			background white
+			padding 0
+			margin 0
+			
+		.ng-scope
+			
+			.content
+				height 100%
+				position: relative;
+				top 0%
+				left 0%
+				padding 1%
+		.row
+			padding 10px
 
-		
-		
+			
 
 		
 @media (max-width: 768px) and (min-width: 540px)
@@ -161,8 +177,8 @@ section
 		.input-group
 			width 70%
 		
-		.panel		
-			height 320px
+		.panel
+			height 400px
 		
 
 @media screen and (min-width: 768px)	
@@ -176,11 +192,10 @@ section
 			
 		.input-group
 			width 50%
+			
+		.panel
+			height 340px
 		
-		.panel-default
-			height 300px
 
-	footer
-		position absolute
-		bottom 0px
+
 		
