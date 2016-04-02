@@ -8,11 +8,14 @@
 	$apellido = $data->apellido;
 	$correo = $data->correo;
 	$telefono = $data->telefono;
+	$nick = $data->nick;
 
 	include('conexion.php');
 	$con = conexion();
 	$sql="UPDATE usuario  SET ci = '".$ci."', tipousuario_id = '".$tipousuario."', nombre = '".$nombre.
-		"', apellido = '".$apellido."', correo = '".$correo."', telefono = '".$telefono."' WHERE codigo = '".$codigo."'";
+		"', apellido = '".$apellido."', correo = '".$correo."', telefono = '".
+		$telefono."', nick = '".$nick.
+		"' WHERE codigo = '".$codigo."'";
 
 	$resultado = $con->query($sql);
 	if ($resultado===true) {

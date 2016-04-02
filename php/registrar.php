@@ -8,13 +8,17 @@
 	$nick= $data->nick;
 	$contrasenia = $data->contrasenia;
 
+
 	include('conexion.php');
 	$con = conexion();
 
-	$sql="INSERT INTO `usuario` (`ci`, `nombre`, `apellido`, `correo`, `telefono`, `nick`, `contrasenia`, `tipousuario_id`) ".
-	" VALUES ('" . $ci . "', ucwords('" . $nombre . "'), ucwords('" . $apellido . "'), strtolower('" . $correo . "'), '" . $telefono. "', '" . $nick . "', md5('" . $contrasenia. "'), '3') ";
+
+	//echo '<script language="javascript">alert("$contrasenia");</script>'; 
+
+	
+	$sql = "INSERT INTO `usuario` (`ci`, `nombre`, `apellido`, `correo`, `telefono`, `nick`, `contrasenia`, `tipousuario_id`) ".
+	" VALUES ('" . $ci . "', '" . $nombre . "', '" . $apellido . "', '" . $correo . "', '" . $telefono. "', '" . $nick . "', '" . $contrasenia. "', '3') ";
 
 	$resultado = $con->query($sql);
 	
-	return $resultado;
  ?>

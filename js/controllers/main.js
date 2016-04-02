@@ -147,8 +147,9 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
                 //Se inicializa la aplicacion
                 $location.path('/partials/inicio.html');
                 $scope.showMessage(true,'El usuario se registro correctamente.', 1);
-                $scope.clean();
             });
+            
+            $scope.clean();
             
         }else{
             alert('no conecto');

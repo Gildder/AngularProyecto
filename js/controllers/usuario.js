@@ -12,7 +12,7 @@ angular.module('angularRoutingApp')
     //campos para gestionar botones
     $scope.btnNew = true;
     $scope.btnUpdate = false;
-    $scope.btnDelete = false;
+    $scope.btnCancelar = false;
     $scope.btnSave = false;
        
     $scope.users = [];
@@ -36,7 +36,7 @@ angular.module('angularRoutingApp')
         });
     }
 
-    $scope.getUsers = function()
+    $scope.getUsuarios = function()
     {
         var url = "../AngularProyecto/php/usuarios.php";
         $http.get(url).success(function(response)   //funcoin http
@@ -50,27 +50,32 @@ angular.module('angularRoutingApp')
 
     $scope.save = function()
     {
+        if($scope.validar() == false){
+            $scope.showMessage(true,'Por favor, Llenes todos los campos del formulario de registro.', 4);
+            return;
+        }
 
         if ($scope.btnUpdate == 'false') 
         {
             var url = "../AngularProyecto/php/insert_usuario.php";
-            $http.post(url,{'ci':$scope.actual.ci,'tipousuario':$scope.actual.tipousuario, 'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono}).success(function(data, status, headers, config)
+            $http.post(url,{'ci':$scope.actual.ci.toString(),'tipousuario_id':$scope.actual.tipousuario, 'nombre':$scope.actual.nombre,
+             'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo.toString(), 'telefono':$scope.actual.telefono.toString()}).success(function(data, status, headers, config)
             {
                 $scope.getUsuarios();
-                $scope.showMessage("Guardado",true);
-                $scope.isBtnNew(true);
+                $scope.showMessage(true,'El usuario se guardo correctamente.', 1);
+                $scope.cancel();
                 $scope.clean();
             });
 
         } else{
             var url = "../AngularProyecto/php/update_usuario.php";
             $http.post(url,{'codigo':$scope.actual.codigo, 'ci':$scope.actual.ci,'tipousuario':$scope.actual.tipousuario, 
-                            'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 
-                            'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono}).success(function(data, status, headers, config)
+                            'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido,'correo':$scope.actual.correo,
+                            'telefono':$scope.actual.telefono, 'nick':$scope.actual.nick}).success(function(data, status, headers, config)
             {
                 $scope.getUsuarios();
-                $scope.showMessage("Modificado",true);
-                $scope.isBtnNew(true);
+                $scope.showMessage(true,'El usuario se modifico correctamente.', 1);
+                $scope.cancel();
                 $scope.clean();
             });            
         };
@@ -79,18 +84,21 @@ angular.module('angularRoutingApp')
     $scope.update = function(codigo)
     {
         $scope.isBtnNew(true);
+        $scope.btnUpdate = true;
+
 
         var url = "../AngularProyecto/php/get_usuario.php?codigo=" + codigo;
         $http.get(url).success(function(response)
         {
             $scope.actuales = response;
             $scope.actual.codigo = $scope.actuales[0].codigo;
-            $scope.actual.ci = $scope.actuales[0].ci;
-            $scope.actual.tipousuario = $scope.actuales[0].tipousuario;
+            $scope.actual.ci = parseInt($scope.actuales[0].ci);
+            $scope.actual.tipousuario = $scope.actuales[0].tipousuario_id;
             $scope.actual.nombre = $scope.actuales[0].nombre;
             $scope.actual.apellido = $scope.actuales[0].apellido;
             $scope.actual.correo = $scope.actuales[0].correo;
-            $scope.actual.telefono = $scope.actuales[0].telefono;
+            $scope.actual.telefono = parseInt($scope.actuales[0].telefono);
+            $scope.actual.nick = $scope.actuales[0].nick;
         });
     }
 
@@ -104,8 +112,27 @@ angular.module('angularRoutingApp')
         $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
         {
             $scope.getUsuarios();
-            $scope.showMessage("Eliminado",true);
+            $scope.showMessage(true,'El usuario se elimino correctamente.', 1);
         });
+    }
+
+    $scope.validar = function()
+    {
+        if ($scope.actual.ci ==="" || $scope.actual.nombre ==="" || $scope.actual.apellido ==="" || $scope.actual.correo ==="" || $scope.actual.telefono==="" || $scope.actual.nick==="" || $scope.actual.contrasenia === "") {
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+    $scope.cancel = function(){
+        $scope.clean();
+        $scope.hideMessage();
+        $scope.btnUpdate = false;
+        $scope.btnCancelar = false;
+        $scope.btnSave = false;
+
+
     }
 
     $scope.clean = function()
@@ -180,8 +207,9 @@ angular.module('angularRoutingApp')
             $scope.btnCancelar = true;
         }else{                   //desactiva boton nuevo
             $scope.btnNew  = true;
+            $scope.btnCancelar = false;
             $scope.btnSave = false;
-            $scope.btnUpdate = false;
+            $scope.hideMessage();
         }
     }
 

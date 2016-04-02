@@ -4,16 +4,17 @@
 		<!--Botones de accion-->
 		<div class="pull-right">
 			<button type="button" class="btn btn-primary btn-sm" ng-show="btnNew == true"  ng-click="isBtnNew(true)"><span class="glyphicon glyphicon-plus"> Nuevo</span></button>
-			<button type="button" class="btn btn-success btn-sm" ng-show="btnSave == true || btnUpdate == true" ng-click="save()"><span class="glyphicon glyphicon-ok"> Guardar</span></button>
-			<button type="button" class="btn btn-danger btn-sm" ng-show="btnSave == true || btnUpdate == true" ng-click="isBtnNew(false)"><span class="glyphicon glyphicon-remove"> Cancelar</span></button>
+			<button type="button" class="btn btn-success btn-sm" ng-show="btnSave == true" ng-click="save()"><span class="glyphicon glyphicon-ok"> Guardar</span></button>
+			<button type="button" class="btn btn-danger btn-sm" ng-show="btnSave == true" ng-click="isBtnNew(false)"><span class="glyphicon glyphicon-remove"> Cancelar</span></button>
 		</div>
 	</div>
 	<br>
 	<!--Panel registro-->
-	<div class="register container" ng-show="btnSave == true || btnUpdate == true">
+	<div class="register container" ng-show="btnSave == true">
+		
 		<div class="col-sm-6">
 			<label for="ci" >Cedula identidad: </label>
-			<input type="text" placeholder="Introduce Cedula" class="form-control" name="ci" ng-model="actual.ci"><br>
+			<input type="number" maxlength="20" placeholder="Numero Cedula identidad" class="form-control" name="ci" ng-model="actual.ci"><br>
 		</div>
 
 		<div class="col-sm-6" ng-init="getTipoUsuario()"  >
@@ -37,13 +38,23 @@
 
 		<div class="col-sm-6">
 			<label for="correo" >Correo electronico: </label>
-			<input type="text" placeholder="Introduce correo" class="form-control" name="correo" ng-model="actual.correo"><br>
+			<input type="email" maxlength="45" placeholder="Introduce correo" class="form-control" name="correo" ng-model="actual.correo"><br>
 		</div>
 
 		<div class="col-sm-6">
-			<label for="correo" >Telefono: </label>
-			<input type="text" placeholder="Numero telefonico" class="form-control" name="telefono" ng-model="actual.telefono"><br>
+			<label for="telefono" >Telefono: </label>
+			<input type="number" placeholder="Numero telefonico" class="form-control" name="telefono" ng-model="actual.telefono"><br>
 		</div>
+		
+		<div class="form-group col-sm-6">
+			<label for="nombre" >Nick: </label>
+			<input class="span5 form-control" ng-model="actual.nick" maxlength="20" placeholder="Nombre de usuario" type="text">
+		</div>
+		<div class="form-group col-sm-6" ng-hide="btnUpdate == true" ng-show="btnSave == true">
+			<label for="nombre">Contraseña: </label>
+			<input class="span5 form-control" maxlength="20"  ng-model="actual.contrasenia" placeholder="Contraseña" type="password">
+		</div>
+
 	</div>
 	
 
@@ -57,7 +68,7 @@
 			</div>
 		</div>
 		<div class="table-responsive">
-			<table class="table table-hover table-condensed table-striped" ng-init="getUsers()">
+			<table class="table table-hover table-condensed table-striped" ng-init="getUsuarios()">
 				<thead>
 					<tr>
 						<th>Codigo</th>

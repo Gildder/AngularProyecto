@@ -5,39 +5,41 @@
 		<div class="pull-right">
 			<button type="button" class="btn btn-primary btn-sm" ng-show="btnNew == true"  ng-click="isBtnNew(true)"><span class="glyphicon glyphicon-plus"> Nuevo</span></button>
 			<button type="button" class="btn btn-success btn-sm" ng-show="btnSave == true || btnUpdate == true" ng-click="save()"><span class="glyphicon glyphicon-ok"> Guardar</span></button>
-			<button type="button" class="btn btn-danger btn-sm" ng-show="btnSave == true || btnUpdate == true" ng-click="isBtnNew(false)"><span class="glyphicon glyphicon-remove"> Cancelar</span></button>
+			<button type="button" class="btn btn-danger btn-sm" ng-show="btnSave == true || btnUpdate == true" ng-click="cancel()"><span class="glyphicon glyphicon-remove"> Cancelar</span></button>
 		</div>
 	</div>
 	<br>	
 	<!--Panel registro-->
-	<div class="col-sm-12 panel-default" ng-show="btnSave == true || btnUpdate == true">
+	<div class="register container" ng-show="btnSave == true || btnUpdate == true">
+		<div class="col-sm-12">
+			<div class="col-sm-6">
+				<label for="horaInicio" >Estado:</label>
+				<select class="form-control" ng-model="actual.estado" name="{{actual.estado}}">
+				  <option>Habilitado</option>
+				  <option>Desabilitado</option>
+				</select><br>
+			</div>
+		</div>
 		
-		<div class="col-sm-6">
-			<label for="codigo" >Codigo: </label>
-			<input type="text" placeholder="Codigo" class="form-control" name="codigo" ng-model="actual.codigo"><br>
+		<div class="col-sm-12">
+			<div class="col-sm-6">
+				<label for="nombre" >Nombre: </label>
+				<input type="text" placeholder="Nombre del servicio" class="form-control" name="codigo" ng-model="actual.nombre"><br>
+			</div>
+		</div>
+		
+		<div class="col-sm-12">
+			<div class="col-sm-7">
+				<label for="descripcion" >Descripcion:</label>
+				<textarea maxlength="150" name="descripcion" placeholder="Introduzca una descripcion" class="form-control" ng-model="actual.descripcion"></textarea>
+			</div>
 		</div>
 
-		<div class="col-sm-3">
-			<label for="horaInicio" >Estado:</label>
-			<select class="form-control" ng-model="actual.estado" name="{{actual.estado}}">
-			  <option>Habilitado</option>
-			  <option>Desabilitado</option>
-			</select><br>
-		</div>
-		
-		<div class="col-sm-7">
-			<label for="nombre" >Nombre: </label>
-			<input type="text" placeholder="Introduce tu nombre" class="form-control" name="codigo" ng-model="actual.nombre"><br>
-		</div>
-		
-		<div class="col-sm-7">
-			<label for="descripcion" >Descripcion:</label>
-			<textarea maxlength="150" name="descripcion" placeholder="Introduzca una descripcion" class="form-control" ng-model="actual.descripcion"></textarea>
-		</div>
+
 	</div>
 
 	<!--Tablas-->
-	<div class="panel" ng-show="btnNew  == true">
+	<div class="panel" ng-show="true">
 		<!--boton de busqueda-->
 		<div class="panel-heading">
 			<div class="input-group">

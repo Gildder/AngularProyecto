@@ -1,7 +1,7 @@
 <?php 
 	$data = json_decode(file_get_contents("php://input"));
 	$ci= $data->ci;
-	$tipousuario= $data->tipousuario;
+	$tipousuario_id= $data->tipousuario_id;
 	$nombre = $data->nombre;
 	$apellido = $data->apellido;
 	$correo = $data->correo;
@@ -12,8 +12,10 @@
 	include('conexion.php');
 	$con = conexion();
 
+
+
 	$sql="INSERT INTO `usuario`(`ci`,`tipousuario_id`, `nombre`, `apellido`, `correo`, `telefono`, `nick`, `contrasenia`) ".
-		" VALUES ('" . $ci . "', '" . $tipousuario. "', ucwords('" . $nombre. "'), ucwords('" . $apellido. "'), strtolower('" . $correo . "'),'".$nick. "', md5('" .$contrasenia. "'), '" . $telefono. "')";
+		" VALUES ('" . $ci . "', '" . $tipousuario_id. "', '" . $nombre. "', '" . $apellido. "', '" . $correo . "','". $telefono. "', '" .$nick. "', md5('" . $contrasenia. "'))";
 
 	$resultado = $con->query($sql);
 	
