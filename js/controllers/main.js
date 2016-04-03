@@ -104,7 +104,8 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
             var url = "../AngularProyecto/php/iniciar_sesion.php?correo=" + $scope.actual.correo + "& contrasenia=" + $scope.actual.contrasenia;
             $http.get(url).success(function(response)
             {
-                if (response.codigo==true) {
+                alert(response[0].nombre);
+                if (response=="") {
                     $scope.showMessage(true,'Usuario o contraseña incorrectos.', 4);
                     return;
                 }else{
