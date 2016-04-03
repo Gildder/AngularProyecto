@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-04-2016 a las 01:10:36
+-- Tiempo de generación: 04-04-2016 a las 01:00:20
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -34,15 +34,19 @@ CREATE TABLE IF NOT EXISTS `reserva` (
   `servicio_codigo` int(11) NOT NULL,
   `usuario_codigo` int(11) NOT NULL,
 `codigo` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `reserva`
 --
 
 INSERT INTO `reserva` (`fechaInicio`, `hora`, `motivo`, `estado`, `servicio_codigo`, `usuario_codigo`, `codigo`) VALUES
-('2016-03-22', '10:00 - 11:00', 'Practicas de volleyball', 0, 3, 1, 1),
-('2016-03-06', '8:00 - 9:00', 'desmotacion', 0, 2, 3, 2);
+('2016-03-22', '10:00 - 11:00', 'Practicas de volleyball', 1, 3, 1, 1),
+('2016-03-30', '8:00 - 9:00', 'desmotacion', 0, 2, 3, 2),
+('2016-04-05', '8:00 - 9:00 ', 'desmostracion', 0, 4, 3, 3),
+('2016-04-09', '9:00 - 10:00', 'demostracion', 0, 2, 3, 4),
+('2016-03-30', '8:00 - 9:00', 'demostracion', 0, 5, 3, 5),
+('2016-03-21', '10:00 - 11:00', 'demostracion', 1, 6, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -54,24 +58,22 @@ CREATE TABLE IF NOT EXISTS `servicio` (
 `codigo` int(11) NOT NULL,
   `nombre` varchar(45) COLLATE utf8_bin NOT NULL,
   `descripcion` text COLLATE utf8_bin NOT NULL,
-  `estado` int(11) NOT NULL DEFAULT '0',
-  `fechaCreacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaModificacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `estado` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `servicio`
 --
 
-INSERT INTO `servicio` (`codigo`, `nombre`, `descripcion`, `estado`, `fechaCreacion`, `fechaModificacion`) VALUES
-(1, 'CANCHA DE TENNIS', 'Cancha TENNIS', 1, '2016-03-23 00:54:50', '2016-03-30 21:09:28'),
-(2, 'CANCHA RAQUET', 'Cancha Raquet', 0, '2016-03-23 00:56:14', '2016-03-23 00:56:14'),
-(3, 'CANCHA FUTBOL', 'Cancha Futbol', 1, '2016-03-23 00:56:46', '2016-03-30 21:09:28'),
-(4, 'CANCHA FRONTON', 'Cancha Fronton', 0, '2016-03-23 00:57:50', '2016-03-23 00:57:50'),
-(5, 'CLASE NATACION', 'Clase natacion', 1, '2016-03-23 01:01:41', '2016-03-30 21:09:28'),
-(6, 'CLASE BOXEO', 'Clase Boxeo', 0, '2016-03-23 01:02:03', '2016-03-23 01:02:03'),
-(7, 'CLASE TAEKWONDO', 'Arte marcial', 1, '2016-03-23 01:02:39', '2016-03-30 21:09:28'),
-(8, 'MASAJE - SPA', 'SPA', 1, '2016-03-23 01:03:26', '2016-03-30 21:09:28');
+INSERT INTO `servicio` (`codigo`, `nombre`, `descripcion`, `estado`) VALUES
+(1, 'CANCHA DE TENNIS', 'Cancha TENNIS', 1),
+(2, 'CANCHA RAQUET', 'Cancha Raquet', 0),
+(3, 'CANCHA FUTBOL', 'Cancha Futbol', 1),
+(4, 'CANCHA FRONTON', 'Cancha Fronton', 1),
+(5, 'CLASE NATACION', 'Clase natacion', 1),
+(6, 'CLASE BOXEO', 'Clase Boxeo', 0),
+(7, 'CLASE TAEKWONDO', 'Arte marcial', 1),
+(8, 'MASAJE - SPA', 'SPA', 1);
 
 -- --------------------------------------------------------
 
@@ -82,19 +84,17 @@ INSERT INTO `servicio` (`codigo`, `nombre`, `descripcion`, `estado`, `fechaCreac
 CREATE TABLE IF NOT EXISTS `tipousuario` (
 `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
-  `descripcion` tinytext NOT NULL,
-  `fechaCreacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaModificacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `descripcion` tinytext NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tipousuario`
 --
 
-INSERT INTO `tipousuario` (`id`, `nombre`, `descripcion`, `fechaCreacion`, `fechaModificacion`) VALUES
-(1, 'administrador', 'Usuario con privilegios de permisos sobre el sistema y la administracion de acceso, cuentas, reservas, etc.', '2016-03-30 20:17:28', '2016-03-30 20:17:28'),
-(2, 'empleado', 'Usuario con privilegios de reservas, registro de clientes, administracion de servicios.', '2016-03-30 20:17:28', '2016-03-30 20:17:28'),
-(3, 'cliente', 'Usuario con privilegios de reservas sobre servicios, administracion de la informacion de su perfil.', '2016-03-30 20:17:28', '2016-03-30 20:17:28');
+INSERT INTO `tipousuario` (`id`, `nombre`, `descripcion`) VALUES
+(1, 'administrador', 'Usuario con privilegios de permisos sobre el sistema y la administracion de acceso, cuentas, reservas, etc.'),
+(2, 'empleado', 'Usuario con privilegios de reservas, registro de clientes, administracion de servicios.'),
+(3, 'cliente', 'Usuario con privilegios de reservas sobre servicios, administracion de la informacion de su perfil.');
 
 -- --------------------------------------------------------
 
@@ -112,20 +112,22 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `estado` int(11) NOT NULL DEFAULT '0',
   `nick` varchar(45) COLLATE utf8_bin NOT NULL,
   `contrasenia` varchar(700) COLLATE utf8_bin NOT NULL,
-  `tipousuario_id` int(11) NOT NULL,
-  `fechaCreacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `fechaModificacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `tipousuario_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`codigo`, `ci`, `nombre`, `apellido`, `correo`, `telefono`, `estado`, `nick`, `contrasenia`, `tipousuario_id`, `fechaCreacion`, `fechaModificacion`) VALUES
-(1, '7734247', 'gildder', 'guerrero ramirez', 'gildder@gmail.com', '70991648', 1, 'Gildder', 'gildder', 1, '2016-03-23 11:43:22', '2016-04-01 17:44:51'),
-(2, '8977837', 'mario', 'vega martinez', 'mario@gmail.com', '79890987', 1, 'mario', 'gildder', 2, '2016-03-31 22:00:19', '2016-04-01 18:13:34'),
-(3, '5632738', 'diana', 'soto lopez', 'diana@gmail.com', '60991638', 1, 'diana', 'gildder', 3, '2016-03-31 22:01:54', '2016-04-01 18:13:34'),
-(4, '773737', 'jose', 'vega', 'jose@hotmail.com', '78798667', 0, 'jose', 'gildder', 3, '2016-04-01 22:26:06', '2016-04-01 22:26:06');
+INSERT INTO `usuario` (`codigo`, `ci`, `nombre`, `apellido`, `correo`, `telefono`, `estado`, `nick`, `contrasenia`, `tipousuario_id`) VALUES
+(1, '7734247', 'gildder', 'guerrero ramirez', 'gildder@gmail.com', '70991648', 1, 'Gildder', 'gildder', 1),
+(2, '8977837', 'mario', 'vega martinez', 'mario@gmail.com', '79890987', 1, 'mario', 'gildder', 2),
+(3, '5632738', 'diana', 'soto lopez', 'diana@gmail.com', '60991638', 1, 'diana', 'gildder', 3),
+(5, '8394839', 'jose', 'vega', 'jose@gmail.com', '8493489', 0, 'jose', 'gildder', 3),
+(6, '7348738', 'carlos', 'vega', 'carlos@gmail.com', '8349839', 0, 'carlos', 'gildder', 3),
+(7, '7483743', 'maria', 'mercedez', 'maria@hotmail.com', '78237374', 1, 'mari2', 'gildder', 3),
+(8, '848348', 'pedro', 'vega', 'pedro@hotmail.com', '389283', 0, 'pedro', 'gildder', 3),
+(9, '894549989', 'pepe', 'mariano', 'pepe@gmail.com', '748374', 0, '', 'd41d8cd98f00b204e9800998ecf8427e', 2);
 
 --
 -- Índices para tablas volcadas
@@ -163,12 +165,12 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `tipousuario`
 --
@@ -178,7 +180,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- Restricciones para tablas volcadas
 --
