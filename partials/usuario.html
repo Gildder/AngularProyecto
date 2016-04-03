@@ -77,6 +77,7 @@
 						<th>Apellidos</th>
 						<th>Correo</th>
 						<th>Telefono</th>
+						<th>Tipo usuario</th>
 						<th>Controles</th>
 					</tr>
 				</thead>
@@ -88,6 +89,7 @@
 						<td>{{user.apellido | uppercase}}</td>
 						<td>{{user.correo}}</td>
 						<td>{{user.telefono}}</td>
+						<td>{{user.tipousuario_id}}</td>
 						<td>
 							<div class="btn-group btn-group-sm">
 								<button type="button" class="btn btn-warning btn-small" ng-click="update(user.codigo)"><span class="glyphicon glyphicon-pencil"></span></button>

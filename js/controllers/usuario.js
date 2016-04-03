@@ -55,7 +55,7 @@ angular.module('angularRoutingApp')
             return;
         }
 
-        if ($scope.btnUpdate == 'false') 
+        if ($scope.btnUpdate == false) 
         {
             var url = "../AngularProyecto/php/insert_usuario.php";
             $http.post(url,{'ci':$scope.actual.ci.toString(),'tipousuario_id':$scope.actual.tipousuario, 'nombre':$scope.actual.nombre,
@@ -63,7 +63,6 @@ angular.module('angularRoutingApp')
             {
                 $scope.getUsuarios();
                 $scope.showMessage(true,'El usuario se guardo correctamente.', 1);
-                $scope.cancel();
                 $scope.clean();
             });
 
@@ -75,7 +74,6 @@ angular.module('angularRoutingApp')
             {
                 $scope.getUsuarios();
                 $scope.showMessage(true,'El usuario se modifico correctamente.', 1);
-                $scope.cancel();
                 $scope.clean();
             });            
         };
@@ -128,9 +126,7 @@ angular.module('angularRoutingApp')
     $scope.cancel = function(){
         $scope.clean();
         $scope.hideMessage();
-        $scope.btnUpdate = false;
-        $scope.btnCancelar = false;
-        $scope.btnSave = false;
+        
 
 
     }
@@ -145,6 +141,13 @@ angular.module('angularRoutingApp')
         $scope.actual.apellido = "";
         $scope.actual.correo = "";
         $scope.actual.telefono = "";
+
+        $scope.btnUpdate = false;
+        $scope.btnCancelar = false;
+        $scope.btnSave = false;
+        $scope.btnNew = true;
+
+
     }
 
     $scope.sizeTable = function (){
@@ -210,6 +213,8 @@ angular.module('angularRoutingApp')
             $scope.btnCancelar = false;
             $scope.btnSave = false;
             $scope.hideMessage();
+            $scope.clean();
+
         }
     }
 

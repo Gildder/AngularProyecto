@@ -43,7 +43,6 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         	$scope.btnSesion = true;
         	$scope.btnRegister = false;
         }
-        
     }
 
     //mostrar el formulario de registro, tambien para Salir session
@@ -103,12 +102,12 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
             var url = "../AngularProyecto/php/iniciar_sesion.php?correo=" + $scope.actual.correo + "& contrasenia=" + $scope.actual.contrasenia;
             $http.get(url).success(function(response)
             {
-                $scope.actuales = response;
-                if ($scope.actual.tipousuario_id) {
+                if (response.codigo==true) {
                     $scope.showMessage(true,'Usuario o contraseña incorrectos.', 4);
                     return;
-                } else{
+                }else{
 
+                    $scope.actuales = response;
                     $scope.actual.codigo = $scope.actuales[0].codigo;
                     $scope.actual.ci = $scope.actuales[0].ci;
                     $scope.actual.nombre = $scope.actuales[0].nombre;
@@ -127,10 +126,14 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
                     $scope.inicializar();
                     $location.path('/partials/inicio.html');
                     $scope.clean();
-                };
+                }
 
 
-            });
+            })
+            .error(function (error, status){
+                $scope.showMessage(true,'Usuario o contraseña incorrectos.', 4);
+                return;
+          }); 
             
         }else{
             alert('no conecto');
@@ -152,10 +155,10 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
             {
                 //Se inicializa la aplicacion
                 $location.path('/partials/inicio.html');
+                $scope.clean();
                 $scope.showMessage(true,'El usuario se registro correctamente.', 1);
             });
             
-            $scope.clean();
             
         }else{
             alert('no conecto');

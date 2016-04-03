@@ -13,10 +13,9 @@
 	<div class="register container" ng-show="btnSave == true || btnUpdate == true">
 		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<label for="horaInicio" >Estado:</label>
-				<select class="form-control" ng-model="actual.estado" name="{{actual.estado}}">
-				  <option>Habilitado</option>
-				  <option>Desabilitado</option>
+				<label for="estado" >Estado:</label>
+				<select class="form-control" ng-model="actual.estado" ng-options="value.id as value.nombre for value in stateService">
+				  <option>--</option>
 				</select><br>
 			</div>
 		</div>
@@ -67,6 +66,7 @@
 						<td>
 							<div class="btn-group btn-group-sm">
 								<button type="button" class="btn btn-warning btn-small" ng-click="update(service.codigo)"><span class="glyphicon glyphicon-pencil"></span></button>
+								<button type="button" class="btn btn-danger btn-small" style="background: #EC776E;" ng-click="cancelar(service.codigo)"><span class="glyphicon glyphicon-remove-sign"></span></button>
 								<button type="button" class="btn btn-danger btn-small"  ng-click="delete(service.codigo)"><span class="glyphicon glyphicon-trash"></span></button>
 		    				</div>
 						</td>

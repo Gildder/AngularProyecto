@@ -58,8 +58,8 @@
 					<li><a href="#/">Inicio</a></li>
 					<li ng-show="isConect == 1"><a href="#/usuario">Usuario</a></li>
 					<li ng-show="isConect == 1"><a href="#/servicio">Servicio</a></li>
-					<li><a href="#/servicios">Servicios</a></li>
-					<li ng-show="isConect != 0"><a href="#/reserva">Reserva</a></li>
+					<li ng-hide="isConect == 2 || isConect == 1"><a href="#/servicios">Servicios</a></li>
+					<li ng-show="isConect == 3"><a href="#/reserva">Reserva</a></li>
 				</ul>
 			</div>
 		</div>
