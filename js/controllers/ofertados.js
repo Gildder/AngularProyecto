@@ -1,6 +1,6 @@
 'use strict'
 angular.module('angularRoutingApp')
-.controller('ofertados', function($scope, $http) {
+.controller('ofertados', function($scope, $http, $cookieStore) {
     $scope.titulo = 'Servicios ofertados';
     $scope.currentPage = 0;     //pagina actual
     $scope.pageSize = 4;        //numero registros
@@ -17,8 +17,8 @@ angular.module('angularRoutingApp')
 
     //campos para gestionar botones
     $scope.btnReserve = false;
-    $scope.message = false;
-    $scope.operation = '';
+    $scope.btnSeleccion =true;
+    $scope.countReserve = 0;
     
     $scope.services = [];
 
@@ -29,7 +29,9 @@ angular.module('angularRoutingApp')
         $http.get(url).success(function(response)   //funcoin http
         {
             $scope.servicios = response;
+            $scope.countReserve();
         });
+
     }
 
     $scope.getServicesOfertados = function()
@@ -77,6 +79,20 @@ angular.module('angularRoutingApp')
             $scope.showMessage("Guardado",true);
             $scope.isBtnNew(true);
             $scope.clean();
+        });
+    }
+
+    $scope.countReserve = function(){
+        var url = "../AngularProyecto/php/calcular_reserva.php?codigo=" + $cookieStore.get('codigo');
+        $http.get(url).success(function(response)   //funcoin http
+        {
+            $scope.countReserve = response;
+            if ($scope.countReserve == 2) {
+                $scope.showMessage(true,'Su limite se reservas por semana esta completa', 3);
+                $scope.btnSeleccion = false;
+            }else{
+                $scope.btnSeleccion = true;
+            }
         });
     }
 

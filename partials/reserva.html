@@ -27,16 +27,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat = 'reserva in resers | filter:buscar | startFromGrid: currentPage * pageSize | limitTo: pageSize'>
-						<td>{{reserva.codigo}}</td>
-						<td>{{reserva.servicio_codigo}}</td>
-						<td>{{reserva.fechaInicio | date}}</td>
-						<td>{{reserva.hora}}</td>
-						<td>{{reserva.motivo | uppercase}}</td>
-						<td>{{reserva.estado}}</td>
+					<tr ng-repeat = 'reserve in reserves | filter:buscar | startFromGrid: currentPage * pageSize | limitTo: pageSize'>
+						<td>{{reserve.codigo}}</td>
+						<td>{{reserve.servicio_codigo}}</td>
+						<td>{{reserve.fechaInicio | date}}</td>
+						<td>{{reserve.hora}}</td>
+						<td>{{reserve.motivo | uppercase}}</td>
+						<td><span class="label label-success">Reservado</span></td>
 						<td>
 							<div class="btn-group btn-group-sm">
-								<button type="button" class="btn btn-danger btn-small"  ng-click="delete(reserva.codigo)"><span class="glyphicon glyphicon-remove"></span>cancelar</button>
+								<button type="button" class="btn btn-danger btn-small"  ng-click="cancelar(reserve.codigo)"><span class="glyphicon glyphicon-remove"></span>cancelar</button>
 		    				</div>
 						</td>
 					</tr>
@@ -47,7 +47,16 @@
 		<div class="navegacion">
 			<button class="pagination pagination-lg" type="button" ng-disabled = "currentPage == 0" ng-click="currentPage = currentPage - 1">&laquo;</button>
 			<button class="pagination" type="button" ng-disabled = "currentPage == page.no - 1" ng-click="setPage(page.no)" ng-repeat="page in pages">{{page.no}}</button>
-			<button class="pagination pagination-sm" type="button" ng-disabled = "currentPage >= resers.length/pageSize - 1" ng-click="currentPage = currentPage + 1">&raquo;</button>
-		</div>
+			<button class="pagination pagination-sm" type="button" ng-disabled = "currentPage >= reserves.length/pageSize - 1" ng-click="currentPage = currentPage + 1">&raquo;</button>
+		</div><!--
+		<div class="col-sm-12">
+			<div class="col-xs-12">
+				<label>Las opciones son 0 Reservado, 1 Cancelado, 2 Atendidos. 3 Todos </label>
+				<select ng-model="stateSearch"  ng-change="buscarReservas()"
+			    ng-options="value.id as value.nombre for value in stateSearchs">
+			    <option>--</option>
+			</select>
+			</div>
+		</div>-->
 	</div>
 </div>

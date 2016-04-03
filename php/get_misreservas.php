@@ -4,7 +4,7 @@
 	$con = conexion();
 	
 	$codigo = $_GET["codigo"];
-	$resultado = $con->query("SELECT * FROM reserva WHERE codigo = '".$codigo."'");
+	$resultado = $con->query("SELECT * FROM reserva WHERE usuario_codigo = '".$codigo."' AND estado = 0");
 
 	$datos = array();
 

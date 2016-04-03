@@ -20,6 +20,15 @@
 </head>
 <body ng-controller='main' ng-cloack  ng-init="inicializar()">
 		
+	<script src="js/app.js"></script>
+    <script src="js/controllers/usuario.js"></script>
+    <script src="js/controllers/servicio.js"></script>
+    <script src="js/controllers/reserva.js"></script>
+    <script src="js/controllers/ofertados.js"></script>
+    <script src="js/controllers/main.js"></script>
+    <script src="js/services/session.js"></script>
+  	<script>window.jQuery || document.write('<script src="lib/jquery/js/jquery.min.js"><\/script>')</script>
+  	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 	<header>
 		<div class="logo">
 			<figure>
@@ -48,7 +57,7 @@
 	    		<ul class="nav navbar-nav">
 					<li><a href="#/">Inicio</a></li>
 					<li ng-show="isConect == 1"><a href="#/usuario">Usuario</a></li>
-					<li ng-show="isConect == 2"><a href="#/servicio">Servicio</a></li>
+					<li ng-show="isConect == 1"><a href="#/servicio">Servicio</a></li>
 					<li><a href="#/servicios">Servicios</a></li>
 					<li ng-show="isConect != 0"><a href="#/reserva">Reserva</a></li>
 				</ul>
@@ -81,15 +90,6 @@
 		</h3>
 	</footer>
 
-	<script src="js/app.js"></script>
-    <script src="js/controllers/usuario.js"></script>
-    <script src="js/controllers/servicio.js"></script>
-    <script src="js/controllers/reserva.js"></script>
-    <script src="js/controllers/ofertados.js"></script>
-    <script src="js/controllers/main.js"></script>
-    <script src="js/services/session.js"></script>
-  	<script>window.jQuery || document.write('<script src="lib/jquery/js/jquery.min.js"><\/script>')</script>
-  	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
 
 </body>

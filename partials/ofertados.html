@@ -88,7 +88,7 @@
 						<td>{{service.descripcion | uppercase}}</td>
 						<td>
 							<div class="btn-group btn-group-sm">
-								<button type="button" class="btn btn-primary btn-small" ng-click="seleccionar(service.codigo)"><span class="glyphicon glyphicon-edit"></span> Seleccionar</button>
+								<button type="button" class="btn btn-primary btn-small" ng-disabled="btnSeleccion == false" ng-click="seleccionar(service.codigo)"><span class="glyphicon glyphicon-edit" ></span> Seleccionar</button>
 		    				</div>
 						</td>
 					</tr>

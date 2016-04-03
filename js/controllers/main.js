@@ -104,24 +104,30 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
             $http.get(url).success(function(response)
             {
                 $scope.actuales = response;
-                $scope.actual.codigo = $scope.actuales[0].codigo;
-                $scope.actual.ci = $scope.actuales[0].ci;
-                $scope.actual.nombre = $scope.actuales[0].nombre;
-                $scope.actual.apellido = $scope.actuales[0].apellido;
-                $scope.actual.correo = $scope.actuales[0].correo;
-                $scope.actual.telefono = $scope.actuales[0].telefono;
-                $scope.actual.nick = $scope.actuales[0].nick;
-                $scope.actual.tipousuario_id = $scope.actuales[0].tipousuario_id;
-                
-                //Guardamos el usuario el la coockies
-                $cookieStore.put('tipo', $scope.actual.tipousuario_id);
-                $cookieStore.put('userName', $scope.actual.nick);
-                $cookieStore.put('codigo', $scope.actual.codigo);
+                if ($scope.actual.tipousuario_id) {
+                    $scope.showMessage(true,'Usuario o contraseña incorrectos.', 4);
+                    return;
+                } else{
 
-                //Se inicializa la aplicacion
-                $scope.inicializar();
-                $location.path('/partials/inicio.html');
-                $scope.clean();
+                    $scope.actual.codigo = $scope.actuales[0].codigo;
+                    $scope.actual.ci = $scope.actuales[0].ci;
+                    $scope.actual.nombre = $scope.actuales[0].nombre;
+                    $scope.actual.apellido = $scope.actuales[0].apellido;
+                    $scope.actual.correo = $scope.actuales[0].correo;
+                    $scope.actual.telefono = $scope.actuales[0].telefono;
+                    $scope.actual.nick = $scope.actuales[0].nick;
+                    $scope.actual.tipousuario_id = $scope.actuales[0].tipousuario_id;
+                    
+                    //Guardamos el usuario el la coockies
+                    $cookieStore.put('tipo', $scope.actual.tipousuario_id);
+                    $cookieStore.put('userName', $scope.actual.nick);
+                    $cookieStore.put('codigo', $scope.actual.codigo);
+
+                    //Se inicializa la aplicacion
+                    $scope.inicializar();
+                    $location.path('/partials/inicio.html');
+                    $scope.clean();
+                };
 
 
             });
@@ -207,7 +213,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     $scope.showMessage = function(show, message, type)
     {
        $scope.showMsg = show;
-       $scope.message = message;
+       $scope.message = message;    
 
        if (type == 1) {     //bien - verde
             $scope.typeMsg = 'success';

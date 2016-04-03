@@ -6,7 +6,7 @@ angular.module('angularRoutingApp')
     $scope.pageSize = 4;//numero registros
     $scope.pages = [];//guardar numeros de paginas
 
-    $scope.resers = [];
+    $scope.reserves = [];
     $scope.actual = {};
     $scope.actual.codigo= "";
     $scope.actual.servicio = "";
@@ -17,6 +17,7 @@ angular.module('angularRoutingApp')
 
     //campos para gestionar botones
     $scope.btnDelete = false;
+    $scope.stateSearchs = [{'id':'0', 'nombre': 'Reservadas'},{'id':'1', 'nombre': 'Cancelar'},{'id':'2', 'nombre': 'Atendidos'},{'id':'3', 'nombre': 'Todos'}];
 
 
     //cargar combo de servicios
@@ -35,28 +36,44 @@ angular.module('angularRoutingApp')
         var url = "../AngularProyecto/php/get_misreservas.php?codigo=" + $scope.user_codigo;
         $http.get(url).success(function(response)
         {
-            $scope.resers = response;
+            $scope.reserves = response;
             $scope.sizeTable();
         });
     }
 
     
 
-    $scope.delete = function(codigo)
+    $scope.cancelar = function(codigo)
     {
-        if (!confirm("Realmente quieres elimnar este registro " + codigo + " ?")) {
+        if (!confirm("Realmente quieres Cancelar esta reserva " + codigo + " ?")) {
             return;
         };
 
-        var url = "../AngularProyecto/php/delete_reserva.php?codigo=" + codigo;
+        var url = "../AngularProyecto/php/cancel_reserva.php?codigo=" + codigo;
         $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
         {
-            console.log("Datos eliminados");
-            $scope.operacion = "Eliminado";
-            $scope.Mensaje = true;
+            $scope.result = data;
+            
+            if ($scope.result === '1') {
+                $scope.showMessage(true,' La reserva se canceló correctamente !.', 1);
+                $scope.getReservas();
+                $scope.actual = {};
+            } else{
+                $scope.showMessage(true,' La reserva No se pudo cancelar correctamente.', 4);
+            }
+        });
+    }
 
-            $scope.actual = {};
-            $scope.getReservas();
+
+    $scope.buscarReservas = function(){
+        $scope.user_codigo = $cookieStore.get('codigo');
+        alert($scope.stateSearch);
+        var url = "../AngularProyecto/php/get_misreservastate.php?codigo=" + $scope.user_codigo+ "&estado="+$scope.stateSearch;
+        alert(url);
+        $http.get(url).success(function(response)
+        {
+            $scope.reserves = response;
+            $scope.sizeTable();
         });
     }
 
@@ -77,21 +94,21 @@ angular.module('angularRoutingApp')
         if(ini < 1)
         {
             ini = 1;
-            if(Math.ceil($scope.resers.length / $scope.pageSize) > 5)
+            if(Math.ceil($scope.reserves.length / $scope.pageSize) > 5)
             {
                 fin = 5;
             }
             else
             {
-                fin = Math.ceil($scope.resers.length / $scope.pageSize);
+                fin = Math.ceil($scope.reserves.length / $scope.pageSize);
             }
         }
         else
         {
-            if (ini >= Math.ceil($scope.resers.length / $scope.pageSize) - 5)
+            if (ini >= Math.ceil($scope.reserves.length / $scope.pageSize) - 5)
             {
-                ini =  Math.ceil($scope.resers.length / $scope.pageSize) - 5;
-                fin =  Math.ceil($scope.resers.length / $scope.pageSize);
+                ini =  Math.ceil($scope.reserves.length / $scope.pageSize) - 5;
+                fin =  Math.ceil($scope.reserves.length / $scope.pageSize);
             }
         }       
 
