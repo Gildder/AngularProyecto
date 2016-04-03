@@ -1,7 +1,7 @@
 'use strict'
 angular.module('angularRoutingApp')
 .controller('reserva', function($scope, $http, $cookieStore) {
-    $scope.titulo = 'Reservas';
+    $scope.titulo = 'Mis Reservas';
     $scope.currentPage = 0;//pagina actual
     $scope.pageSize = 4;//numero registros
     $scope.pages = [];//guardar numeros de paginas

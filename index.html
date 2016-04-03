@@ -37,7 +37,8 @@
 		</div>
 		<div class="titular">
 			<h1 class="titulo">URBARÍ</h1>
-			<a href="" ng-click="seeRegister()"  class="nick"><span class="glyphicon glyphicon-log-out"></span> {{loginOut}}</a>
+			<a ng-hide="isConect == 0" for="nick" class="nick"><span class="glyphicon glyphicon-user"></span> {{actual.nick}}</a>
+			<a href="" ng-click="seeRegister()"  class="salir"><span class="glyphicon glyphicon-log-out"></span> {{loginOut}}</a>
 			<a href="" ng-show="isConect == 0" ng-click="seeSesion()" class="registrar btn-success"><span class="glyphicon glyphicon-log-in"></span> {{loginIn}}</a>
 		</div>
 	</header>
@@ -58,8 +59,8 @@
 					<li ng-click="inicializar()"><a href="#/">Inicio</a></li>
 					<li ng-show="isConect == 1" ng-click="inicializar()"><a href="#/usuario">Usuario</a></li>
 					<li ng-show="isConect == 1" ng-click="inicializar()"><a href="#/servicio">Servicio</a></li>
-					<li ng-show="isConect == 3" ng-click="inicializar()"><a href="#/servicios">Servicios</a></li>
-					<li ng-show="isConect == 3" ng-click="inicializar()"><a href="#/reserva">Reserva</a></li>
+					<li ng-hide="isConect == 2 && isConect == 1" ng-click="inicializar()"><a href="#/servicios">Servicios</a></li>
+					<li ng-show="isConect == 3" ng-click="inicializar()"><a href="#/reserva">Mis Reservas</a></li>
 				</ul>
 			</div>
 		</div>

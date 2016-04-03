@@ -76,11 +76,13 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
             $scope.loginOut = "Registrar";
             $scope.btnSesion = false;
             $scope.btnRegister = false;
+            $scope.actual.nick= "";
             $scope.isConect= 0;
             $scope.hideMessage();
 
         }else{
             $scope.loginIn = $cookieStore.get('userName');
+            $scope.actual.nick= $cookieStore.get('userName');
             $scope.isConect= $cookieStore.get('tipo');
             $scope.loginOut = "Salir  ";
             
@@ -104,7 +106,6 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
             var url = "../AngularProyecto/php/iniciar_sesion.php?correo=" + $scope.actual.correo + "& contrasenia=" + $scope.actual.contrasenia;
             $http.get(url).success(function(response)
             {
-                alert(response[0].nombre);
                 if (response=="") {
                     $scope.showMessage(true,'Usuario o contraseña incorrectos.', 4);
                     return;
@@ -126,8 +127,8 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
                     $cookieStore.put('codigo', $scope.actual.codigo);
 
                     //Se inicializa la aplicacion
-                    $scope.inicializar();
                     $location.path('/partials/inicio.html');
+                    $scope.inicializar();
                     $scope.clean();
                 }
 

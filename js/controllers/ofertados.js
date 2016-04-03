@@ -82,6 +82,17 @@ angular.module('angularRoutingApp')
         });
     }
 
+    $scope.validarInsertarReserva = function()
+    {
+        $scope.user_codigo = $cookieStore.get('codigo');
+        if ($scope.actual.fechaInicio ==="" || $scope.user_codigo ==="" || $scope.actual.servicio==="" || $scope.actual.hora ==="" || $scope.actual.motivo ==="") 
+        {
+            return false;
+        } else{
+            return true;
+        }
+    }
+
     $scope.countReserve = function(){
         var url = "../AngularProyecto/php/calcular_reserva.php?codigo=" + $cookieStore.get('codigo');
         $http.get(url).success(function(response)   //funcoin http
