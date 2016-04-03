@@ -55,11 +55,11 @@
 	        </div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 	    		<ul class="nav navbar-nav">
-					<li><a href="#/">Inicio</a></li>
-					<li ng-show="isConect == 1"><a href="#/usuario">Usuario</a></li>
-					<li ng-show="isConect == 1"><a href="#/servicio">Servicio</a></li>
-					<li ng-hide="isConect == 2 || isConect == 1"><a href="#/servicios">Servicios</a></li>
-					<li ng-show="isConect == 3"><a href="#/reserva">Reserva</a></li>
+					<li ng-click="inicializar()"><a href="#/">Inicio</a></li>
+					<li ng-show="isConect == 1" ng-click="inicializar()"><a href="#/usuario">Usuario</a></li>
+					<li ng-show="isConect == 1" ng-click="inicializar()"><a href="#/servicio">Servicio</a></li>
+					<li ng-hide="isConect == 2 || isConect == 1" ng-click="inicializar()"><a href="#/servicios">Servicios</a></li>
+					<li ng-show="isConect == 3" ng-click="inicializar()"><a href="#/reserva">Reserva</a></li>
 				</ul>
 			</div>
 		</div>

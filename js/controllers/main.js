@@ -74,6 +74,8 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         if (!$cookieStore.get('userName')) {
             $scope.loginIn = "Entrar";
             $scope.loginOut = "Registrar";
+            $scope.btnSesion = false;
+            $scope.btnRegister = false;
             $scope.isConect= 0;
             $scope.hideMessage();
 
