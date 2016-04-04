@@ -5,7 +5,7 @@
 	include('conexion.php');
 	$con = conexion();
 
-	$sql="UPDATE reserva  SET  estado = '1' WHERE codigo = '".$codigo."'";
+	$sql="UPDATE reserva  SET  estado = '0' WHERE codigo = '".$codigo."'";
 
 	$resultado = $con->query($sql);
 	

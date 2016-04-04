@@ -1,6 +1,6 @@
 'use strict'
 angular.module('angularRoutingApp')
-.controller('ofertados', function($scope, $http, $cookieStore) {
+.controller('ofertados', function($scope, $http, $cookieStore, $location) {
     $scope.titulo = 'Servicios ofertados';
     $scope.currentPage = 0;     //pagina actual
     $scope.pageSize = 4;        //numero registros
@@ -76,17 +76,11 @@ angular.module('angularRoutingApp')
         var url = "../AngularProyecto/php/insert_reserva.php";
         $http.post(url,{'fechaInicio':$scope.actual.fechaInicio, 'usuario':$scope.user_codigo, 'servicio':$scope.actual.servicio, 'hora':$scope.actual.hora, 'motivo':$scope.actual.motivo}).success(function(data, status, headers, config)
         {
-            //alert(data);
-            //$scope.getReservas2();
-           // $scope.getServicios();
-            //$scope.showMessage(true,"La reserva se hizo correctamente",1);
-            //$scope.isBtnNew(true);
-            //$location.path('/partials/reserva.html');
-            //$scope.clean();
-             //$scope.getReservas();
-            // $scope.showMessage("Guardado",true);
-            //$scope.isBtnNew(true);
+          
+            $location.path('/misreservas');
+            $scope.showMessage(true,'El usuario se guardo correctamente.', 1);
             $scope.clean();
+
         });
     }
 
@@ -106,12 +100,21 @@ angular.module('angularRoutingApp')
         $http.get(url).success(function(response)   //funcoin http
         {
             $scope.countReserve = response;
+
             if ($scope.countReserve == 2) {
                 $scope.showMessage(true,'Su limite se reservas por semana esta completa', 3);
                 $scope.btnSeleccion = false;
             }else{
                 $scope.btnSeleccion = true;
             }
+        });
+    }
+
+    $scope.obtenerFechas = function(){
+        var url = "../AngularProyecto/php/calcular_fechas.php";
+        $http.get(url).success(function(response)   //funcoin http
+        {
+            $scope.fechasSemana = response;
         });
     }
 

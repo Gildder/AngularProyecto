@@ -5,7 +5,7 @@ var angularRoutingApp = angular.module('angularRoutingApp', ['ngRoute','ngCookie
 angularRoutingApp.config(function($routeProvider) {
 
     $routeProvider
-        .when('/', {
+        .when('/inicio', {
             templateUrl : 'partials/inicio.html',
             controller  : 'main'
         })
@@ -21,12 +21,16 @@ angularRoutingApp.config(function($routeProvider) {
             templateUrl : 'partials/reserva.html',
             controller  : 'reserva'
         })
+        .when('/misreservas', {
+            templateUrl : 'partials/misreservas.html',
+            controller  : 'misreservas'
+        })
         .when('/servicios', {
             templateUrl : 'partials/ofertados.html',
             controller  : 'ofertados'
         })
         .otherwise({
-            redirectTo: '/'
+            redirectTo: '/inicio'
         });
 });
 

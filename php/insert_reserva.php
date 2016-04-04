@@ -15,8 +15,8 @@
 	$resultado = $con->query($sql);
 	
 	if ($resultado===true) {
-		echo "INSERTADO CON EXITO!!";
+		echo true;
 	} else {
-		echo "Error de insersion";
+		echo false;
 	}
  ?>

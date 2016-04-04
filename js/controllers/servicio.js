@@ -115,7 +115,7 @@ angular.module('angularRoutingApp')
                 $scope.getServices();
                 $scope.showMessage(true,'El servicio se cancelo correctamente.', 1);
             }else{
-                $scope.showMessage(true,'El servicio se pudo cancelar correctamente.', 4);
+                $scope.showMessage(true,'El servicio No se pudo cancelar correctamente.', 4);
 
             }
         });

@@ -29,7 +29,6 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     //mostrar el formulario de session
     $scope.seeSesion = function()
     {
-        $scope.hideMessage();
 
         if ($cookieStore.get('userName'))
         { 
@@ -39,31 +38,34 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         if ($scope.btnSesion == true)       //activa boton 
         {
             $scope.btnSesion = false;
-        }else{                   			//desactiva boton 
-        	$scope.btnSesion = true;
-        	$scope.btnRegister = false;
+        }else{                              //desactiva boton 
+            $scope.btnSesion = true;
+            $scope.btnRegister = false;
         }
+        $scope.clean();
+        $scope.hideMessage();
     }
 
     //mostrar el formulario de registro, tambien para Salir session
     $scope.seeRegister = function()
     {
-        $scope.hideMessage();
 
-        if (!$cookieStore.get('userName'))
+        if ($cookieStore.get('userName'))
         { 
-            if ($scope.btnRegister == true)       //activa boton 
-            {   
-                $scope.btnRegister = false;
-            }else{                   			//desactiva boton 
-            	$scope.btnRegister = true;
-            	$scope.btnSesion = false;
-            }
-        }else{
             $scope.closeSession(); 
             $scope.inicializar(); 
-
+            return;
         }
+        
+        if ($scope.btnRegister == true)       //activa boton 
+        {   
+            $scope.btnRegister = false;
+        }else{                              //desactiva boton 
+            $scope.btnRegister = true;
+            $scope.btnSesion = false;
+        }
+        $scope.clean();
+        $scope.hideMessage();
     }
 
 
@@ -74,8 +76,6 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         if (!$cookieStore.get('userName')) {
             $scope.loginIn = "Entrar";
             $scope.loginOut = "Registrar";
-            $scope.btnSesion = false;
-            $scope.btnRegister = false;
             $scope.actual.nick= "";
             $scope.isConect= 0;
             $scope.hideMessage();
@@ -88,6 +88,8 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
             
             //ocultamos la vista de los formualarios
         }
+            $scope.btnSesion = false;
+            $scope.btnRegister = false;
         
     }
 
@@ -213,8 +215,6 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         $scope.actual.telefono = "";
         $scope.actual.tipousuario_id = "";
 
-        $scope.btnSesion = false;
-        $scope.btnRegister = false;
     }
 
     $scope.showMessage = function(show, message, type)

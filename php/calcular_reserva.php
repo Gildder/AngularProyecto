@@ -24,7 +24,7 @@
 	
 	$codigo = $_GET["codigo"];
 
-	$sql = "SELECT count(*) as cantidad FROM reserva WHERE (fechaInicio BETWEEN '".$dateStart."'  AND '".$dateEnd."') AND usuario_codigo = ".$codigo;
+	$sql = "SELECT count(*) as cantidad FROM reserva WHERE (fechaInicio BETWEEN '".$dateStart."'  AND '".$dateEnd."') AND usuario_codigo = ".$codigo. " AND estado = '1'";
 	if($resultado = $con->query($sql)){
 
 		while ($row = $resultado->fetch_assoc()) {

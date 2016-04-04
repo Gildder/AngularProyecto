@@ -29,8 +29,13 @@
 		<div class="col-sm-12">
 
 			<div class="col-sm-6">
-				<label for="fechaInicio" >Fecha: </label>
-				<input type="date"  class="form-control" name="fechaInicio" ng-model="actual.fechaInicio" placeholder="Selecciona una fecha" required>
+				<label for="hora" >Fecha:</label>
+				<input list="fechas" class="form-control"  id="fecha" ng-model="actual.fechaInicio" placeholder="dd/mm/yy" required>
+			    <datalist id="fechas" >
+			        <select ng-init="obtenerFechas()">
+	                    <option ng-repeat="decha in fechasSemana" value="{{decha}}"></option>
+	                </select>
+			    </datalist> 
 				<span ng-show="!reservar.$pristine && reservar.fechaInicio.$error.required">La fecha es requerida.</span>
 				<br>
 			</div>
