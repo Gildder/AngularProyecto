@@ -5,6 +5,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     $scope.loginIn= "Entrar";
     $scope.loginOut= "Registrar";
     $scope.isConect= 0;
+    $scope.isRecorder = true;
 
     $scope.actual = {};
     $scope.actual.codigo= "";
@@ -20,6 +21,12 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     //campos para gestionar botones
     $scope.btnSesion = false;
     $scope.btnRegister = false;
+    
+    //ver contraseña
+    $scope.typePass = 'password';
+    $scope.icoPass = 'eye-open';
+    $scope.verPass = false;
+
 
     //campos mensaje de alerta
     $scope.showMsg = false;
@@ -233,6 +240,19 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
        }else if(type == 4){               //Error - rojo
             $scope.typeMsg = 'danger';
        }
+    }
+
+    $scope.seePass = function()
+    {
+        if ($scope.verPass == true) {
+            $scope.typePass = 'text';
+            $scope.icoPass = 'eye-close';
+            $scope.verPass = false;
+        } else{
+            $scope.typePass = 'password';
+            $scope.icoPass = 'eye-open';
+            $scope.verPass = true;
+        }
     }
 
     $scope.hideMessage = function()
