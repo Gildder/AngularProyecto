@@ -8,15 +8,15 @@
 				<input class="form-control"  ng-model="actual.correo" placeholder="Introduce correo electronico" name="usuario" type="email">	
 			</div>
 			<div class="form-group col-sm-6">
-				<div class="col-sm-10">
-					<input class="form-control" ng-model="actual.contrasenia" placeholder="Introduce contraseña" name="contrasenia" type="{{typePass}}">
+				<div>
+					<div class="input-group">
+  						<span class="input-group-addon glyphicon glyphicon-{{icoPass}}" ng-click="seePass()"></span>
+						<input class="form-control" ng-model="actual.contrasenia" placeholder="Introduce contraseña" name="contrasenia" type="{{typePass}}">
+					</div>
 					<div class="checkbox" >
 						<input type="hidden" value="0" name="rememberMe">
 						<label><input ng-model="isRecorder" value="1" type="checkbox" ng-true-value="true" ng-false-value="false" />Recordar session</label>
 					</div>
-				</div>
-				<div class="col-sm-2">
-					<button type="button" class="btn btn-default btn-small"  ng-click="seePass()"><span class="glyphicon glyphicon-{{icoPass}}"></span></button>		
 				</div>
 			</div>
 		</div>
