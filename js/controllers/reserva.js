@@ -21,7 +21,7 @@ angular.module('angularRoutingApp')
     $scope.btnUpdate = false;
     $scope.btnCancel = false;
     $scope.btnSave = false;
-    
+    $scope.btnRegister = true;
    
     $scope.nombreCompleto= "Nombre completo cliente";
 
@@ -77,6 +77,25 @@ angular.module('angularRoutingApp')
             });
 
         } 
+    }
+
+    $scope.confirmar = function(codigo)
+    {
+        if (!confirm("Deseas confirmar esta  " + codigo + " reserva ?")) {
+            return;
+        };
+
+        var url = "../AngularProyecto/php/confirmar_reserva.php?codigo=" + codigo;
+        $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
+        {
+            if (data == true) {
+                $scope.getReservas();
+                $scope.showMessage(true,'La reserva se recepciono correctamente.', 1);
+            }else{
+                $scope.showMessage(true,'La reserva no se pudo recepcionar correctamente.', 4);
+
+            }
+        });
     }
 
     $scope.cancelar = function(codigo)

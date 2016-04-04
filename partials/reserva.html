@@ -9,6 +9,7 @@
 		</div>
 	</div>
 	<br>
+	
 	<!--Panel registro-->
 	<div class="register container" ng-show="btnSave == true">
 		<br><div class="col-sm-12">
@@ -122,10 +123,11 @@
 						<td>{{reserva.fechaInicio | date}}</td>
 						<td>{{reserva.hora}}</td>
 						<td>{{reserva.motivo | uppercase}}</td>
-						<td><span class="label label-success">{{reserva.estado}}</span></td>
+						<td><span>{{reserva.estado}}</span></td>
 						<div class="control-group">
 							<td>
-								<button type="button" class="btn btn-danger btn-small" style="background: #EC776E;"   ng-click="cancelar(reserva.codigo)"><span class="glyphicon glyphicon-remove-sign"></span></button>
+								<button type="button" ng-disabled="{{reserva.vista_estado}}" class="btn btn-success btn-small" ng-click="confirmar(reserva.codigo)"><span class="glyphicon glyphicon-ok"></span></button>
+								<button type="button" ng-disabled="{{reserva.vista_estado}}" class="btn btn-danger btn-small"  ng-click="cancelar(reserva.codigo)"><span class="glyphicon glyphicon-remove-sign"></span></button>
 							</td>
 		    			</div>
 					</tr>

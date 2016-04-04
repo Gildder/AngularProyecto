@@ -48,4 +48,17 @@ angularRoutingApp.filter('startFromGrid', function()
     }
 });
 
+angularRoutingApp.filter('stateReserve', function() 
+{
+    return function(state) 
+    {
+
+        if (state==='RECEPCIONADO') {
+            return true;
+        } else{
+            return false;
+        };
+    }
+});
+
 
