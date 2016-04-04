@@ -128,8 +128,8 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
 
                     //Se inicializa la aplicacion
                     $location.path('/partials/inicio.html');
-                    $scope.inicializar();
                     $scope.clean();
+                    $scope.inicializar();
                 }
 
 

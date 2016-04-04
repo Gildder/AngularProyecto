@@ -13,13 +13,16 @@
 		<br><div class="col-sm-12">
 			<p class="col-sm-12">Para realizar la reserva del servicio llene todos los campos del siguiente formulario. </p>
 		</div><hr>
+
+		<form name="reservar">
 		<div class="col-sm-12">
 			<div class="col-sm-6" ng-init="getServicios()"  >
 				<label for="servicio">Servicios:</label>
-				<select ng-model="actual.servicio" class="form-control"
-				    ng-options="value.codigo as value.nombre for value in servicios">
+				<select ng-model="actual.servicio" class="form-control" name="servicio" 
+				    ng-options="value.codigo as value.nombre for value in servicios" required>
 				    <option>--</option>
 				</select>
+				<span ng-show="!reservar.$pristine && reservar.servicio.$error.required">Seleccione el Servicio.</span>
 				<br>
 			</div>
 		</div>
@@ -27,15 +30,17 @@
 
 			<div class="col-sm-6">
 				<label for="fechaInicio" >Fecha: </label>
-				<input type="date"  class="form-control" name="fechaInicio" ng-model="actual.fechaInicio" placeholder="Selecciona una fecha"><br>
+				<input type="date"  class="form-control" name="fechaInicio" ng-model="actual.fechaInicio" placeholder="Selecciona una fecha" required>
+				<span ng-show="!reservar.$pristine && reservar.fechaInicio.$error.required">La fecha es requerida.</span>
+				<br>
 			</div>
 		</div>
 
 		<div class="col-sm-12">
 		
 			<div class="col-sm-6">
-				<label for="horaInicio" >Hora:</label>
-				<select class="form-control" ng-model="actual.hora" name="{{actual.hora}}">
+				<label for="hora" >Hora:</label>
+				<select class="form-control" ng-model="actual.hora" name="hora" required>
 				  <option>6:00 - 7:00</option>
 				  <option>7:00 - 8:00</option>
 				  <option>8:00 - 9:00</option>
@@ -47,7 +52,15 @@
 				  <option>14:00 - 15:00</option>
 				  <option>15:00 - 16:00</option>
 				  <option>16:00 - 17:00</option>
-				</select><br>
+				  <option>17:00 - 18:00</option>
+				  <option>18:00 - 19:00</option>
+				  <option>19:00 - 20:00</option>
+				  <option>20:00 - 21:00</option>
+				  <option>21:00 - 22:00</option>
+				  <option>22:00 - 23:00</option>
+				</select>
+				<span ng-show="!reservar.$pristine && reservar.hora.$error.required">La hora es requerida.</span>
+				<br>
 			</div>
 		</div>
 		<div class="col-sm-12">
@@ -57,6 +70,8 @@
 				<textarea maxlength="150" name="motivo" class="form-control" ng-model="actual.motivo" placeholder="Introduzca un motivo"></textarea>
 			</div>
 		</div>
+</form>		
+
 	</div>
 
 	<!--Tablas-->

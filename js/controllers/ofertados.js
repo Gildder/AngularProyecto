@@ -68,16 +68,24 @@ angular.module('angularRoutingApp')
 
     $scope.save = function()
     {
-        if ($scope.validar()==false) {
+        if ($scope.validarInsertarReserva()==false) {
             return;
         }
-        
+        $scope.user_codigo = $cookieStore.get('codigo');
+         //alert($scope.user_codigo);
         var url = "../AngularProyecto/php/insert_reserva.php";
-        $http.post(url,{'fechaInicio':$scope.actual.fechaInicio, 'usuario':$scope.actual.usuario, 'servicio':$scope.actual.servicio, 'hora':$scope.actual.hora, 'motivo':$scope.actual.motivo}).success(function(data, status, headers, config)
+        $http.post(url,{'fechaInicio':$scope.actual.fechaInicio, 'usuario':$scope.user_codigo, 'servicio':$scope.actual.servicio, 'hora':$scope.actual.hora, 'motivo':$scope.actual.motivo}).success(function(data, status, headers, config)
         {
-            $scope.getReservas();
-            $scope.showMessage("Guardado",true);
-            $scope.isBtnNew(true);
+            //alert(data);
+            //$scope.getReservas2();
+           // $scope.getServicios();
+            //$scope.showMessage(true,"La reserva se hizo correctamente",1);
+            //$scope.isBtnNew(true);
+            //$location.path('/partials/reserva.html');
+            //$scope.clean();
+             //$scope.getReservas();
+            // $scope.showMessage("Guardado",true);
+            //$scope.isBtnNew(true);
             $scope.clean();
         });
     }
@@ -122,6 +130,8 @@ angular.module('angularRoutingApp')
         $scope.actual.descripcion = "";
         $scope.actual.estado = "";
         $scope.actual.servicio = "";
+        
+        $scope.btnReserve =false;
     }
 
     $scope.sizeTable = function (){
