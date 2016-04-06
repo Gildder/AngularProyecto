@@ -17,7 +17,7 @@
 
 	
 	$sql = "INSERT INTO `usuario` (`ci`, `nombre`, `apellido`, `correo`, `telefono`, `nick`, `contrasenia`, `tipousuario_id`) ".
-	" VALUES ('" . $ci . "', '" . $nombre . "', '" . $apellido . "', '" . $correo . "', '" . $telefono. "', '" . $nick . "', '" . $contrasenia. "', '3') ";
+	" VALUES ('" . $ci . "', '" . $nombre . "', '" . $apellido . "', '" . $correo . "', '" . $telefono. "', '" . $nick . "', md5('".$contrasenia."'), '3') ";
 
 	$resultado = $con->query($sql);
 	

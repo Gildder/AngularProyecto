@@ -1,33 +1,53 @@
 <div class="col-sm-12">
 	<article>
-		<div class="col-sm-12">
-			<h2 class="col-sm-12">Iniciar Session</h2>
-		</div>
-		<div class="col-sm-8">
-			<div class="form-group col-sm-5">
-				<input class="form-control"  ng-model="actual.correo" placeholder="Introduce correo electronico" name="usuario" type="email">	
+		<form name="sessionForm" id="sessionForm" >
+			<div class="col-sm-12">
+				<h2 class="col-sm-12">Iniciar Session</h2>
 			</div>
-			<div class="form-group col-sm-6">
-				<div>
+			<div class="col-sm-8">
+				<div class="form-group col-sm-5" ng-class="{'has-error':sessionForm.correo.$invalid && sessionForm.correo.$dirty}">
 					<div class="input-group">
-  						<span class="input-group-addon glyphicon glyphicon-{{icoPass}}" ng-click="seePass()"></span>
-						<input class="form-control" ng-model="actual.contrasenia" placeholder="Introduce contraseña" name="contrasenia" type="{{typePass}}">
+						<span class="input-group-addon">@</span>
+						<input type="email" name="correo" class="form-control" maxlength="30" ng-model="actual.correo" placeholder="Introduce correo electronico" ng-required="true">
 					</div>
-					<div class="checkbox" >
-						<input type="hidden" value="0" name="rememberMe">
-						<label><input ng-model="isRecorder" value="1" type="checkbox" ng-true-value="true" ng-false-value="false" />Recordar session</label>
+					<div class="col-sm-12">
+						<span ng-if="sessionForm.correo.$invalid && sessionForm.correo.$dirty" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
+						<span ng-if="sessionForm.correo.$invalid && sessionForm.correo.$dirty" style="display:inline-block;" class="help-block">El correo electronico es requerido.</span>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group"  ng-class="{'has-error':sessionForm.contrasenia.$invalid && sessionForm.contrasenia.$dirty}">
+						<div class="input-group">
+							<span class="input-group-addon glyphicon glyphicon-{{icoPass}}" style="color:white;" ng-click="seePass()"></span>
+							<input type="{{typePass}}" name="contrasenia" class="form-control" minlength="7" maxlength="30" ng-model="actual.contrasenia" placeholder="Introduce contraseña" ng-required="true">
+						</div>
+						
+						<div class="col-sm-12">
+							<span ng-if="sessionForm.contrasenia.$invalid && sessionForm.contrasenia.$dirty" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
+							<span ng-if="sessionForm.contrasenia.$invalid && sessionForm.contrasenia.$dirty" class="help-block" style="display:inline-block;">La contraseña es requerido.</span>
+						</div>
+					</div>
+					<div class="checkbox col-sm-12" >
+						<div class="col-sm-6" style="margin:0px; padding:0px;">
+							
+							<input type="hidden" value="0" name="rememberMe">
+							<label><input ng-model="isRecorder" value="1" type="checkbox" ng-true-value="true" ng-false-value="false" />Recordar session</label>
+						</div>
+						<div class="col-sm-6" style="margin:0px; padding:0px;">
+							<a for="recuperarContrasena">Olvidaste tu contraseña?</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="form-group col-sm-6">
-				<button class="btn btn-primary btn-block" type="submit" ng-click="iniciarSession()"><span class="glyphicon glyphicon-ok"></span> Entrar</button>		
+			<div class="col-sm-4">
+				<div class="form-group col-sm-6">     
+					<button class="btn btn-primary btn-block" ng-disabled="sessionForm.$invalid"  ng-click="iniciarSession()"><span class="glyphicon glyphicon-ok"></span> Entrar</button>		
+				</div>
+				<div class="form-group col-sm-6">
+					<button class="btn btn-danger btn-block" type="submit" ng-click="seeSesion()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>		
+				</div>
 			</div>
-			<div class="form-group col-sm-6">
-				<button class="btn btn-danger btn-block" type="submit" ng-click="seeSesion()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>		
-			</div>
-		</div>
+		</form>
 	</article>
 
 </div>

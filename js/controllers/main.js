@@ -24,7 +24,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     
     //ver contraseña
     $scope.typePass = 'password';
-    $scope.icoPass = 'eye-open';
+    $scope.icoPass = 'eye-open btn-success';
     $scope.verPass = false;
 
 
@@ -51,6 +51,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         }
         $scope.clean();
         $scope.hideMessage();
+        $route.reload();
     }
 
     //mostrar el formulario de registro, tambien para Salir session
@@ -73,6 +74,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         }
         $scope.clean();
         $scope.hideMessage();
+        $route.reload();
     }
 
 
@@ -136,7 +138,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
                     $cookieStore.put('codigo', $scope.actual.codigo);
 
                     //Se inicializa la aplicacion
-                    $location.path('/partials/inicio.html');
+                    $location.path('/usuario');
                     $scope.clean();
                     $scope.inicializar();
                 }
@@ -246,11 +248,11 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     {
         if ($scope.verPass == true) {
             $scope.typePass = 'text';
-            $scope.icoPass = 'eye-close';
+            $scope.icoPass = 'eye-close btn-danger';
             $scope.verPass = false;
         } else{
             $scope.typePass = 'password';
-            $scope.icoPass = 'eye-open';
+            $scope.icoPass = 'eye-open btn-success';
             $scope.verPass = true;
         }
     }

@@ -60,7 +60,7 @@
 	        </div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 	    		<ul class="nav navbar-nav">
-					<li ng-click="inicializar()"><a href="#/inicio">Inicio</a></li>
+					<li ng-hide="isConect == 1 || isConect == 2" ng-click="inicializar()"><a href="#/inicio">Inicio</a></li>
 					<li ng-show="isConect == 1" ng-click="inicializar()"><a href="#/usuario">Usuario</a></li>
 					<li ng-show="isConect == 1" ng-click="inicializar()"><a href="#/servicio">Servicio</a></li>
 					<li ng-show="isConect == 2" ng-click="inicializar()"><a href="#/reserva">Reserva</a></li>

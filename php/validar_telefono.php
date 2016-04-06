@@ -1,17 +1,16 @@
-<?php 
-
+<?php
 	include('conexion.php');
 
 	$con = conexion();
-
-	$resultado = $con->query("SELECT * FROM tipousuario WHERE id<>3");
+	
+	$telefono = $_GET["telefono"];
+	$resultado = $con->query("SELECT * FROM usuario WHERE telefono = '".$telefono."'");
 
 	$datos = array();
 
 	while ($row = $resultado->fetch_assoc()) {
 		$datos[] =  $row;
 	}
-
 	echo json_encode($datos);
 
- ?>
+?>

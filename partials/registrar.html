@@ -1,45 +1,120 @@
 <div class="col-sm-12" >
+	<article>
 	<div class="col-sm-12">
 		<h2 class="col-sm-12">Registrar</h2>
 	</div>
-	<div class="col-sm-8">
-		<div class="col-sm-12" style="margin:0; padding:0px;">
-			<div class="form-group col-sm-6">
-				<input class="span5 form-control" ng-model="actual.nick" maxlength="20" placeholder="Nombre de usuario" type="text">
+	<form name="registerForm" id="registerForm" >
+		<div class="col-sm-8">
+			<div class="col-sm-12" style="margin:0; padding:0px;">
+				<div class="form-group col-sm-6" ng-class="{'has-error':registerForm.nick.$invalid && registerForm.nick.$touched}">
+					<div class="input-group">
+						<span class="input-group-addon glyphicon glyphicon-user "></span>
+						<input type="text" name="nick" class="span5 form-control" ng-model="actual.nick" maxlength="20" placeholder="Nombre de usuario"  ng-required="true">
+					</div>
+
+					<div class="col-sm-12">
+						<span ng-if="registerForm.nick.$invalid && registerForm.nick.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
+
+						<span ng-if="registerForm.nick.$error.required && registerForm.nick.$touched" style="display:inline-block;" class="help-block">El nick es requerido</span>
+					</div>
+				</div>
+				
+				<div class="form-group col-sm-6" ng-class="{'has-error':registerForm.contrasenia.$invalid && registerForm.contrasenia.$touched}">
+					<div class="input-group">
+						<span class="input-group-addon glyphicon glyphicon-{{icoPass}}" ng-click="seePass()"></span>
+						<input class="span5 form-control" name="contrasenia" minlength="8" maxlength="15"  ng-model="actual.contrasenia" placeholder="Contraseña" type="{{typePass}}" ng-required="true">
+					</div>
+					<div class="col-sm-12">
+						<span ng-if="registerForm.contrasenia.$invalid && registerForm.contrasenia.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
+						<span ng-if="registerForm.contrasenia.$invalid && registerForm.contrasenia.$touched" style="display:inline-block;" class="help-block">Este campo requerido.</span>
+						<span ng-if="registerForm.contrasenia.$error.minlength && registerForm.contrasenia.$touched" class="help-block">Se requiere 8 digitos minimo</span>
+					</div>
+				</div>
 			</div>
-			<div class="form-group col-sm-6">
-				<input class="span5 form-control"  ng-model="actual.correo" maxlength="30" placeholder="Correo electronico" type="email">
-			</div>
-			<div class="form-group col-sm-6">
-				<input class="span5 form-control" maxlength="700"  ng-model="actual.contrasenia" placeholder="Contraseña" type="password">
+
+			<div class="col-sm-12" style="margin:0; padding:0px;">
+
+				<div class="form-group col-sm-6" ng-class="{'has-error':registerForm.ci.$invalid && registerForm.ci.$touched}">
+					<div class="input-group">
+						<input type="text"  name="ci" placeholder="Cedula Identidad" maxlength="20" class="form-control" ng-model="actual.ci" ng-required="true">
+						<span class="input-group-addon">Expedido
+							<select   name="expedido" value="Expedido">
+							  <option>Seleccionar..</option>
+							  <option>Pando</option>
+							  <option>Beni</option>
+							  <option>Santa Cruz</option>
+							  <option>La Paz</option>
+							  <option>Cochabanba</option>
+							  <option>Tarija</option>
+							  <option>Chuquisaca</option>
+							  <option>Oruro</option>
+							  <option>Potosi</option>
+							</select>
+						</span>
+					</div>
+
+					<div class="col-sm-12">
+						<span ng-if="registerForm.ci.$invalid && registerForm.ci.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
+						<span ng-if="registerForm.ci.$invalid && registerForm.ci.$touched" style="display:inline-block;" class="help-block">Este campo es requerido.</span>
+					</div>
+				</div>
+				<!-- Nombre Apellido-->
+				<div class="col-sm-12" style="margin:0; padding:0;">
+					
+					<div class="form-group col-sm-6"  ng-class="{'has-error':registerForm.nombre.$invalid && registerForm.nombre.$touched}">
+						<input type="text" name="nombre" maxlength="40" placeholder="Introduce tu nombre completo" class="form-control"  ng-model="actual.nombre" ng-required="true">
+						
+						<div class="col-sm-12">
+							<span ng-if="registerForm.nombre.$invalid && registerForm.nombre.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
+							<span ng-if="registerForm.nombre.$invalid && registerForm.nombre.$touched" style="display:inline-block;" class="help-block">Este campo es requerido.</span>
+						</div>
+					</div>
+
+					<div class="form-group col-sm-6" ng-class="{'has-error':registerForm.apellido.$invalid && registerForm.apellido.$touched}">
+						<input type="text" name="apellido" maxlength="40" placeholder="Introduce tus apellidos" class="form-control" ng-model="actual.apellido" ng-required="true">
+
+						<div class="col-sm-12">
+							<span ng-if="registerForm.apellido.$invalid && registerForm.apellido.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
+							<span ng-if="registerForm.apellido.$invalid && registerForm.apellido.$touched" style="display:inline-block;" class="help-block">Este campo es requerido.</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group col-sm-6" ng-class="{'has-error':registerForm.telefono.$invalid && registerForm.telefono.$touched}">
+					<div class="input-group">
+						<span class="input-group-addon glyphicon glyphicon-phone"></span>
+						<input type="tel" name="telefono" maxlength="20" placeholder="Numero telefonico" class="form-control"  ng-model="actual.telefono" ng-required="true">
+					</div>
+
+					<div class="col-sm-12">
+						<span ng-if="registerForm.telefono.$invalid && registerForm.telefono.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
+						<span ng-if="registerForm.telefono.$invalid && registerForm.telefono.$touched" style="display:inline-block;" class="help-block">Este campo es requerido.</span>
+						<span ng-if="registerForm.telefono.$error.required && registerForm.telefono.$touched" class="help-block">El telefono no está en el formato correcto.</span>
+					</div>
+				</div>
+
+				<div class="form-group col-sm-6" ng-class="{'has-error':registerForm.correo.$invalid && registerForm.correo.$touched}">
+					<div class="input-group">
+						<span class="input-group-addon">@</span>
+						<input type="email" name="correo" maxlength="30" class="form-control"  ng-model="actual.correo"  placeholder="Correo electronico ej: usuario@correo.com"  ng-required="true">
+					</div>
+					<div class="col-sm-12">
+						<span ng-if="registerForm.correo.$invalid && registerForm.correo.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
+						<span ng-if="registerForm.correo.$invalid && registerForm.correo.$touched" style="display:inline-block;" class="help-block">El correo electronico requerido.</span>
+						
+					  	<span ng-if="registerForm.correo.$error.required && registerForm.correo.$touched" class="help-block">El correo no está en el formato correcto, ej: <strong>usuario@correo.com</strong></span>
+					</div>
+				</div>
 			</div>
 		</div>
-
-		<div class="col-sm-12" style="margin:0; padding:0px;">
-
-			<div class="col-sm-6">
-				<input type="number" placeholder="Numero Cedula Identidad" class="form-control" name="ci" ng-model="actual.ci"><br>
-			</div>
-
-			<div class="col-sm-6">
-				<input type="text" placeholder="Introduce tus nombres" class="form-control" name="nombre" ng-model="actual.nombre"><br>
-			</div>
-
-			<div class="col-sm-6">
-				<input type="text" placeholder="Introduce tus apellidos" class="form-control" name="apellido" ng-model="actual.apellido"><br>
-			</div>
-
-			<div class="col-sm-6">
-				<input type="number" placeholder="Numero telefonico" class="form-control" name="telefono" ng-model="actual.telefono"><br>
-			</div>
-		</div>
-	</div>
 	<div class="col-sm-4">
 		<div class="form-group col-sm-6">
-				<button class="btn btn-primary btn-block" type="submit" ng-click="registrar()"><span class="glyphicon glyphicon-register"></span> Registrar</button>		
+				<button class="btn btn-primary btn-block" type="submit" ng-disabled="registerForm.$invalid" ng-click="registrar()"><span class="glyphicon glyphicon-register"></span> Registrar</button>		
 			</div>
 			<div class="form-group col-sm-6">
 				<button class="btn btn-danger btn-block" type="submit" ng-click="seeRegister()"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>		
 			</div>
 	</div>
+	</form>
+	</article>
 </div>

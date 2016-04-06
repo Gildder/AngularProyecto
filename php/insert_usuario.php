@@ -6,22 +6,19 @@
 	$apellido = $data->apellido;
 	$correo = $data->correo;
 	$telefono = $data->telefono;
-	$nick = $data->nick;
-	$contrasenia = $data->contrasenia;
 
 	include('conexion.php');
 	$con = conexion();
 
-
-
+	#inserta usuario
 	$sql="INSERT INTO `usuario`(`ci`,`tipousuario_id`, `nombre`, `apellido`, `correo`, `telefono`, `nick`, `contrasenia`) ".
-		" VALUES ('" . $ci . "', '" . $tipousuario_id. "', '" . $nombre. "', '" . $apellido. "', '" . $correo . "','". $telefono. "', '" .$nick. "', md5('" . $contrasenia. "'))";
+		" VALUES ( lower('" . $ci . "'), '" . $tipousuario_id. "', lower('" . $nombre. "'), lower('" . $apellido. "'), lower('" . $correo . "'),'". $telefono. "', '" .$nombre. "', md5('" . $ci. "'))";
 
 	$resultado = $con->query($sql);
 	
 	if ($resultado===true) {
-		echo "INSERTADO CON EXITO!!";
+		echo true;
 	} else {
-		echo "Error de insersion";
+		echo false;
 	}
  ?>

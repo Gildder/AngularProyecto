@@ -5,7 +5,7 @@
 	include('conexion.php');
 	$con = conexion();
 
-	$sql="DELETE FROM usuario WHERE codigo = '".$codigo."'";
+	$sql="UPDATE usuario  SET  estado = '0' WHERE codigo = '".$codigo."'";
 
 	$resultado = $con->query($sql);
 	

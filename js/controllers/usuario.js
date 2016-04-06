@@ -26,6 +26,9 @@ angular.module('angularRoutingApp')
     $scope.actual.correo = "";
     $scope.actual.telefono = "";
 
+    //validar campos
+    $scope.existCI = false;
+
     //tipo usuario
     $scope.getTipoUsuario = function()
     {
@@ -51,7 +54,7 @@ angular.module('angularRoutingApp')
     $scope.save = function()
     {
         if($scope.validar() == false){
-            $scope.showMessage(true,'Por favor, Llenes todos los campos del formulario de registro.', 4);
+            alert('entra');
             return;
         }
 
@@ -59,22 +62,31 @@ angular.module('angularRoutingApp')
         {
             var url = "../AngularProyecto/php/insert_usuario.php";
             $http.post(url,{'ci':$scope.actual.ci.toString(),'tipousuario_id':$scope.actual.tipousuario, 'nombre':$scope.actual.nombre,
-             'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo.toString(), 'telefono':$scope.actual.telefono.toString()}).success(function(data, status, headers, config)
+             'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono.toString(), 'nick':$scope.actual.nick, 'contrasenia':$scope.actual.contrasenia}).success(function(data, status, headers, config)
             {
+                if (data==true) {
+                    $scope.showMessage(true,'El usuario se guardo correctamente.', 1);
+                    $scope.clean();
+                } else{
+                    $scope.showMessage(true,'El usuario se No guardo correctamente.', 4);
+                };
                 $scope.getUsuarios();
-                $scope.showMessage(true,'El usuario se guardo correctamente.', 1);
-                $scope.clean();
             });
 
         } else{
             var url = "../AngularProyecto/php/update_usuario.php";
             $http.post(url,{'codigo':$scope.actual.codigo, 'ci':$scope.actual.ci,'tipousuario':$scope.actual.tipousuario, 
                             'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido,'correo':$scope.actual.correo,
-                            'telefono':$scope.actual.telefono, 'nick':$scope.actual.nick}).success(function(data, status, headers, config)
+                            'telefono':$scope.actual.telefono}).success(function(data, status, headers, config)
             {
+                if (data==true) {
+                    $scope.showMessage(true,'El usuario se modifico correctamente.', 1);
+                    $scope.clean();
+                } else{
+                    $scope.showMessage(true,'El usuario se No modifico correctamente.', 4);
+                };
                 $scope.getUsuarios();
-                $scope.showMessage(true,'El usuario se modifico correctamente.', 1);
-                $scope.clean();
+                
             });            
         };
     }
@@ -83,7 +95,6 @@ angular.module('angularRoutingApp')
     {
         $scope.isBtnNew(true);
         $scope.btnUpdate = true;
-
 
         var url = "../AngularProyecto/php/get_usuario.php?codigo=" + codigo;
         $http.get(url).success(function(response)
@@ -109,17 +120,50 @@ angular.module('angularRoutingApp')
         var url = "../AngularProyecto/php/delete_usuario.php?codigo=" + codigo;
         $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
         {
+
+            if (data==true) {
+                $scope.showMessage(true,'El usuario se elimino correctamente.', 1);
+            } else{
+                $scope.showMessage(true,'El usuario No se elimino correctamente.', 4);
+            };
             $scope.getUsuarios();
-            $scope.showMessage(true,'El usuario se elimino correctamente.', 1);
         });
     }
 
+    $scope.baja = function(codigo)
+    {
+        if (!confirm("Deseas dar baja este usuario " + codigo + " ?")) {
+            return;
+        };
+
+        var url = "../AngularProyecto/php/cancel_usuario.php?codigo=" + codigo;
+        $http.post(url,{'codigo': codigo}).success(function(data, status, headers, config)
+        {
+            if (data==true) {
+                $scope.showMessage(true,'Se realizo la baja correctamente.', 1);
+            } else{
+                $scope.showMessage(true,'No se realizo la baja correctamente.', 4);
+            };
+            $scope.getUsuarios();
+        });
+    }
+
+    //retorn true si es valido
     $scope.validar = function()
     {
-        if ($scope.actual.ci ==="" || $scope.actual.nombre ==="" || $scope.actual.apellido ==="" || $scope.actual.correo ==="" || $scope.actual.telefono==="" || $scope.actual.nick==="" || $scope.actual.contrasenia === "") {
+        if ($scope.actual.ci ==="" || $scope.actual.nombre ==="" || $scope.actual.apellido ==="" || $scope.actual.correo ==="" || $scope.actual.telefono==="") {
+            $scope.showMessage(true,'Por favor, Llenes todos los campos del formulario de registro.', 4);
             return false;
         } else{
-            return true;
+            $scope.validateCI();
+            $scope.validatePhone();
+            $scope.validateEmail();
+            if ($scope.existCorreo == false || $scope.existCorreo == false || $scope.existCorreo == false) {
+                return true;
+            } else{
+                return false;
+            };
+
         }
     }
 
@@ -146,8 +190,77 @@ angular.module('angularRoutingApp')
         $scope.btnCancelar = false;
         $scope.btnSave = false;
         $scope.btnNew = true;
+    }
+   
+    $scope.isBtnNew = function(state)
+    {
+        if (state == true)       //activa boton nuevo
+        {   
+            $scope.btnNew = false;
+            $scope.btnSave = true;
+            $scope.btnCancelar = true;
+        }else{                   //desactiva boton nuevo
+            $scope.btnNew  = true;
+            $scope.btnCancelar = false;
+            $scope.btnSave = false;
+            $scope.hideMessage();
+            $scope.clean();
 
+        }
+    }
 
+    //retorna true si existe
+    $scope.validateCI = function(){
+        if ($scope.actual.ci =="") {
+            $scope.existCI = false;
+            return;
+        };
+
+        var url = "../AngularProyecto/php/validar_ci.php?ci=" + $scope.actual.ci;
+        $http.get(url).success(function(response)
+        {
+            if (response=="") {
+                $scope.existCI = false;
+            } else{
+                $scope.existCI = true;
+            };
+        });
+    }
+    
+    //retorna true si existe
+    $scope.validateEmail = function(){
+        if ($scope.actual.correo =="") {
+            $scope.existCorreo = false;
+            return;
+        };
+
+        var url = "../AngularProyecto/php/validar_correo.php?correo=" + $scope.actual.correo;
+        $http.get(url).success(function(response)
+        {
+            if (response=="") {
+                $scope.existCorreo = false;
+            } else{
+                $scope.existCorreo = true;
+            };
+        });
+    }
+
+    //retorna true si existe
+    $scope.validatePhone = function(){
+        if ($scope.actual.telefono =="") {
+            $scope.existTelefono = false;
+            return;
+        };
+
+        var url = "../AngularProyecto/php/validar_telefono.php?telefono=" + $scope.actual.telefono;
+        $http.get(url).success(function(response)
+        {
+            if (response=="") {
+                $scope.existTelefono = false;
+            } else{
+                $scope.existTelefono = true;
+            };
+        });
     }
 
     $scope.sizeTable = function (){
@@ -194,28 +307,10 @@ angular.module('angularRoutingApp')
 
         $scope.currentPage = 0;
     }
-   
+
     $scope.setPage = function(index)
     {
         $scope.currentPage = index - 1;
-    }
-
-
-    $scope.isBtnNew = function(state)
-    {
-        if (state == true)       //activa boton nuevo
-        {   
-            $scope.btnNew = false;
-            $scope.btnSave = true;
-            $scope.btnCancelar = true;
-        }else{                   //desactiva boton nuevo
-            $scope.btnNew  = true;
-            $scope.btnCancelar = false;
-            $scope.btnSave = false;
-            $scope.hideMessage();
-            $scope.clean();
-
-        }
     }
 
    

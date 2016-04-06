@@ -4,9 +4,7 @@
 	$con = conexion();
 	
 	$correo = $_GET["correo"];
-	$contrasenia = $_GET["contrasenia"];
-
-	$resultado = $con->query("SELECT * FROM usuario WHERE correo = lower(trim('".$correo."')) AND contrasenia = md5('".$contrasenia."') AND estado = '1'");
+	$resultado = $con->query("SELECT * FROM usuario WHERE correo = '".$correo."'");
 
 	$datos = array();
 
