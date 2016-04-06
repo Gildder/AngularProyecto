@@ -3,11 +3,11 @@
 	<div class="col-sm-12">
 		<h2 class="col-sm-12">Registrar</h2>
 	</div>
-	<form name="registerForm" id="registerForm" >
+	<form name="registerForm" id="registerForm" novalidate>
 		<div class="col-sm-8">
 			<div class="col-sm-12" style="margin:0; padding:0px;">
 				<!--Nombre usuario-->
-				<div class="form-group col-sm-6" ng-class="{'has-error':registerForm.nick.$invalid && registerForm.nick.$touched}">
+				<div class="form-group col-sm-6" ng-class="{'has-error':registerForm.nick.$invalid &&  registerForm.nick.$touched}">
 					<div class="input-group">
 						<span class="input-group-addon glyphicon glyphicon-user "></span>
 						<input type="text" name="nick" class="span5 form-control" ng-model="actual.nick" maxlength="20" placeholder="Nombre de usuario"  ng-required="true">
@@ -110,7 +110,7 @@
 						<span ng-if="registerForm.correo.$invalid && registerForm.correo.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
 						<span ng-if="registerForm.correo.$invalid && registerForm.correo.$touched" style="display:inline-block;" class="help-block">El correo electronico requerido.</span>
 						
-					  	<span ng-if="registerForm.correo.$error.required && registerForm.correo.$touched" class="help-block">El correo no está en el formato correcto, ej: <strong>usuario@correo.com</strong></span>
+					  	<span ng-if="registerForm.correo.$error.email && registerForm.correo.$touched" class="help-block">El correo no está en el formato correcto, ej: <strong>usuario@correo.com</strong></span>
 
 						<span ng-show="existCorreo" style="display:inline-block; color:red; " class="help-block">Este Correo ya existe.</span>
 					</div>

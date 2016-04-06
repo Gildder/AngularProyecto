@@ -40,6 +40,29 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     $scope.existTelefono = false;
     $scope.existNick = false;
 
+
+    //limpiar formualrio
+    $scope.data = {
+        nick: '',
+        contrasenia: '',
+        ci: '',
+        nombre: '',
+        apellido: '',
+        telefono: '',
+        correo: '',
+    };
+
+    $scope.resetForm = function(registerForm) {
+        $scope.data.nick= '';
+        $scope.data.contrasenia= '';
+        $scope.data.ci= '';
+        $scope.data.nombre= '';
+        $scope.data.apellido= '';
+        $scope.data.telefono= '';
+        $scope.data.correo= '';
+        registerForm.setUntouched();
+      };
+
     //mostrar el formulario de session
     $scope.seeSesion = function()
     {
@@ -58,7 +81,6 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         }
         $scope.clean();
         $scope.hideMessage();
-        $route.reload();
     }
 
     //mostrar el formulario de registro, tambien para Salir session
@@ -81,7 +103,6 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         }
         $scope.clean();
         $scope.hideMessage();
-        $route.reload();
     }
 
 
@@ -159,13 +180,11 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
 
     }
 
-    $scope.registrar = function()
+    $scope.registrar = function(registerForm)
     {
-        alert('click');
         
         if ($scope.btnRegister == true) 
         {
-            alert('Guardando.........');
             var url = "../AngularProyecto/php/registrar.php";
             $http.post(url,{'ci':$scope.actual.ci.toString(),'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 
                 'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono.toString(), 
@@ -177,13 +196,13 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
                     $scope.clean();
                     $scope.inicializar();
                     $scope.showMessage(true,'El usuario se registro correctamente.', 1);
+                    $scope.resetForm(registerForm);
                 }else{
                     $scope.verificarInsert(data);
                     $scope.showMessage(true,'El usuario se No registro correctamente.', 4);
                 };
             });
         }else{
-            alert($scope.btnSave);
             $scope.showMessage(true,'El usuario se No registrar verifique sus datos.', 4);
         }
         

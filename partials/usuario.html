@@ -16,7 +16,7 @@
 			<div class="form-group col-sm-6" ng-class="{'has-error':usuarioForm.ci.$invalid && usuarioForm.ci.$touched}">
 				<label for="ci" class="hidden-xs">Cedula identidad: </label>
 				<div class="input-group">
-					<input type="text"  name="ci" placeholder="Cedula Identidad" minlength="7" maxlength="20" class="form-control" ng-model="actual.ci" ng-required="true">
+					<input type="number"  name="ci" placeholder="Cedula Identidad" min="0" minlength="7" maxlength="20" class="form-control" ng-model="actual.ci" ng-required="true">
 					<span class="input-group-addon">Expedido
 						<select   name="expedido" value="Expedido"  >
 						  <option>Seleccionar..</option>
@@ -36,6 +36,7 @@
 				<div class="col-sm-12">
 					<span ng-if="usuarioForm.ci.$invalid && usuarioForm.ci.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
 					<span ng-if="usuarioForm.ci.$invalid && usuarioForm.ci.$touched" style="display:inline-block;" class="help-block">Este campo es requerido.</span>
+					<span ng-if="usuarioForm.ci.$error.minlength && usuarioForm.ci.$touched" class="help-block">Se requiere 7 digitos minimo</span>
 					<span ng-if="existCI" style="display:inline-block;color:red; " class="help-block">Este CI ya existe.</span>
 				</div>
 			</div>
@@ -111,13 +112,14 @@
 				<label for="telefono" class="hidden-xs">Telefono: </label>
 				<div class="input-group">
 					<span class="input-group-addon glyphicon glyphicon-phone"></span>
-					<input type="tel" name="telefono" minlength="7" maxlength="20" placeholder="Numero telefonico" class="form-control"  ng-model="actual.telefono" ng-required="true">
+					<input type="number" name="telefono" min="0" minlength="7" maxlength="20" placeholder="Numero telefonico" class="form-control"  ng-model="actual.telefono" ng-required="true">
 				</div>
 
 				<div class="col-sm-12">
 					<span ng-if="usuarioForm.telefono.$invalid && usuarioForm.telefono.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
 					<span ng-if="usuarioForm.telefono.$invalid && usuarioForm.telefono.$touched" style="display:inline-block;" class="help-block">Este campo es requerido.</span>
 					<span ng-if="usuarioForm.telefono.$error.required && usuarioForm.telefono.$touched" class="help-block">El telefono no está en el formato correcto.</span>
+					<span ng-if="usuarioForm.telefono.$error.minlength && usuarioForm.telefono.$touched" class="help-block">Se requiere 7 digitos minimo</span>
 					<span ng-if="existTelefono" style="display:inline-block;color:red; " class="help-block">Este Telefono ya existe.</span>
 				</div>
 			</div>
@@ -133,6 +135,7 @@
 					<span ng-if="usuarioForm.correo.$invalid && usuarioForm.correo.$touched" class="glyphicon glyphicon-remove form-control-feedback" style="display:inline-block;"></span>
 					<span ng-if="usuarioForm.correo.$invalid && usuarioForm.correo.$touched" style="display:inline-block;" class="help-block">El correo electronico requerido.</span>
 					<span ng-if="existCorreo" style="display:inline-block; color:red; " class="help-block">Este Correo ya existe.</span>
+					<span ng-if="usuarioForm.correo.$error.email && usuarioForm.correo.$touched" class="help-block">El correo no está en el formato correcto, ej: <strong>usuario@correo.com</strong></span>
 					
 				  	<span ng-if="usuarioForm.correo.$error.required && usuarioForm.correo.$touched" class="help-block">El correo no está en el formato correcto, ej: <strong>usuario@correo.com</strong></span>
 				</div>
