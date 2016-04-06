@@ -21,6 +21,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     //campos para gestionar botones
     $scope.btnSesion = false;
     $scope.btnRegister = false;
+    $scope.btnSave = false;
     
     //ver contraseña
     $scope.typePass = 'password';
@@ -32,6 +33,12 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
     $scope.showMsg = false;
     $scope.typeMsg = 0;
     $scope.message = '';
+
+    //campos para atributos repetidos
+    $scope.existCI = false;
+    $scope.existCorreo = false;
+    $scope.existTelefono = false;
+    $scope.existNick = false;
 
     //mostrar el formulario de session
     $scope.seeSesion = function()
@@ -144,11 +151,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
                 }
 
 
-            })
-            .error(function (error, status){
-                $scope.showMessage(true,'Usuario o contraseña incorrectos.', 4);
-                return;
-          }); 
+            });
             
         }else{
             alert('no conecto');
@@ -158,35 +161,44 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
 
     $scope.registrar = function()
     {
-        if($scope.validarRegistro() == false){
-            $scope.showMessage(true,'Por favor, Llenes todos los campos del formulario de registro.', 4);
-            return;
-        }
-
+        alert('click');
+        
         if ($scope.btnRegister == true) 
         {
+            alert('Guardando.........');
             var url = "../AngularProyecto/php/registrar.php";
-            $http.post(url,{'ci':$scope.actual.ci,'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono, 'nick':$scope.actual.nick, 'contrasenia':$scope.actual.contrasenia}).success(function(data, status, headers, config)
+            $http.post(url,{'ci':$scope.actual.ci.toString(),'nombre':$scope.actual.nombre, 'apellido':$scope.actual.apellido, 
+                'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono.toString(), 
+                'nick':$scope.actual.nick, 'contrasenia':$scope.actual.contrasenia}).success(function(data, status, headers, config)
             {
-                //Se inicializa la aplicacion
-                $location.path('/partials/inicio.html');
-                $scope.clean();
-                $scope.showMessage(true,'El usuario se registro correctamente.', 1);
+                if (data == true) {
+                    //Se inicializa la aplicacion
+                    $location.path('/partials/inicio.html');
+                    $scope.clean();
+                    $scope.inicializar();
+                    $scope.showMessage(true,'El usuario se registro correctamente.', 1);
+                }else{
+                    $scope.verificarInsert(data);
+                    $scope.showMessage(true,'El usuario se No registro correctamente.', 4);
+                };
             });
-            
-            
         }else{
-            alert('no conecto');
+            alert($scope.btnSave);
+            $scope.showMessage(true,'El usuario se No registrar verifique sus datos.', 4);
         }
-   
+        
     }
 
-    $scope.validarRegistro = function(){
-        if ($scope.actual.ci =="" || $scope.actual.nombre =="" || $scope.actual.apellido =="" || $scope.actual.correo =="" || $scope.actual.telefono=="" || $scope.actual.nick=="" || $scope.actual.contrasenia == "") {
-            return false;
-        } else{
-            return true;
-        }
+    $scope.verificarInsert = function(param)
+    {
+        alert(param);
+        var res = param.split("-");
+        alert(res[0]);
+
+        if (res[0]=="0") {$scope.existCI = false; } else{$scope.existCI = true;};
+        if (res[1]=="0") {$scope.existTelefono = false; } else{$scope.existTelefono = true;};
+        if (res[2]=="0") {$scope.existCorreo = false; } else{$scope.existCorreo = true;};
+        if (res[3]=="0") {$scope.existNick = false; } else{$scope.existNick = true;};
     }
 
     $scope.validarInicioSesion = function()
@@ -223,6 +235,11 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         $scope.actual.correo = "";
         $scope.actual.telefono = "";
         $scope.actual.tipousuario_id = "";
+
+        $scope.existCI = false;
+        $scope.existCorreo = false;
+        $scope.existTelefono = false;
+        $scope.existNick = false;
 
     }
 
@@ -264,5 +281,71 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         $scope.message = '';
 
     }
+
+     //retorna false si existe
+    $scope.validateCI = function(){
+        var url = "../AngularProyecto/php/validar_ci.php?ci=" + $scope.actual.ci;
+        $http.get(url).success(function(response)
+        {
+            alert(response+"CEdula");
+            if (response!="") {
+                $scope.existCI = true;
+                return true;
+            } else{
+                $scope.existCI = false;
+                return false;
+            }
+        });
+    }
+    
+    //retorna false si existe
+    $scope.validateEmail = function(){
+        var url = "../AngularProyecto/php/validar_correo.php?correo=" + $scope.actual.correo;
+        $http.get(url).success(function(response)
+        {
+            alert(response+"email");
+            if (response!="") {
+                $scope.existCorreo = true;
+                return true;
+            } else{
+                $scope.existCorreo = false;
+                return false;
+            }
+        });
+    }
+
+    //retorna false si existe
+    $scope.validateNick = function(){
+            alert($scope.actual.nick);
+        var url = "../AngularProyecto/php/validar_nick.php?nick=" + $scope.actual.nick;
+        $http.get(url).success(function(response)
+        {
+            alert(response+"nick");
+            if (response!="") {
+                $scope.existNick = true;
+                return true;
+            } else{
+                $scope.existNick = false;
+                return false;
+            }
+        });
+    }
+
+    //retorna false si existe
+    $scope.validatePhone = function(){
+        var url = "../AngularProyecto/php/validar_telefono.php?telefono=" + $scope.actual.telefono;
+        $http.get(url).success(function(response)
+        {
+            alert(response+"phon");
+            if (response!="") {
+                $scope.existTelefono = true;
+                return true;
+            } else{
+                $scope.existTelefono = false;
+                return false;
+            }
+        });
+    }
+
 
 });

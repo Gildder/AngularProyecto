@@ -3,8 +3,8 @@
 
 	$con = conexion();
 	
-	$correo = $_GET["correo"];
-	$resultado = $con->query("SELECT * FROM usuario WHERE correo = lower('".$correo."')");
+	$nick = $_GET["nick"];
+	$resultado = $con->query("SELECT * FROM usuario WHERE nick = '".$nick."'");
 
 	$datos = array();
 

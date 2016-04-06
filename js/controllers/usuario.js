@@ -26,8 +26,6 @@ angular.module('angularRoutingApp')
     $scope.actual.correo = "";
     $scope.actual.telefono = "";
 
-    //validar campos
-    $scope.existCI = false;
 
     //tipo usuario
     $scope.getTipoUsuario = function()
@@ -53,21 +51,17 @@ angular.module('angularRoutingApp')
 
     $scope.save = function()
     {
-        if($scope.validar() == false){
-            alert('entra');
-            return;
-        }
-
         if ($scope.btnUpdate == false) 
         {
             var url = "../AngularProyecto/php/insert_usuario.php";
             $http.post(url,{'ci':$scope.actual.ci.toString(),'tipousuario_id':$scope.actual.tipousuario, 'nombre':$scope.actual.nombre,
-             'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono.toString(), 'nick':$scope.actual.nick, 'contrasenia':$scope.actual.contrasenia}).success(function(data, status, headers, config)
+             'apellido':$scope.actual.apellido, 'correo':$scope.actual.correo, 'telefono':$scope.actual.telefono.toString(), 'nick':$scope.actual.nombre, 'contrasenia':$scope.actual.ci}).success(function(data, status, headers, config)
             {
                 if (data==true) {
                     $scope.showMessage(true,'El usuario se guardo correctamente.', 1);
                     $scope.clean();
                 } else{
+                    $scope.verificarInsert(data);
                     $scope.showMessage(true,'El usuario se No guardo correctamente.', 4);
                 };
                 $scope.getUsuarios();
@@ -207,60 +201,6 @@ angular.module('angularRoutingApp')
             $scope.clean();
 
         }
-    }
-
-    //retorna true si existe
-    $scope.validateCI = function(){
-        if ($scope.actual.ci =="") {
-            $scope.existCI = false;
-            return;
-        };
-
-        var url = "../AngularProyecto/php/validar_ci.php?ci=" + $scope.actual.ci;
-        $http.get(url).success(function(response)
-        {
-            if (response=="") {
-                $scope.existCI = false;
-            } else{
-                $scope.existCI = true;
-            };
-        });
-    }
-    
-    //retorna true si existe
-    $scope.validateEmail = function(){
-        if ($scope.actual.correo =="") {
-            $scope.existCorreo = false;
-            return;
-        };
-
-        var url = "../AngularProyecto/php/validar_correo.php?correo=" + $scope.actual.correo;
-        $http.get(url).success(function(response)
-        {
-            if (response=="") {
-                $scope.existCorreo = false;
-            } else{
-                $scope.existCorreo = true;
-            };
-        });
-    }
-
-    //retorna true si existe
-    $scope.validatePhone = function(){
-        if ($scope.actual.telefono =="") {
-            $scope.existTelefono = false;
-            return;
-        };
-
-        var url = "../AngularProyecto/php/validar_telefono.php?telefono=" + $scope.actual.telefono;
-        $http.get(url).success(function(response)
-        {
-            if (response=="") {
-                $scope.existTelefono = false;
-            } else{
-                $scope.existTelefono = true;
-            };
-        });
     }
 
     $scope.sizeTable = function (){
