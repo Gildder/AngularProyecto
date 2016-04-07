@@ -60,7 +60,6 @@ angular.module('angularRoutingApp')
                 if (data==true) {
                     $scope.showMessage(true,'El usuario se guardo correctamente.', 1);
                     $scope.clean();
-                    $scope.usuarioForm.setUntouched();
                 } else{
                     $scope.verificarInsert(data);
                     $scope.showMessage(true,'El usuario se No guardo correctamente.', 4);
@@ -77,7 +76,6 @@ angular.module('angularRoutingApp')
                 if (data==true) {
                     $scope.showMessage(true,'El usuario se modifico correctamente.', 1);
                     $scope.clean();
-                    $scope.usuarioForm.setUntouched();
                 } else{
                     $scope.showMessage(true,'El usuario se No modifico correctamente.', 4);
                 };
@@ -85,8 +83,6 @@ angular.module('angularRoutingApp')
                 
             });            
         };
-
-
     }
 
     $scope.update = function(codigo)

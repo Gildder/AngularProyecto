@@ -52,7 +52,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
         correo: '',
     };
 
-    $scope.resetForm = function(registerForm) {
+    $scope.resetForm = function() {
         $scope.data.nick= '';
         $scope.data.contrasenia= '';
         $scope.data.ci= '';
@@ -180,7 +180,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
 
     }
 
-    $scope.registrar = function(registerForm)
+    $scope.registrar = function(form)
     {
         
         if ($scope.btnRegister == true) 
@@ -196,7 +196,7 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
                     $scope.clean();
                     $scope.inicializar();
                     $scope.showMessage(true,'El usuario se registro correctamente.', 1);
-                    $scope.resetForm(registerForm);
+                    form_set_pristine(form);
                 }else{
                     $scope.verificarInsert(data);
                     $scope.showMessage(true,'El usuario se No registro correctamente.', 4);
@@ -301,70 +301,24 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
 
     }
 
-     //retorna false si existe
-    $scope.validateCI = function(){
-        var url = "../AngularProyecto/php/validar_ci.php?ci=" + $scope.actual.ci;
-        $http.get(url).success(function(response)
-        {
-            alert(response+"CEdula");
-            if (response!="") {
-                $scope.existCI = true;
-                return true;
-            } else{
-                $scope.existCI = false;
-                return false;
-            }
-        });
-    }
-    
-    //retorna false si existe
-    $scope.validateEmail = function(){
-        var url = "../AngularProyecto/php/validar_correo.php?correo=" + $scope.actual.correo;
-        $http.get(url).success(function(response)
-        {
-            alert(response+"email");
-            if (response!="") {
-                $scope.existCorreo = true;
-                return true;
-            } else{
-                $scope.existCorreo = false;
-                return false;
-            }
-        });
-    }
+  var form_set_pristine = function(form){
+    // 2013-12-20 DF TODO: remove this function on Angular 1.1.x+ upgrade
+    // function is included natively
 
-    //retorna false si existe
-    $scope.validateNick = function(){
-            alert($scope.actual.nick);
-        var url = "../AngularProyecto/php/validar_nick.php?nick=" + $scope.actual.nick;
-        $http.get(url).success(function(response)
-        {
-            alert(response+"nick");
-            if (response!="") {
-                $scope.existNick = true;
-                return true;
-            } else{
-                $scope.existNick = false;
-                return false;
+    if(form.$setPristine){
+        form.$setPristine();
+    } else {
+        form.$pristine = true;
+        form.$dirty = false;
+        angular.forEach(form, function (input, key) {
+            if (input.$pristine)
+                input.$pristine = true;
+            if (input.$dirty) {
+                input.$dirty = false;
             }
         });
     }
-
-    //retorna false si existe
-    $scope.validatePhone = function(){
-        var url = "../AngularProyecto/php/validar_telefono.php?telefono=" + $scope.actual.telefono;
-        $http.get(url).success(function(response)
-        {
-            alert(response+"phon");
-            if (response!="") {
-                $scope.existTelefono = true;
-                return true;
-            } else{
-                $scope.existTelefono = false;
-                return false;
-            }
-        });
-    }
+};
 
 
 });
