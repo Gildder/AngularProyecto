@@ -166,7 +166,13 @@ angularRoutingApp.controller('main', function($scope, $cookieStore, $http, $loca
                     $cookieStore.put('codigo', $scope.actual.codigo);
 
                     //Se inicializa la aplicacion
-                    $location.path('/usuario');
+                    if($cookieStore.get('tipo') == '1'){
+                        $location.path('/usuario');
+                    }else if($cookieStore.get('tipo') == '2'){
+                        $location.path('/reserva');
+                    }else{
+                        $location.path('/ofertados');
+                    }
                     $scope.clean();
                     $scope.inicializar();
                 }

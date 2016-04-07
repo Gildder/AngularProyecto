@@ -4,7 +4,7 @@
 
 	$con = conexion();
 
-	$resultado = $con->query("SELECT * FROM tipousuario WHERE id<>3");
+	$resultado = $con->query("SELECT * FROM tipousuario WHERE id=2");
 
 	$datos = array();
 
